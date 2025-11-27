@@ -22,6 +22,55 @@ export default function Workshop() {
           <h1 className="text-4xl font-bold text-workshop-primary">{t('workshop.title')}</h1>
         </div>
 
+        {/* Navigation Buttons */}
+        <div className="flex gap-4 mb-8 flex-wrap justify-center">
+          <button
+            onClick={() => {
+              const element = document.getElementById('workshop-products');
+              if (element) {
+                const headerOffset = 120;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
+            className="px-6 py-3 border-2 border-workshop-secondary rounded-md font-semibold transition-all hover:bg-workshop-secondary hover:text-white"
+            style={{ color: 'hsl(24, 95%, 53%)' }}
+          >
+            {t('workshop.products')}
+          </button>
+          <button
+            onClick={() => {
+              const element = document.getElementById('workshop-bestsellers');
+              if (element) {
+                const headerOffset = 120;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
+            className="px-6 py-3 border-2 border-workshop-secondary rounded-md font-semibold transition-all hover:bg-workshop-secondary hover:text-white"
+            style={{ color: 'hsl(24, 95%, 53%)' }}
+          >
+            {t('workshop.bestsellers')}
+          </button>
+          <button
+            onClick={() => {
+              const element = document.getElementById('workshop-order');
+              if (element) {
+                const headerOffset = 120;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
+            className="px-6 py-3 border-2 border-workshop-secondary rounded-md font-semibold transition-all hover:bg-workshop-secondary hover:text-white"
+            style={{ color: 'hsl(24, 95%, 53%)' }}
+          >
+            {t('workshop.order')}
+          </button>
+        </div>
+
         {/* Products Subsection */}
         <div id="workshop-products" className="bg-white/80 rounded-lg p-8 mb-12">
           <h2 className="text-2xl font-semibold mb-4">{t('workshop.productsTitle')}</h2>
