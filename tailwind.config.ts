@@ -47,15 +47,25 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+        photo: {
+          primary: "hsl(var(--photo-primary))",
+          secondary: "hsl(var(--photo-secondary))",
+          light: "hsl(var(--photo-light))",
+        },
+        workshop: {
+          primary: "hsl(var(--workshop-primary))",
+          secondary: "hsl(var(--workshop-secondary))",
+          light: "hsl(var(--workshop-light))",
+        },
+        blog: {
+          primary: "hsl(var(--blog-primary))",
+          accent: "hsl(var(--blog-accent))",
+          light: "hsl(var(--blog-light))",
+        },
+        ttrpg: {
+          primary: "hsl(var(--ttrpg-primary))",
+          secondary: "hsl(var(--ttrpg-secondary))",
+          light: "hsl(var(--ttrpg-light))",
         },
       },
       borderRadius: {
