@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import Photography from "./pages/Photography";
 import Workshop from "./pages/Workshop";
@@ -23,6 +24,7 @@ const App = () => (
       <Sonner />
       <LanguageProvider>
         <BrowserRouter>
+          <ScrollToTop />
           <div className="min-h-screen bg-background flex flex-col">
             <Header />
             <div className="flex-grow">
