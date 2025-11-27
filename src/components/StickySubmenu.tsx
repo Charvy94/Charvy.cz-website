@@ -5,17 +5,15 @@ import { ArrowUp } from 'lucide-react';
 interface StickySubmenuProps {
   visible: boolean;
   categories: Array<{ id: string; label: string }>;
-  activeCategory: string;
-  onCategoryChange: (id: string) => void;
   themeColor: string;
+  sectionId: string;
 }
 
 export function StickySubmenu({
   visible,
   categories,
-  activeCategory,
-  onCategoryChange,
-  themeColor
+  themeColor,
+  sectionId
 }: StickySubmenuProps) {
   const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,6 +31,20 @@ export function StickySubmenu({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const scrollToSubsection = (subsectionId: string) => {
+    const element = document.getElementById(`${sectionId}-${subsectionId}`);
+    if (element) {
+      const headerOffset = 120; // Account for both header and sticky submenu
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   if (!visible || !isScrolled) return null;
 
   return (
@@ -48,16 +60,12 @@ export function StickySubmenu({
           {categories.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => onCategoryChange(cat.id)}
-              className={`px-3 py-1.5 rounded border text-sm font-medium transition-all ${
-                activeCategory === cat.id
-                  ? 'text-white'
-                  : 'bg-transparent hover:shadow-md'
-              }`}
+              onClick={() => scrollToSubsection(cat.id)}
+              className="px-3 py-1.5 rounded border text-sm font-medium transition-all hover:shadow-md"
               style={{
                 borderColor: themeColor,
-                color: activeCategory === cat.id ? 'white' : themeColor,
-                backgroundColor: activeCategory === cat.id ? themeColor : 'transparent'
+                color: themeColor,
+                backgroundColor: 'transparent'
               }}
             >
               {cat.label}

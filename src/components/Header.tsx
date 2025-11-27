@@ -4,12 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { Language } from '@/lib/translations';
 import { Menu, X } from 'lucide-react';
 
-interface HeaderProps {
-  currentPage: string;
-  onPageChange: (page: string) => void;
-}
-
-export function Header({ currentPage, onPageChange }: HeaderProps) {
+export function Header() {
   const { language, setLanguage } = useLanguage();
   const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -27,15 +22,30 @@ export function Header({ currentPage, onPageChange }: HeaderProps) {
     { id: 'legal', label: t('nav.legal') }
   ];
 
-  const handleNavClick = (page: string) => {
-    onPageChange(page);
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerOffset = 60;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
     setMobileMenuOpen(false);
   };
 
   return (
     <header className="sticky top-0 z-50 bg-primary text-primary-foreground shadow-md">
       <div className="flex items-center justify-between px-4 py-3 md:px-8">
-        <div className="text-xl font-bold tracking-widest">Charvy.cz</div>
+        <button 
+          onClick={() => scrollToSection('home')}
+          className="text-xl font-bold tracking-widest hover:opacity-80 transition-opacity"
+        >
+          Charvy.cz
+        </button>
 
         <div className="hidden md:flex items-center gap-8">
           <nav>
@@ -43,12 +53,8 @@ export function Header({ currentPage, onPageChange }: HeaderProps) {
               {navItems.map((item) => (
                 <li key={item.id}>
                   <button
-                    onClick={() => handleNavClick(item.id)}
-                    className={`font-medium pb-2 px-3 border-b-2 transition-all ${
-                      currentPage === item.id
-                        ? 'border-primary-foreground'
-                        : 'border-transparent hover:border-primary-foreground/50'
-                    }`}
+                    onClick={() => scrollToSection(item.id)}
+                    className="font-medium pb-2 px-3 border-b-2 border-transparent hover:border-primary-foreground/50 transition-all"
                   >
                     {item.label}
                   </button>
@@ -62,7 +68,7 @@ export function Header({ currentPage, onPageChange }: HeaderProps) {
               <button
                 key={lang}
                 onClick={() => handleLanguageChange(lang)}
-                className={`px-3 py-1 rounded font-semibold transition-all ${
+                className={`w-12 px-3 py-1 rounded font-semibold transition-all ${
                   language === lang
                     ? 'bg-primary-foreground text-primary'
                     : 'hover:bg-white/20'
@@ -90,12 +96,8 @@ export function Header({ currentPage, onPageChange }: HeaderProps) {
               {navItems.map((item) => (
                 <li key={item.id}>
                   <button
-                    onClick={() => handleNavClick(item.id)}
-                    className={`w-full text-left px-6 py-3 font-medium transition-all ${
-                      currentPage === item.id
-                        ? 'bg-white/20'
-                        : 'hover:bg-white/10'
-                    }`}
+                    onClick={() => scrollToSection(item.id)}
+                    className="w-full text-left px-6 py-3 font-medium transition-all hover:bg-white/10"
                   >
                     {item.label}
                   </button>
@@ -108,7 +110,7 @@ export function Header({ currentPage, onPageChange }: HeaderProps) {
               <button
                 key={lang}
                 onClick={() => handleLanguageChange(lang)}
-                className={`flex-1 px-3 py-2 rounded font-semibold transition-all ${
+                className={`w-16 px-3 py-2 rounded font-semibold transition-all ${
                   language === lang
                     ? 'bg-primary-foreground text-primary'
                     : 'bg-white/10 hover:bg-white/20'
