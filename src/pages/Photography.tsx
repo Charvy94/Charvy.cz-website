@@ -29,6 +29,55 @@ export default function Photography() {
           <h1 className="text-4xl font-bold text-photo-primary">{t('photography.title')}</h1>
         </div>
 
+        {/* Navigation Buttons */}
+        <div className="flex gap-4 mb-8 flex-wrap justify-center">
+          <button
+            onClick={() => {
+              const element = document.getElementById('photography-gallery');
+              if (element) {
+                const headerOffset = 120;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
+            className="px-6 py-3 border-2 border-photo-secondary rounded-md font-semibold transition-all hover:bg-photo-secondary hover:text-white"
+            style={{ color: 'hsl(180, 47%, 50%)' }}
+          >
+            {t('photography.gallery')}
+          </button>
+          <button
+            onClick={() => {
+              const element = document.getElementById('photography-about');
+              if (element) {
+                const headerOffset = 120;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
+            className="px-6 py-3 border-2 border-photo-secondary rounded-md font-semibold transition-all hover:bg-photo-secondary hover:text-white"
+            style={{ color: 'hsl(180, 47%, 50%)' }}
+          >
+            {t('photography.about')}
+          </button>
+          <button
+            onClick={() => {
+              const element = document.getElementById('photography-contact');
+              if (element) {
+                const headerOffset = 120;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
+            className="px-6 py-3 border-2 border-photo-secondary rounded-md font-semibold transition-all hover:bg-photo-secondary hover:text-white"
+            style={{ color: 'hsl(180, 47%, 50%)' }}
+          >
+            {t('photography.contact')}
+          </button>
+        </div>
+
         {/* Gallery Subsection */}
         <div id="photography-gallery" className="bg-white/80 rounded-lg p-8 mb-12">
           <h2 className="text-2xl font-semibold mb-6">{t('photography.gallery')}</h2>

@@ -21,7 +21,8 @@ export const translations = {
       blogCard: "Blog",
       blogDesc: "Články, tipy, tutoriály",
       ttrpgCard: "D&D Server",
-      ttrpgDesc: "Tabulkové RPG hry"
+      ttrpgDesc: "Tabulkové RPG hry",
+      explore: "Prozkoumat"
     },
     photography: {
       title: "Fotografie",
@@ -135,7 +136,8 @@ export const translations = {
       blogCard: "Blog",
       blogDesc: "Articles, tips, tutorials",
       ttrpgCard: "D&D Server",
-      ttrpgDesc: "Tabletop RPG games"
+      ttrpgDesc: "Tabletop RPG games",
+      explore: "Explore"
     },
     photography: {
       title: "Photography",
@@ -249,7 +251,8 @@ export const translations = {
       blogCard: "Blog",
       blogDesc: "Artikel, Tipps, Anleitungen",
       ttrpgCard: "D&D Server",
-      ttrpgDesc: "Tischrollenspiele"
+      ttrpgDesc: "Tischrollenspiele",
+      explore: "Erkunden"
     },
     photography: {
       title: "Fotografie",

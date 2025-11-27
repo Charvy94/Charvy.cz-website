@@ -22,6 +22,55 @@ export default function TTRPG() {
           <h1 className="text-4xl font-bold text-ttrpg-primary">{t('ttrpg.title')}</h1>
         </div>
 
+        {/* Navigation Buttons */}
+        <div className="flex gap-4 mb-8 flex-wrap justify-center">
+          <button
+            onClick={() => {
+              const element = document.getElementById('ttrpg-server');
+              if (element) {
+                const headerOffset = 120;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
+            className="px-6 py-3 border-2 border-ttrpg-secondary rounded-md font-semibold transition-all hover:bg-ttrpg-secondary hover:text-white"
+            style={{ color: 'hsl(0, 84%, 51%)' }}
+          >
+            {t('ttrpg.server')}
+          </button>
+          <button
+            onClick={() => {
+              const element = document.getElementById('ttrpg-login');
+              if (element) {
+                const headerOffset = 120;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
+            className="px-6 py-3 border-2 border-ttrpg-secondary rounded-md font-semibold transition-all hover:bg-ttrpg-secondary hover:text-white"
+            style={{ color: 'hsl(0, 84%, 51%)' }}
+          >
+            {t('ttrpg.login')}
+          </button>
+          <button
+            onClick={() => {
+              const element = document.getElementById('ttrpg-characters');
+              if (element) {
+                const headerOffset = 120;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
+            className="px-6 py-3 border-2 border-ttrpg-secondary rounded-md font-semibold transition-all hover:bg-ttrpg-secondary hover:text-white"
+            style={{ color: 'hsl(0, 84%, 51%)' }}
+          >
+            {t('ttrpg.characters')}
+          </button>
+        </div>
+
         {/* Server Subsection */}
         <div id="ttrpg-server" className="bg-white/80 rounded-lg p-8 mb-12">
           <h2 className="text-2xl font-semibold mb-4">{t('ttrpg.serverTitle')}</h2>

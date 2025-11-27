@@ -22,6 +22,55 @@ export default function Blog() {
           <h1 className="text-4xl font-bold text-blog-primary">{t('blog.title')}</h1>
         </div>
 
+        {/* Navigation Buttons */}
+        <div className="flex gap-4 mb-8 flex-wrap justify-center">
+          <button
+            onClick={() => {
+              const element = document.getElementById('blog-articles');
+              if (element) {
+                const headerOffset = 120;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
+            className="px-6 py-3 border-2 border-blog-accent rounded-md font-semibold transition-all hover:bg-blog-accent hover:text-white"
+            style={{ color: 'hsl(180, 47%, 50%)' }}
+          >
+            {t('blog.articles')}
+          </button>
+          <button
+            onClick={() => {
+              const element = document.getElementById('blog-archive');
+              if (element) {
+                const headerOffset = 120;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
+            className="px-6 py-3 border-2 border-blog-accent rounded-md font-semibold transition-all hover:bg-blog-accent hover:text-white"
+            style={{ color: 'hsl(180, 47%, 50%)' }}
+          >
+            {t('blog.archive')}
+          </button>
+          <button
+            onClick={() => {
+              const element = document.getElementById('blog-about');
+              if (element) {
+                const headerOffset = 120;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
+            className="px-6 py-3 border-2 border-blog-accent rounded-md font-semibold transition-all hover:bg-blog-accent hover:text-white"
+            style={{ color: 'hsl(180, 47%, 50%)' }}
+          >
+            {t('blog.about')}
+          </button>
+        </div>
+
         {/* Articles Subsection */}
         <div id="blog-articles" className="bg-white/80 rounded-lg p-8 mb-12">
           <h2 className="text-2xl font-semibold mb-4">{t('blog.articlesTitle')}</h2>

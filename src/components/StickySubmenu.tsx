@@ -55,13 +55,13 @@ export function StickySubmenu({
         borderBottomColor: themeColor 
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 py-3">
-        <div className="flex gap-2 flex-wrap items-center justify-center">
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="flex gap-3 flex-wrap items-center justify-center">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => scrollToSubsection(cat.id)}
-              className="px-3 py-1.5 rounded border text-sm font-medium transition-all hover:shadow-md"
+              className="px-4 py-2 rounded border text-sm font-medium transition-all hover:shadow-md"
               style={{
                 borderColor: themeColor,
                 color: themeColor,
@@ -73,7 +73,7 @@ export function StickySubmenu({
           ))}
           <button
             onClick={scrollToTop}
-            className="ml-2 px-3 py-1.5 rounded border text-sm font-medium transition-all hover:shadow-md flex items-center gap-1"
+            className="ml-2 px-4 py-2 rounded border text-sm font-medium transition-all hover:shadow-md flex items-center gap-1"
             style={{
               borderColor: themeColor,
               color: themeColor
