@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Language } from '@/lib/translations';
@@ -8,56 +9,45 @@ export function Header() {
   const { language, setLanguage } = useLanguage();
   const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   const handleLanguageChange = (lang: Language) => {
     setLanguage(lang);
   };
 
   const navItems = [
-    { id: 'home', label: t('nav.home') },
-    { id: 'photography', label: t('nav.photography') },
-    { id: 'workshop', label: t('nav.workshop') },
-    { id: 'blog', label: t('nav.blog') },
-    { id: 'ttrpg', label: t('nav.ttrpg') },
-    { id: 'legal', label: t('nav.legal') }
+    { id: '/', label: t('nav.home') },
+    { id: '/photography', label: t('nav.photography') },
+    { id: '/workshop', label: t('nav.workshop') },
+    { id: '/blog', label: t('nav.blog') },
+    { id: '/ttrpg', label: t('nav.ttrpg') }
   ];
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const headerOffset = 60;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-    setMobileMenuOpen(false);
-  };
 
   return (
     <header className="sticky top-0 z-50 bg-primary text-primary-foreground shadow-md">
       <div className="flex items-center justify-between px-4 py-3 md:px-8">
-        <button 
-          onClick={() => scrollToSection('home')}
+        <Link 
+          to="/"
           className="text-xl font-bold tracking-widest hover:opacity-80 transition-opacity"
         >
           Charvy.cz
-        </button>
+        </Link>
 
         <div className="hidden md:flex items-center gap-8">
           <nav>
             <ul className="flex gap-8">
               {navItems.map((item) => (
                 <li key={item.id}>
-                  <button
-                    onClick={() => scrollToSection(item.id)}
-                    className="font-medium pb-2 px-3 border-b-2 border-transparent hover:border-primary-foreground/50 transition-all"
+                  <Link
+                    to={item.id}
+                    className={`font-medium pb-2 px-3 border-b-2 transition-all ${
+                      location.pathname === item.id
+                        ? 'border-primary-foreground'
+                        : 'border-transparent hover:border-primary-foreground/50'
+                    }`}
                   >
                     {item.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -95,12 +85,17 @@ export function Header() {
             <ul>
               {navItems.map((item) => (
                 <li key={item.id}>
-                  <button
-                    onClick={() => scrollToSection(item.id)}
-                    className="w-full text-left px-6 py-3 font-medium transition-all hover:bg-white/10"
+                  <Link
+                    to={item.id}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block w-full text-left px-6 py-3 font-medium transition-all ${
+                      location.pathname === item.id
+                        ? 'bg-white/20'
+                        : 'hover:bg-white/10'
+                    }`}
                   >
                     {item.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
