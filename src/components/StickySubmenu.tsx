@@ -7,13 +7,15 @@ interface StickySubmenuProps {
   categories: Array<{ id: string; label: string }>;
   themeColor: string;
   sectionId: string;
+  forceVisible?: boolean;
 }
 
 export function StickySubmenu({
   visible,
   categories,
   themeColor,
-  sectionId
+  sectionId,
+  forceVisible = false
 }: StickySubmenuProps) {
   const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,7 +47,7 @@ export function StickySubmenu({
     }
   };
 
-  if (!visible || !isScrolled) return null;
+  if (!visible || (!isScrolled && !forceVisible)) return null;
 
   return (
     <div
