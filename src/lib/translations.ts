@@ -40,7 +40,8 @@ export const translations = {
       aboutTitle: "Ceník",
       aboutDesc: "Rodinné focení: od 2 500 Kč (1-2 hodiny, 20+ upravených fotek) • Portréty: od 1 500 Kč (30-60 minut, 10+ upravených fotek) • Produktové foto: od 500 Kč/produkt • Svatby: od 15 000 Kč (celý den, 300+ fotek, video sestřih). Ceny zahrnují profesionální úpravu a online galerii. Kontaktujte mě pro přesnou nabídku.",
       contactTitle: "Kontaktujte mě",
-      contactDesc: "Máte zájem o focení? Napište mi!"
+      contactDesc: "Máte zájem o focení? Napište mi!",
+      socialTitle: "Sledujte mě na sociálních sítích"
     },
     workshop: {
       title: "3D Tisk Workshop",
@@ -61,7 +62,8 @@ export const translations = {
       dealsDesc: "Aktuální akce a slevy",
       orderTitle: "Objednávka",
       orderDesc: "Zde můžeš objednat produkty nebo si nechat vytvořit vlastní design",
-      orderEmail: "Pošli mi svůj návrh na email a já se ti ozvu s nabídkou!"
+      orderEmail: "Pošli mi svůj návrh na email a já se ti ozvu s nabídkou!",
+      socialTitle: "Sledujte náš Workshop"
     },
     blog: {
       title: "Články",
@@ -204,7 +206,8 @@ export const translations = {
       aboutTitle: "Price List",
       aboutDesc: "Family Photography: from $120 (1-2 hours, 20+ edited photos) • Portraits: from $80 (30-60 minutes, 10+ edited photos) • Product Photography: from $25/product • Weddings: from $800 (full day, 300+ photos, video highlights). All prices include professional editing and online gallery. Contact me for a custom quote.",
       contactTitle: "Contact Me",
-      contactDesc: "Interested in a photoshoot? Write to me!"
+      contactDesc: "Interested in a photoshoot? Write to me!",
+      socialTitle: "Follow me on social media"
     },
     workshop: {
       title: "3D Print Workshop",
@@ -225,7 +228,8 @@ export const translations = {
       dealsDesc: "Current promotions and discounts",
       orderTitle: "Order",
       orderDesc: "Here you can order products or have your own design created",
-      orderEmail: "Send me your design via email and I'll get back to you with an offer!"
+      orderEmail: "Send me your design via email and I'll get back to you with an offer!",
+      socialTitle: "Follow our Workshop"
     },
     blog: {
       title: "Articles",
@@ -368,7 +372,8 @@ export const translations = {
       aboutTitle: "Preisliste",
       aboutDesc: "Familienfotografie: ab 120 € (1-2 Stunden, 20+ bearbeitete Fotos) • Porträts: ab 80 € (30-60 Minuten, 10+ bearbeitete Fotos) • Produktfotografie: ab 25 €/Produkt • Hochzeiten: ab 800 € (ganzer Tag, 300+ Fotos, Video-Highlights). Alle Preise beinhalten professionelle Bearbeitung und Online-Galerie. Kontaktieren Sie mich für ein individuelles Angebot.",
       contactTitle: "Kontaktiere Mich",
-      contactDesc: "Interesse an einem Fotoshooting? Schreib mir!"
+      contactDesc: "Interesse an einem Fotoshooting? Schreib mir!",
+      socialTitle: "Folge mir auf Social Media"
     },
     workshop: {
       title: "3D-Druck-Workshop",
@@ -389,7 +394,8 @@ export const translations = {
       dealsDesc: "Aktuelle Aktionen und Rabatte",
       orderTitle: "Bestellung",
       orderDesc: "Hier kannst du Produkte bestellen oder dein eigenes Design erstellen lassen",
-      orderEmail: "Schick mir dein Design per E-Mail und ich melde mich mit einem Angebot!"
+      orderEmail: "Schick mir dein Design per E-Mail und ich melde mich mit einem Angebot!",
+      socialTitle: "Folge unserem Workshop"
     },
     blog: {
       title: "Artikel",

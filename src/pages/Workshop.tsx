@@ -5,6 +5,7 @@ import { PageSection } from '@/components/PageSection';
 import { ProductCard } from '@/components/ProductCard';
 import { ProductModal } from '@/components/ProductModal';
 import { ContactForm } from '@/components/ContactForm';
+import { SocialLinks } from '@/components/SocialLinks';
 import { SEO } from '@/components/SEO';
 import { sampleProducts } from '@/data/products';
 import { Product } from '@/types/product';
@@ -137,6 +138,13 @@ export default function Workshop() {
           variant="workshop"
         >
           <ContactForm variant="workshop" subject="Workshop - Objednávka nebo poptávka" />
+          
+          <div className="mt-8 pt-8 border-t border-border">
+            <h3 className="text-xl font-semibold text-center mb-4">{t('workshop.socialTitle')}</h3>
+            <div className="flex justify-center">
+              <SocialLinks type="workshop" />
+            </div>
+          </div>
         </PageSection>
       </main>
 

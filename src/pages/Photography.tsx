@@ -4,6 +4,7 @@ import { PageNavButton } from '@/components/PageNavButton';
 import { PageSection } from '@/components/PageSection';
 import { Carousel } from '@/components/Carousel';
 import { ContactForm } from '@/components/ContactForm';
+import { SocialLinks } from '@/components/SocialLinks';
 import { SEO } from '@/components/SEO';
 import { useState, useEffect } from 'react';
 
@@ -182,6 +183,13 @@ export default function Photography() {
           variant="photo"
         >
           <ContactForm variant="photo" subject="Fotografování - Nová poptávka" />
+          
+          <div className="mt-8 pt-8 border-t border-border">
+            <h3 className="text-xl font-semibold text-center mb-4">{t('photography.socialTitle')}</h3>
+            <div className="flex justify-center">
+              <SocialLinks type="photography" />
+            </div>
+          </div>
         </PageSection>
       </main>
     </>
