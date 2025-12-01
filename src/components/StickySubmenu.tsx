@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { ArrowUp } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface StickySubmenuProps {
   visible: boolean;
   categories: Array<{ id: string; label: string }>;
-  themeColor: string;
+  variant: 'photo' | 'workshop' | 'blog' | 'ttrpg';
   sectionId: string;
   forceVisible?: boolean;
 }
@@ -13,7 +15,7 @@ interface StickySubmenuProps {
 export function StickySubmenu({
   visible,
   categories,
-  themeColor,
+  variant,
   sectionId,
   forceVisible = false
 }: StickySubmenuProps) {
@@ -51,39 +53,35 @@ export function StickySubmenu({
 
   return (
     <div
-      className="fixed left-0 right-0 bg-background border-b-2 shadow-md z-40 animate-in slide-in-from-top duration-300"
-      style={{ 
-        top: '60px',
-        borderBottomColor: themeColor 
-      }}
+      className={cn(
+        "fixed left-0 right-0 bg-card/95 backdrop-blur-md border-b-2 shadow-lg z-40 animate-in slide-in-from-top duration-300 top-[60px]",
+        variant === 'photo' && 'border-photo-secondary',
+        variant === 'workshop' && 'border-workshop-primary',
+        variant === 'blog' && 'border-blog-accent',
+        variant === 'ttrpg' && 'border-ttrpg-secondary'
+      )}
     >
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex gap-3 flex-wrap items-center justify-center">
           {categories.map((cat) => (
-            <button
+            <Button
               key={cat.id}
               onClick={() => scrollToSubsection(cat.id)}
-              className="px-4 py-2 rounded border text-sm font-medium transition-all hover:shadow-md"
-              style={{
-                borderColor: themeColor,
-                color: themeColor,
-                backgroundColor: 'transparent'
-              }}
+              variant={variant}
+              size="sm"
             >
               {cat.label}
-            </button>
+            </Button>
           ))}
-          <button
+          <Button
             onClick={scrollToTop}
-            className="ml-2 px-4 py-2 rounded border text-sm font-medium transition-all hover:shadow-md flex items-center gap-1"
-            style={{
-              borderColor: themeColor,
-              color: themeColor
-            }}
+            variant={variant}
+            size="sm"
+            className="ml-2"
           >
             <ArrowUp size={14} />
             {t('toTop')}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

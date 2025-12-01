@@ -1,5 +1,7 @@
 import { useTranslation } from '@/hooks/useTranslation';
 import { StickySubmenu } from '@/components/StickySubmenu';
+import { PageNavButton } from '@/components/PageNavButton';
+import { PageSection } from '@/components/PageSection';
 import { ProductCard } from '@/components/ProductCard';
 import { ProductModal } from '@/components/ProductModal';
 import { sampleProducts } from '@/data/products';
@@ -16,78 +18,62 @@ export default function Workshop() {
     setIsModalOpen(true);
   };
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerOffset = 120;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <StickySubmenu 
         visible={true}
         sectionId="workshop"
+        variant="workshop"
         categories={[
           { id: 'products', label: t('workshop.products') },
           { id: 'bestsellers', label: t('workshop.bestsellers') },
           { id: 'order', label: t('workshop.order') }
         ]}
-        themeColor="hsl(24, 95%, 53%)"
       />
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        <div className="border-b-4 border-workshop-secondary pb-6 mb-8">
-          <h1 className="text-4xl font-bold text-workshop-primary">{t('workshop.title')}</h1>
+      <main className="relative max-w-7xl mx-auto px-4 py-8 animate-fade-in">
+        {/* Hero Section with gradient background */}
+        <div className="relative rounded-3xl overflow-hidden mb-12 bg-gradient-to-br from-workshop-primary via-workshop-secondary to-workshop-primary/80 p-12 shadow-2xl">
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-workshop-light rounded-full blur-3xl" />
+          </div>
+          <div className="relative">
+            <h1 className="text-white mb-4">{t('workshop.title')}</h1>
+            <p className="text-white/90 text-xl max-w-2xl">Ruční výroba miniatur a doplňků pro vaše herní dobrodružství</p>
+          </div>
         </div>
 
         {/* Navigation Buttons */}
-        <div className="flex gap-4 mb-8 flex-wrap justify-center">
-          <button
-            onClick={() => {
-              const element = document.getElementById('workshop-products');
-              if (element) {
-                const headerOffset = 120;
-                const elementPosition = element.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-              }
-            }}
-            className="px-6 py-3 border-2 border-workshop-secondary rounded-md font-semibold transition-all hover:bg-workshop-secondary hover:text-white"
-            style={{ color: 'hsl(24, 95%, 53%)' }}
-          >
+        <div className="flex gap-4 mb-12 flex-wrap justify-center animate-slide-up">
+          <PageNavButton onClick={() => scrollToSection('workshop-products')} variant="workshop">
             {t('workshop.products')}
-          </button>
-          <button
-            onClick={() => {
-              const element = document.getElementById('workshop-bestsellers');
-              if (element) {
-                const headerOffset = 120;
-                const elementPosition = element.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-              }
-            }}
-            className="px-6 py-3 border-2 border-workshop-secondary rounded-md font-semibold transition-all hover:bg-workshop-secondary hover:text-white"
-            style={{ color: 'hsl(24, 95%, 53%)' }}
-          >
+          </PageNavButton>
+          <PageNavButton onClick={() => scrollToSection('workshop-bestsellers')} variant="workshop">
             {t('workshop.bestsellers')}
-          </button>
-          <button
-            onClick={() => {
-              const element = document.getElementById('workshop-order');
-              if (element) {
-                const headerOffset = 120;
-                const elementPosition = element.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-              }
-            }}
-            className="px-6 py-3 border-2 border-workshop-secondary rounded-md font-semibold transition-all hover:bg-workshop-secondary hover:text-white"
-            style={{ color: 'hsl(24, 95%, 53%)' }}
-          >
+          </PageNavButton>
+          <PageNavButton onClick={() => scrollToSection('workshop-order')} variant="workshop">
             {t('workshop.order')}
-          </button>
+          </PageNavButton>
         </div>
 
         {/* Products Subsection */}
-        <div id="workshop-products" className="bg-white/80 rounded-lg p-8 mb-12">
-          <h2 className="text-2xl font-semibold mb-4">{t('workshop.productsTitle')}</h2>
-          <p className="text-muted-foreground mb-6">{t('workshop.productsDesc')}</p>
-          
+        <PageSection
+          id="workshop-products"
+          title={t('workshop.productsTitle')}
+          description={t('workshop.productsDesc')}
+          variant="workshop"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sampleProducts.map((product) => (
               <ProductCard 
@@ -97,12 +83,15 @@ export default function Workshop() {
               />
             ))}
           </div>
-        </div>
+        </PageSection>
 
         {/* Bestsellers Subsection */}
-        <div id="workshop-bestsellers" className="bg-white/80 rounded-lg p-8 mb-12">
-          <h2 className="text-2xl font-semibold mb-4">{t('workshop.bestsellersTitle')}</h2>
-          <p className="text-muted-foreground mb-6">{t('workshop.bestsellersDesc')}</p>
+        <PageSection
+          id="workshop-bestsellers"
+          title={t('workshop.bestsellersTitle')}
+          description={t('workshop.bestsellersDesc')}
+          variant="workshop"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sampleProducts.filter(p => p.category === 'bestsellers').map((product) => (
               <ProductCard 
@@ -112,16 +101,19 @@ export default function Workshop() {
               />
             ))}
           </div>
-        </div>
+        </PageSection>
 
         {/* Order Subsection */}
-        <div id="workshop-order" className="bg-white/80 rounded-lg p-8 mb-12">
-          <h2 className="text-2xl font-semibold mb-4">{t('workshop.orderTitle')}</h2>
-          <p className="text-muted-foreground leading-relaxed mb-4">{t('workshop.orderDesc')}</p>
-          <div className="bg-gray-100 p-6 rounded-lg">
-            <p className="text-muted-foreground">{t('workshop.orderEmail')}</p>
+        <PageSection
+          id="workshop-order"
+          title={t('workshop.orderTitle')}
+          description={t('workshop.orderDesc')}
+          variant="workshop"
+        >
+          <div className="bg-card p-8 rounded-xl border-2 border-workshop-primary/30 shadow-lg">
+            <p className="text-foreground text-lg font-medium">{t('workshop.orderEmail')}</p>
           </div>
-        </div>
+        </PageSection>
       </main>
 
       <ProductModal 

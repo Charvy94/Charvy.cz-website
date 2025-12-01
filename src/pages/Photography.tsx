@@ -1,5 +1,7 @@
 import { useTranslation } from '@/hooks/useTranslation';
 import { StickySubmenu } from '@/components/StickySubmenu';
+import { PageNavButton } from '@/components/PageNavButton';
+import { PageSection } from '@/components/PageSection';
 import { Carousel } from '@/components/Carousel';
 import { useState, useEffect } from 'react';
 
@@ -16,14 +18,13 @@ export default function Photography() {
         const galleryRect = gallerySection.getBoundingClientRect();
         const aboutRect = aboutSection.getBoundingClientRect();
         
-        // Show gallery submenu when inside gallery section
         const isInGallery = galleryRect.top < 200 && aboutRect.top > 200;
         setShowGallerySubmenu(isInGallery);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check initial position
+    handleScroll();
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -34,22 +35,32 @@ export default function Photography() {
     'https://images.unsplash.com/photo-1543342384-1f1350e27861?w=800'
   ];
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerOffset = 120;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <StickySubmenu 
         visible={true}
         sectionId="photography"
+        variant="photo"
         categories={[
           { id: 'gallery', label: t('photography.gallery') },
           { id: 'about', label: t('photography.about') },
           { id: 'contact', label: t('photography.contact') }
         ]}
-        themeColor="hsl(180, 47%, 50%)"
         forceVisible={showGallerySubmenu}
       />
 
       {showGallerySubmenu && (
-        <div className="fixed top-[120px] left-0 right-0 z-40 bg-white/95 backdrop-blur-sm shadow-md border-b border-border">
+        <div className="fixed top-[120px] left-0 right-0 z-40 bg-card/95 backdrop-blur-md shadow-lg border-b-2 border-photo-secondary">
           <div className="max-w-7xl mx-auto px-4 py-3">
             <div className="flex gap-4 justify-center flex-wrap">
               {[
@@ -58,86 +69,51 @@ export default function Photography() {
                 { id: 'products', label: t('photography.products') },
                 { id: 'weddings', label: t('photography.weddings') }
               ].map((item) => (
-                <button
+                <PageNavButton
                   key={item.id}
-                  onClick={() => {
-                    const element = document.getElementById(`photography-gallery-${item.id}`);
-                    if (element) {
-                      const headerOffset = 180;
-                      const elementPosition = element.getBoundingClientRect().top;
-                      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-                    }
-                  }}
-                  className="px-4 py-2 text-sm rounded-md font-medium transition-all hover:bg-photo-secondary hover:text-white border border-photo-secondary"
-                  style={{ color: 'hsl(180, 47%, 50%)' }}
+                  onClick={() => scrollToSection(`photography-gallery-${item.id}`)}
+                  variant="photo"
                 >
                   {item.label}
-                </button>
+                </PageNavButton>
               ))}
             </div>
           </div>
         </div>
       )}
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        <div className="border-b-4 border-photo-secondary pb-6 mb-8">
-          <h1 className="text-4xl font-bold text-photo-primary">{t('photography.title')}</h1>
+      <main className="relative max-w-7xl mx-auto px-4 py-8 animate-fade-in">
+        {/* Hero Section */}
+        <div className="relative rounded-3xl overflow-hidden mb-12 bg-gradient-to-br from-photo-primary via-photo-secondary to-photo-primary/80 p-12 shadow-2xl">
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-photo-light rounded-full blur-3xl" />
+          </div>
+          <div className="relative">
+            <h1 className="text-white mb-4">{t('photography.title')}</h1>
+            <p className="text-white/90 text-xl max-w-2xl">Zachycuji okamžiky, které vyprávějí příběhy</p>
+          </div>
         </div>
 
         {/* Navigation Buttons */}
-        <div className="flex gap-4 mb-8 flex-wrap justify-center">
-          <button
-            onClick={() => {
-              const element = document.getElementById('photography-gallery');
-              if (element) {
-                const headerOffset = 120;
-                const elementPosition = element.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-              }
-            }}
-            className="px-6 py-3 border-2 border-photo-secondary rounded-md font-semibold transition-all hover:bg-photo-secondary hover:text-white"
-            style={{ color: 'hsl(180, 47%, 50%)' }}
-          >
+        <div className="flex gap-4 mb-12 flex-wrap justify-center animate-slide-up">
+          <PageNavButton onClick={() => scrollToSection('photography-gallery')} variant="photo">
             {t('photography.gallery')}
-          </button>
-          <button
-            onClick={() => {
-              const element = document.getElementById('photography-about');
-              if (element) {
-                const headerOffset = 120;
-                const elementPosition = element.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-              }
-            }}
-            className="px-6 py-3 border-2 border-photo-secondary rounded-md font-semibold transition-all hover:bg-photo-secondary hover:text-white"
-            style={{ color: 'hsl(180, 47%, 50%)' }}
-          >
+          </PageNavButton>
+          <PageNavButton onClick={() => scrollToSection('photography-about')} variant="photo">
             {t('photography.about')}
-          </button>
-          <button
-            onClick={() => {
-              const element = document.getElementById('photography-contact');
-              if (element) {
-                const headerOffset = 120;
-                const elementPosition = element.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-              }
-            }}
-            className="px-6 py-3 border-2 border-photo-secondary rounded-md font-semibold transition-all hover:bg-photo-secondary hover:text-white"
-            style={{ color: 'hsl(180, 47%, 50%)' }}
-          >
+          </PageNavButton>
+          <PageNavButton onClick={() => scrollToSection('photography-contact')} variant="photo">
             {t('photography.contact')}
-          </button>
+          </PageNavButton>
         </div>
 
         {/* Gallery Subsection */}
-        <div id="photography-gallery" className="bg-white/80 rounded-lg p-8 mb-12">
-          <h2 className="text-2xl font-semibold mb-6">{t('photography.gallery')}</h2>
-          
+        <PageSection
+          id="photography-gallery"
+          title={t('photography.gallery')}
+          variant="photo"
+        >
           <div id="photography-gallery-family" className="mb-8">
             <Carousel
               images={placeholderImages}
@@ -169,19 +145,23 @@ export default function Photography() {
               description={t('photography.weddingsDesc')}
             />
           </div>
-        </div>
+        </PageSection>
 
         {/* About Subsection */}
-        <div id="photography-about" className="bg-white/80 rounded-lg p-8 mb-12">
-          <h2 className="text-2xl font-semibold mb-4">{t('photography.aboutTitle')}</h2>
-          <p className="text-muted-foreground leading-relaxed">{t('photography.aboutDesc')}</p>
-        </div>
+        <PageSection
+          id="photography-about"
+          title={t('photography.aboutTitle')}
+          description={t('photography.aboutDesc')}
+          variant="photo"
+        />
 
         {/* Contact Subsection */}
-        <div id="photography-contact" className="bg-white/80 rounded-lg p-8 mb-12">
-          <h2 className="text-2xl font-semibold mb-4">{t('photography.contactTitle')}</h2>
-          <p className="text-muted-foreground leading-relaxed">{t('photography.contactDesc')}</p>
-        </div>
+        <PageSection
+          id="photography-contact"
+          title={t('photography.contactTitle')}
+          description={t('photography.contactDesc')}
+          variant="photo"
+        />
       </main>
     </>
   );

@@ -1,5 +1,7 @@
 import { useTranslation } from '@/hooks/useTranslation';
 import { StickySubmenu } from '@/components/StickySubmenu';
+import { PageNavButton } from '@/components/PageNavButton';
+import { PageSection } from '@/components/PageSection';
 import { BlogPostCard } from '@/components/BlogPostCard';
 import { useCMSPosts } from '@/hooks/useCMSPosts';
 import { CMS_CONFIG } from '@/config/cms';
@@ -8,78 +10,62 @@ export default function Blog() {
   const { t } = useTranslation();
   const { posts, loading, error } = useCMSPosts(CMS_CONFIG);
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerOffset = 120;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <StickySubmenu 
         visible={true}
         sectionId="blog"
+        variant="blog"
         categories={[
           { id: 'articles', label: t('blog.articles') },
           { id: 'archive', label: t('blog.archive') },
           { id: 'about', label: t('blog.about') }
         ]}
-        themeColor="hsl(180, 47%, 50%)"
       />
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        <div className="border-b-4 border-blog-accent pb-6 mb-8">
-          <h1 className="text-4xl font-bold text-blog-primary">{t('blog.title')}</h1>
+      <main className="relative max-w-7xl mx-auto px-4 py-8 animate-fade-in">
+        {/* Hero Section */}
+        <div className="relative rounded-3xl overflow-hidden mb-12 bg-gradient-to-br from-blog-primary via-blog-accent to-blog-primary/80 p-12 shadow-2xl">
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-blog-light rounded-full blur-3xl" />
+          </div>
+          <div className="relative">
+            <h1 className="text-white mb-4">{t('blog.title')}</h1>
+            <p className="text-white/90 text-xl max-w-2xl">Myšlenky, nápady a příběhy ze světa kreativity</p>
+          </div>
         </div>
 
         {/* Navigation Buttons */}
-        <div className="flex gap-4 mb-8 flex-wrap justify-center">
-          <button
-            onClick={() => {
-              const element = document.getElementById('blog-articles');
-              if (element) {
-                const headerOffset = 120;
-                const elementPosition = element.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-              }
-            }}
-            className="px-6 py-3 border-2 border-blog-accent rounded-md font-semibold transition-all hover:bg-blog-accent hover:text-white"
-            style={{ color: 'hsl(180, 47%, 50%)' }}
-          >
+        <div className="flex gap-4 mb-12 flex-wrap justify-center animate-slide-up">
+          <PageNavButton onClick={() => scrollToSection('blog-articles')} variant="blog">
             {t('blog.articles')}
-          </button>
-          <button
-            onClick={() => {
-              const element = document.getElementById('blog-archive');
-              if (element) {
-                const headerOffset = 120;
-                const elementPosition = element.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-              }
-            }}
-            className="px-6 py-3 border-2 border-blog-accent rounded-md font-semibold transition-all hover:bg-blog-accent hover:text-white"
-            style={{ color: 'hsl(180, 47%, 50%)' }}
-          >
+          </PageNavButton>
+          <PageNavButton onClick={() => scrollToSection('blog-archive')} variant="blog">
             {t('blog.archive')}
-          </button>
-          <button
-            onClick={() => {
-              const element = document.getElementById('blog-about');
-              if (element) {
-                const headerOffset = 120;
-                const elementPosition = element.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-              }
-            }}
-            className="px-6 py-3 border-2 border-blog-accent rounded-md font-semibold transition-all hover:bg-blog-accent hover:text-white"
-            style={{ color: 'hsl(180, 47%, 50%)' }}
-          >
+          </PageNavButton>
+          <PageNavButton onClick={() => scrollToSection('blog-about')} variant="blog">
             {t('blog.about')}
-          </button>
+          </PageNavButton>
         </div>
 
         {/* Articles Subsection */}
-        <div id="blog-articles" className="bg-white/80 rounded-lg p-8 mb-12">
-          <h2 className="text-2xl font-semibold mb-4">{t('blog.articlesTitle')}</h2>
-          <p className="text-muted-foreground mb-6">{t('blog.articlesDesc')}</p>
-          
+        <PageSection
+          id="blog-articles"
+          title={t('blog.articlesTitle')}
+          description={t('blog.articlesDesc')}
+          variant="blog"
+        >
           {loading && (
             <div className="text-center py-8">
               <p className="text-muted-foreground">Loading posts...</p>
@@ -94,7 +80,7 @@ export default function Blog() {
 
           {!CMS_CONFIG.enabled && !loading && (
             <div className="text-center py-8">
-              <p className="text-muted-foreground mb-4">
+              <p className="text-muted-foreground mb-6">
                 Click the settings icon to configure your CMS integration
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -103,9 +89,9 @@ export default function Blog() {
                   { title: t('blog.article2'), desc: t('blog.article2Desc') },
                   { title: t('blog.article3'), desc: t('blog.article3Desc') }
                 ].map((item, i) => (
-                  <div key={i} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all hover:-translate-y-1">
-                    <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
-                    <p className="text-muted-foreground">{item.desc}</p>
+                  <div key={i} className="bg-card rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-blog-accent/20">
+                    <h3 className="font-bold text-xl mb-3">{item.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
                   </div>
                 ))}
               </div>
@@ -125,19 +111,23 @@ export default function Blog() {
               <p className="text-muted-foreground">No posts found</p>
             </div>
           )}
-        </div>
+        </PageSection>
 
         {/* Archive Subsection */}
-        <div id="blog-archive" className="bg-white/80 rounded-lg p-8 mb-12">
-          <h2 className="text-2xl font-semibold mb-4">{t('blog.archiveTitle')}</h2>
-          <p className="text-muted-foreground leading-relaxed">{t('blog.archiveDesc')}</p>
-        </div>
+        <PageSection
+          id="blog-archive"
+          title={t('blog.archiveTitle')}
+          description={t('blog.archiveDesc')}
+          variant="blog"
+        />
 
         {/* About Subsection */}
-        <div id="blog-about" className="bg-white/80 rounded-lg p-8 mb-12">
-          <h2 className="text-2xl font-semibold mb-4">{t('blog.aboutTitle')}</h2>
-          <p className="text-muted-foreground leading-relaxed">{t('blog.aboutDesc')}</p>
-        </div>
+        <PageSection
+          id="blog-about"
+          title={t('blog.aboutTitle')}
+          description={t('blog.aboutDesc')}
+          variant="blog"
+        />
       </main>
     </>
   );
