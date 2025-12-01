@@ -62,6 +62,10 @@ All colors MUST be HSL.
     --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
     --gradient-card: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--secondary)) 100%);
+    --gradient-photo: linear-gradient(135deg, hsl(var(--photo-secondary)) 0%, hsl(var(--photo-primary)) 100%);
+    --gradient-workshop: linear-gradient(135deg, hsl(var(--workshop-primary)) 0%, hsl(var(--workshop-secondary)) 100%);
+    --gradient-blog: linear-gradient(135deg, hsl(var(--blog-accent)) 0%, hsl(var(--blog-primary)) 100%);
+    --gradient-ttrpg: linear-gradient(135deg, hsl(var(--ttrpg-secondary)) 0%, hsl(var(--ttrpg-primary)) 100%);
     
     /* Shadows */
     --shadow-sm: 0 2px 8px -2px hsl(var(--primary) / 0.1);
@@ -72,13 +76,24 @@ All colors MUST be HSL.
     /* Transitions */
     --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Typography scale */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
   }
 
   .dark {
     --background: 26 16% 10%;
     --foreground: 0 0% 98%;
 
-    --card: 26 16% 10%;
+    --card: 26 16% 14%;
     --card-foreground: 0 0% 98%;
 
     --popover: 26 16% 10%;
@@ -102,6 +117,26 @@ All colors MUST be HSL.
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 180 47% 50%;
+    
+    /* Photo theme - dark mode */
+    --photo-primary: 210 15% 75%;
+    --photo-secondary: 180 47% 50%;
+    --photo-light: 210 15% 15%;
+
+    /* Workshop theme - dark mode */
+    --workshop-primary: 24 95% 60%;
+    --workshop-secondary: 14 80% 55%;
+    --workshop-light: 43 50% 15%;
+
+    /* Blog theme - dark mode */
+    --blog-primary: 210 11% 85%;
+    --blog-accent: 180 47% 50%;
+    --blog-light: 210 20% 15%;
+
+    /* TTRPG theme - dark mode */
+    --ttrpg-primary: 14 80% 70%;
+    --ttrpg-secondary: 0 84% 60%;
+    --ttrpg-light: 0 50% 15%;
   }
 }
 
@@ -111,10 +146,30 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-inter;
+    @apply bg-background text-foreground font-inter antialiased;
   }
   
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-playfair;
+  h1 {
+    @apply font-playfair text-4xl md:text-5xl font-bold tracking-tight;
+  }
+  
+  h2 {
+    @apply font-playfair text-3xl md:text-4xl font-bold tracking-tight;
+  }
+  
+  h3 {
+    @apply font-playfair text-2xl md:text-3xl font-semibold;
+  }
+  
+  h4 {
+    @apply font-playfair text-xl md:text-2xl font-semibold;
+  }
+  
+  h5, h6 {
+    @apply font-playfair text-lg font-semibold;
+  }
+  
+  p {
+    @apply text-base leading-relaxed;
   }
 }
