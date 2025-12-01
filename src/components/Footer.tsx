@@ -66,7 +66,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-6 border-t border-primary-foreground/20 text-center">
           <p className="text-sm text-primary-foreground/70">
-            © {new Date().getFullYear()} Charvy.cz • Made with ❤️
+            © {new Date().getFullYear()} Charvy.cz • <Link to="/social" className="hover:text-accent transition-colors">{t('socialNetworks.title')}</Link>
           </p>
         </div>
       </div>
