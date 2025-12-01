@@ -47,17 +47,37 @@ export default function Photography() {
         themeColor="hsl(180, 47%, 50%)"
       />
 
-      <StickySubmenu 
-        visible={showGallerySubmenu}
-        sectionId="photography-gallery"
-        categories={[
-          { id: 'family', label: t('photography.family') },
-          { id: 'portraits', label: t('photography.portraits') },
-          { id: 'products', label: t('photography.products') },
-          { id: 'weddings', label: t('photography.weddings') }
-        ]}
-        themeColor="hsl(180, 47%, 50%)"
-      />
+      {showGallerySubmenu && (
+        <div className="fixed top-[120px] left-0 right-0 z-40 bg-white/95 backdrop-blur-sm shadow-md border-b border-border">
+          <div className="max-w-7xl mx-auto px-4 py-3">
+            <div className="flex gap-4 justify-center flex-wrap">
+              {[
+                { id: 'family', label: t('photography.family') },
+                { id: 'portraits', label: t('photography.portraits') },
+                { id: 'products', label: t('photography.products') },
+                { id: 'weddings', label: t('photography.weddings') }
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    const element = document.getElementById(`photography-gallery-${item.id}`);
+                    if (element) {
+                      const headerOffset = 180;
+                      const elementPosition = element.getBoundingClientRect().top;
+                      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    }
+                  }}
+                  className="px-4 py-2 text-sm rounded-md font-medium transition-all hover:bg-photo-secondary hover:text-white border border-photo-secondary"
+                  style={{ color: 'hsl(180, 47%, 50%)' }}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         <div className="border-b-4 border-photo-secondary pb-6 mb-8">
