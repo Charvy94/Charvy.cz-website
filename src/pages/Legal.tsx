@@ -77,6 +77,16 @@ export default function Legal() {
               <h2 className="text-3xl font-bold text-foreground mb-4">{t('legal.privacyTitle')}</h2>
               <p className="text-muted-foreground leading-relaxed mb-6">{t('legal.privacyIntro')}</p>
 
+              <div className="bg-primary/10 border-l-4 border-primary p-6 rounded-r-lg mb-8">
+                <h3 className="text-xl font-bold text-foreground mb-2 flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {t('legal.privacyNoCookies')}
+                </h3>
+                <p className="text-foreground leading-relaxed">{t('legal.privacyNoCookiesDesc')}</p>
+              </div>
+
               <section className="mb-6">
                 <h3 className="text-xl font-semibold text-foreground mb-3">{t('legal.privacyController')}</h3>
                 <p className="text-muted-foreground leading-relaxed">{t('legal.privacyControllerContent')}</p>
