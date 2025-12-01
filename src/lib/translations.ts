@@ -20,7 +20,7 @@ export const translations = {
       workshopDesc: "Prodej 3D modelů a tiskárny",
       blogCard: "Blog",
       blogDesc: "Články, tipy, tutoriály",
-      ttrpgCard: "D&D Server",
+      ttrpgCard: "The Legends of the Omniverse",
       ttrpgDesc: "Tabulkové RPG hry",
       explore: "Prozkoumat"
     },
@@ -135,7 +135,7 @@ export const translations = {
       workshopDesc: "3D models and printer sales",
       blogCard: "Blog",
       blogDesc: "Articles, tips, tutorials",
-      ttrpgCard: "D&D Server",
+      ttrpgCard: "The Legends of the Omniverse",
       ttrpgDesc: "Tabletop RPG games",
       explore: "Explore"
     },
@@ -250,7 +250,7 @@ export const translations = {
       workshopDesc: "3D-Modelle und Druckerverkauf",
       blogCard: "Blog",
       blogDesc: "Artikel, Tipps, Anleitungen",
-      ttrpgCard: "D&D Server",
+      ttrpgCard: "The Legends of the Omniverse",
       ttrpgDesc: "Tischrollenspiele",
       explore: "Erkunden"
     },
