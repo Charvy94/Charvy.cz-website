@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
-import { Camera, Wrench, PenTool, Dices } from 'lucide-react';
-import { SocialLinks } from '@/components/SocialLinks';
+import { Camera, Wrench, PenTool, Dices, ExternalLink } from 'lucide-react';
 
 export function Footer() {
   const { t } = useTranslation();
@@ -64,16 +63,22 @@ export function Footer() {
           </div>
         </div>
         
-        {/* Social Media */}
-        <div className="flex justify-center my-8">
-          <SocialLinks type="personal" variant="compact" />
-        </div>
-        
         {/* Bottom Bar */}
-        <div className="pt-6 border-t border-primary-foreground/20 text-center">
-          <p className="text-sm text-primary-foreground/70">
-            © {new Date().getFullYear()} Charvy.cz • Made with ❤️
-          </p>
+        <div className="pt-6 border-t border-primary-foreground/20">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-primary-foreground/70 text-center md:text-left">
+              © {new Date().getFullYear()} Charvy.cz • Made with ❤️
+            </p>
+            <a 
+              href="/links" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-accent transition-colors group"
+            >
+              <span>Moje sociální sítě</span>
+              <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+          </div>
         </div>
       </div>
     </footer>
