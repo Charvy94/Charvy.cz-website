@@ -1,8 +1,24 @@
 import { useTranslation } from '@/hooks/useTranslation';
 import { StickySubmenu } from '@/components/StickySubmenu';
+import { ProductCard } from '@/components/ProductCard';
+import { ProductModal } from '@/components/ProductModal';
+import { sampleProducts } from '@/data/products';
+import { Product } from '@/types/product';
+import { useState } from 'react';
 
 export default function Workshop() {
   const { t } = useTranslation();
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleProductClick = (product: Product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const miniaturesProducts = sampleProducts.filter(p => p.category === 'miniatures');
+  const bestsellersProducts = sampleProducts.filter(p => p.category === 'bestsellers');
+  const newProducts = sampleProducts.filter(p => p.category === 'new');
 
   return (
     <>
@@ -75,17 +91,35 @@ export default function Workshop() {
         <div id="workshop-products" className="bg-white/80 rounded-lg p-8 mb-12">
           <h2 className="text-2xl font-semibold mb-4">{t('workshop.productsTitle')}</h2>
           <p className="text-muted-foreground mb-6">{t('workshop.productsDesc')}</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { title: t('workshop.miniatures'), desc: t('workshop.miniaturesDesc') },
-              { title: t('workshop.bestsellingModels'), desc: t('workshop.bestsellingModelsDesc') },
-              { title: t('workshop.new'), desc: t('workshop.newDesc') }
-            ].map((item, i) => (
-              <div key={i} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all hover:-translate-y-1">
-                <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
-                <p className="text-muted-foreground">{item.desc}</p>
+          
+          <div className="space-y-8">
+            {/* Miniatures */}
+            <div>
+              <h3 className="text-xl font-semibold mb-4">{t('workshop.miniatures')}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {miniaturesProducts.map((product) => (
+                  <ProductCard 
+                    key={product.id} 
+                    product={product} 
+                    onClick={() => handleProductClick(product)}
+                  />
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* New Products */}
+            <div>
+              <h3 className="text-xl font-semibold mb-4">{t('workshop.new')}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {newProducts.map((product) => (
+                  <ProductCard 
+                    key={product.id} 
+                    product={product} 
+                    onClick={() => handleProductClick(product)}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -93,16 +127,13 @@ export default function Workshop() {
         <div id="workshop-bestsellers" className="bg-white/80 rounded-lg p-8 mb-12">
           <h2 className="text-2xl font-semibold mb-4">{t('workshop.bestsellersTitle')}</h2>
           <p className="text-muted-foreground mb-6">{t('workshop.bestsellersDesc')}</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { title: t('workshop.bestsellingModels'), desc: t('workshop.bestsellingModelsDesc') },
-              { title: t('workshop.new'), desc: t('workshop.newDesc') },
-              { title: t('workshop.deals'), desc: t('workshop.dealsDesc') }
-            ].map((item, i) => (
-              <div key={i} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all hover:-translate-y-1">
-                <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
-                <p className="text-muted-foreground">{item.desc}</p>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {bestsellersProducts.map((product) => (
+              <ProductCard 
+                key={product.id} 
+                product={product} 
+                onClick={() => handleProductClick(product)}
+              />
             ))}
           </div>
         </div>
@@ -116,6 +147,12 @@ export default function Workshop() {
           </div>
         </div>
       </main>
+
+      <ProductModal 
+        product={selectedProduct}
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+      />
     </>
   );
 }
