@@ -3,12 +3,25 @@ import { StickySubmenu } from '@/components/StickySubmenu';
 import { PageNavButton } from '@/components/PageNavButton';
 import { PageSection } from '@/components/PageSection';
 import { BlogPostCard } from '@/components/BlogPostCard';
+import { SEO } from '@/components/SEO';
 import { useCMSPosts } from '@/hooks/useCMSPosts';
 import { CMS_CONFIG } from '@/config/cms';
 
 export default function Blog() {
   const { t } = useTranslation();
   const { posts, loading, error } = useCMSPosts(CMS_CONFIG);
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Charvy.cz - Články",
+    "description": "Články, tipy a tutoriály o 3D tisku, fotografování a kreativitě",
+    "url": "https://charvy.cz/blog",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Charvy.cz"
+    }
+  };
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -22,7 +35,13 @@ export default function Blog() {
 
   return (
     <>
-      <StickySubmenu 
+      <SEO 
+        title="Články"
+        description="Články, tipy a tutoriály o 3D tisku, fotografování, kreativitě a D&D. Objevte užitečné rady a inspiraci."
+        type="article"
+        structuredData={structuredData}
+      />
+      <StickySubmenu
         visible={true}
         sectionId="blog"
         variant="blog"

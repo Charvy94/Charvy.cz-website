@@ -34,7 +34,8 @@ export function ProductModal({ product, open, onOpenChange }: ProductModalProps)
           <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden">
             <img 
               src={product.images[currentImageIndex]} 
-              alt={`${product.name} - ${currentImageIndex + 1}`}
+              alt={`${product.name} - obrázek ${currentImageIndex + 1} z ${product.images.length}`}
+              loading="lazy"
               className="w-full h-full object-contain"
             />
             
@@ -43,21 +44,26 @@ export function ProductModal({ product, open, onOpenChange }: ProductModalProps)
                 <button
                   onClick={prevImage}
                   className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
+                  aria-label="Předchozí obrázek"
                 >
                   <ChevronLeft size={24} />
                 </button>
                 <button
                   onClick={nextImage}
                   className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
+                  aria-label="Další obrázek"
                 >
                   <ChevronRight size={24} />
                 </button>
                 
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2" role="tablist" aria-label="Indikátory obrázků">
                   {product.images.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
+                      role="tab"
+                      aria-label={`Zobrazit obrázek ${index + 1}`}
+                      aria-selected={index === currentImageIndex}
                       className={`w-2 h-2 rounded-full transition-all ${
                         index === currentImageIndex ? 'bg-white w-8' : 'bg-white/50'
                       }`}
@@ -70,16 +76,18 @@ export function ProductModal({ product, open, onOpenChange }: ProductModalProps)
 
           {/* Thumbnail Gallery */}
           {product.images.length > 1 && (
-            <div className="flex gap-2 overflow-x-auto">
+            <div className="flex gap-2 overflow-x-auto" role="list" aria-label="Náhledy obrázků">
               {product.images.map((image, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
+                  role="listitem"
+                  aria-label={`Zobrazit obrázek ${index + 1}`}
                   className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-all ${
                     index === currentImageIndex ? 'border-workshop-primary' : 'border-transparent'
                   }`}
                 >
-                  <img src={image} alt={`Thumbnail ${index + 1}`} className="w-full h-full object-cover" />
+                  <img src={image} alt={`Náhled ${index + 1}`} loading="lazy" className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>

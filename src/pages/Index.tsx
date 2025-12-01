@@ -2,9 +2,23 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Camera, Wrench, PenTool, Dices } from 'lucide-react';
+import { SEO } from '@/components/SEO';
 
 export default function Index() {
   const { t } = useTranslation();
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Charvy.cz",
+    "url": "https://charvy.cz",
+    "description": "Profesionální fotografování, 3D tisk workshop, články o kreativitě a D&D TTRPG server",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://charvy.cz/blog?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
 
   const cards = [
     { 
@@ -42,7 +56,13 @@ export default function Index() {
   ];
 
   return (
-    <main className="max-w-7xl mx-auto px-4 py-16">
+    <>
+      <SEO 
+        title={t('home.title')}
+        description={t('home.intro')}
+        structuredData={structuredData}
+      />
+      <main className="max-w-7xl mx-auto px-4 py-16">
       <div className="text-center mb-16 animate-fade-in">
         <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
           {t('home.title')}
@@ -86,5 +106,6 @@ export default function Index() {
         })}
       </div>
     </main>
+    </>
   );
 }

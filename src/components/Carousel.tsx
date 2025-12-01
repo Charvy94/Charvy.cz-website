@@ -33,6 +33,7 @@ export function Carousel({ images, title, description }: CarouselProps) {
             <img
               src={images[currentIndex]}
               alt={`${title} - slide ${currentIndex + 1}`}
+              loading="lazy"
               className="w-full h-full object-contain"
             />
           ) : (

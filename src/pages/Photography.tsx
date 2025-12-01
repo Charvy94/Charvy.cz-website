@@ -3,11 +3,25 @@ import { StickySubmenu } from '@/components/StickySubmenu';
 import { PageNavButton } from '@/components/PageNavButton';
 import { PageSection } from '@/components/PageSection';
 import { Carousel } from '@/components/Carousel';
+import { ContactForm } from '@/components/ContactForm';
+import { SEO } from '@/components/SEO';
 import { useState, useEffect } from 'react';
 
 export default function Photography() {
   const { t } = useTranslation();
   const [showGallerySubmenu, setShowGallerySubmenu] = useState(false);
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Charvy.cz - Fotografování",
+    "description": "Profesionální fotografování - rodinné focení, portréty, produktové foto, svatby",
+    "url": "https://charvy.cz/photography",
+    "image": "https://charvy.cz/photography-hero.jpg",
+    "priceRange": "500 Kč - 15000 Kč",
+    "areaServed": "CZ",
+    "serviceType": ["Photography", "Portrait Photography", "Wedding Photography", "Product Photography"]
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,7 +61,12 @@ export default function Photography() {
 
   return (
     <>
-      <StickySubmenu 
+      <SEO 
+        title="Fotografování"
+        description="Profesionální fotografování - rodinné focení od 2500 Kč, portréty od 1500 Kč, produktové foto od 500 Kč, svatby od 15000 Kč"
+        structuredData={structuredData}
+      />
+      <StickySubmenu
         visible={true}
         sectionId="photography"
         variant="photo"
@@ -161,7 +180,9 @@ export default function Photography() {
           title={t('photography.contactTitle')}
           description={t('photography.contactDesc')}
           variant="photo"
-        />
+        >
+          <ContactForm variant="photo" subject="Fotografování - Nová poptávka" />
+        </PageSection>
       </main>
     </>
   );
