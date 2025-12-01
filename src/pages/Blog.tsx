@@ -1,8 +1,25 @@
+import { useState, useEffect } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { StickySubmenu } from '@/components/StickySubmenu';
+import { CMSConfigPanel } from '@/components/CMSConfigPanel';
+import { BlogPostCard } from '@/components/BlogPostCard';
+import { useCMSPosts } from '@/hooks/useCMSPosts';
+import { CMSConfig, DEFAULT_CMS_CONFIG } from '@/types/blog';
+import { Button } from '@/components/ui/button';
+import { Settings } from 'lucide-react';
 
 export default function Blog() {
   const { t } = useTranslation();
+  const [showConfig, setShowConfig] = useState(false);
+  const [cmsConfig, setCMSConfig] = useState<CMSConfig>(DEFAULT_CMS_CONFIG);
+  const { posts, loading, error } = useCMSPosts(cmsConfig);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('cms-config');
+    if (saved) {
+      setCMSConfig(JSON.parse(saved));
+    }
+  }, []);
 
   return (
     <>
@@ -18,9 +35,23 @@ export default function Blog() {
       />
 
       <main className="max-w-7xl mx-auto px-4 py-8">
-        <div className="border-b-4 border-blog-accent pb-6 mb-8">
+        <div className="border-b-4 border-blog-accent pb-6 mb-8 flex justify-between items-center">
           <h1 className="text-4xl font-bold text-blog-primary">{t('blog.title')}</h1>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setShowConfig(!showConfig)}
+            title="CMS Settings"
+          >
+            <Settings className="h-4 w-4" />
+          </Button>
         </div>
+
+        {showConfig && (
+          <div className="mb-8">
+            <CMSConfigPanel config={cmsConfig} onConfigChange={setCMSConfig} />
+          </div>
+        )}
 
         {/* Navigation Buttons */}
         <div className="flex gap-4 mb-8 flex-wrap justify-center">
@@ -75,18 +106,52 @@ export default function Blog() {
         <div id="blog-articles" className="bg-white/80 rounded-lg p-8 mb-12">
           <h2 className="text-2xl font-semibold mb-4">{t('blog.articlesTitle')}</h2>
           <p className="text-muted-foreground mb-6">{t('blog.articlesDesc')}</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { title: t('blog.article1'), desc: t('blog.article1Desc') },
-              { title: t('blog.article2'), desc: t('blog.article2Desc') },
-              { title: t('blog.article3'), desc: t('blog.article3Desc') }
-            ].map((item, i) => (
-              <div key={i} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all hover:-translate-y-1">
-                <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
-                <p className="text-muted-foreground">{item.desc}</p>
+          
+          {loading && (
+            <div className="text-center py-8">
+              <p className="text-muted-foreground">Loading posts...</p>
+            </div>
+          )}
+
+          {error && (
+            <div className="text-center py-8">
+              <p className="text-destructive">Error: {error}</p>
+            </div>
+          )}
+
+          {!cmsConfig.enabled && !loading && (
+            <div className="text-center py-8">
+              <p className="text-muted-foreground mb-4">
+                Click the settings icon to configure your CMS integration
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {[
+                  { title: t('blog.article1'), desc: t('blog.article1Desc') },
+                  { title: t('blog.article2'), desc: t('blog.article2Desc') },
+                  { title: t('blog.article3'), desc: t('blog.article3Desc') }
+                ].map((item, i) => (
+                  <div key={i} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all hover:-translate-y-1">
+                    <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
+                    <p className="text-muted-foreground">{item.desc}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          )}
+
+          {cmsConfig.enabled && !loading && posts.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {posts.map((post) => (
+                <BlogPostCard key={post.id} post={post} />
+              ))}
+            </div>
+          )}
+
+          {cmsConfig.enabled && !loading && posts.length === 0 && !error && (
+            <div className="text-center py-8">
+              <p className="text-muted-foreground">No posts found</p>
+            </div>
+          )}
         </div>
 
         {/* Archive Subsection */}
