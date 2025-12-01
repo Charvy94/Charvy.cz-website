@@ -2,9 +2,18 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { StickySubmenu } from '@/components/StickySubmenu';
 import { PageNavButton } from '@/components/PageNavButton';
 import { PageSection } from '@/components/PageSection';
+import { SEO } from '@/components/SEO';
 
 export default function TTRPG() {
   const { t } = useTranslation();
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Charvy.cz - TTRPG D&D Server",
+    "description": "D&D 5E server s vlastními pravidly pro nadšence do stolních RPG her",
+    "url": "https://charvy.cz/ttrpg"
+  };
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -18,7 +27,12 @@ export default function TTRPG() {
 
   return (
     <>
-      <StickySubmenu 
+      <SEO 
+        title="TTRPG - D&D Server"
+        description="D&D 5E server s vlastními pravidly. Přidej se k 35+ hráčům a zahraj si epická dobrodružství v fantasy světě."
+        structuredData={structuredData}
+      />
+      <StickySubmenu
         visible={true}
         sectionId="ttrpg"
         variant="ttrpg"

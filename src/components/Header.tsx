@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Language } from '@/lib/translations';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export function Header() {
   const { language, setLanguage } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -29,12 +32,13 @@ export function Header() {
         <Link 
           to="/"
           className="text-xl font-bold tracking-widest hover:opacity-80 transition-opacity"
+          aria-label="Charvy.cz homepage"
         >
           Charvy.cz
         </Link>
 
-        <div className="hidden md:flex items-center gap-8">
-          <nav>
+        <div className="hidden md:flex items-center gap-6">
+          <nav aria-label="Main navigation">
             <ul className="flex gap-8">
               {navItems.map((item) => (
                 <li key={item.id}>
@@ -45,6 +49,7 @@ export function Header() {
                         ? 'border-primary-foreground'
                         : 'border-transparent hover:border-primary-foreground/50'
                     }`}
+                    aria-current={location.pathname === item.id ? 'page' : undefined}
                   >
                     {item.label}
                   </Link>
@@ -53,7 +58,17 @@ export function Header() {
             </ul>
           </nav>
 
-          <div className="flex gap-2 bg-white/10 p-2 rounded-md">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            className="text-primary-foreground hover:bg-white/10"
+            aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+          >
+            {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+          </Button>
+
+          <div className="flex gap-2 bg-white/10 p-2 rounded-md" role="group" aria-label="Language selection">
             {(['cs', 'en', 'de'] as Language[]).map((lang) => (
               <button
                 key={lang}
@@ -63,6 +78,8 @@ export function Header() {
                     ? 'bg-primary-foreground text-primary'
                     : 'hover:bg-white/20'
                 }`}
+                aria-label={`Switch to ${lang === 'cs' ? 'Czech' : lang === 'en' ? 'English' : 'German'}`}
+                aria-pressed={language === lang}
               >
                 {lang.toUpperCase()}
               </button>
@@ -73,15 +90,17 @@ export function Header() {
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="md:hidden p-2"
-          aria-label="Toggle menu"
+          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-menu"
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {mobileMenuOpen && (
-        <div className="md:hidden bg-primary border-t border-primary-foreground/20">
-          <nav className="py-4">
+        <div id="mobile-menu" className="md:hidden bg-primary border-t border-primary-foreground/20">
+          <nav aria-label="Mobile navigation" className="py-4">
             <ul>
               {navItems.map((item) => (
                 <li key={item.id}>
@@ -93,6 +112,7 @@ export function Header() {
                         ? 'bg-white/20'
                         : 'hover:bg-white/10'
                     }`}
+                    aria-current={location.pathname === item.id ? 'page' : undefined}
                   >
                     {item.label}
                   </Link>
@@ -100,20 +120,33 @@ export function Header() {
               ))}
             </ul>
           </nav>
-          <div className="flex justify-center gap-2 pb-4 px-6">
-            {(['cs', 'en', 'de'] as Language[]).map((lang) => (
-              <button
-                key={lang}
-                onClick={() => handleLanguageChange(lang)}
-                className={`w-16 px-3 py-2 rounded font-semibold transition-all ${
-                  language === lang
-                    ? 'bg-primary-foreground text-primary'
-                    : 'bg-white/10 hover:bg-white/20'
-                }`}
-              >
-                {lang.toUpperCase()}
-              </button>
-            ))}
+          <div className="flex justify-center gap-4 pb-4 px-6">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleTheme}
+              className="text-primary-foreground hover:bg-white/10"
+              aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+            >
+              {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+            </Button>
+            <div className="flex gap-2" role="group" aria-label="Language selection">
+              {(['cs', 'en', 'de'] as Language[]).map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => handleLanguageChange(lang)}
+                  className={`w-16 px-3 py-2 rounded font-semibold transition-all ${
+                    language === lang
+                      ? 'bg-primary-foreground text-primary'
+                      : 'bg-white/10 hover:bg-white/20'
+                  }`}
+                  aria-label={`Switch to ${lang === 'cs' ? 'Czech' : lang === 'en' ? 'English' : 'German'}`}
+                  aria-pressed={language === lang}
+                >
+                  {lang.toUpperCase()}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       )}

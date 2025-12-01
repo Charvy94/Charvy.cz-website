@@ -18,11 +18,12 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
   return (
     <Card className="hover:shadow-lg transition-all hover:-translate-y-1">
       {post.featuredImage && (
-        <img
-          src={post.featuredImage}
-          alt={post.title}
-          className="w-full h-48 object-cover rounded-t-lg"
-        />
+          <img
+            src={post.featuredImage}
+            alt={post.title}
+            loading="lazy"
+            className="w-full h-48 object-cover rounded-t-lg"
+          />
       )}
       <CardHeader>
         <CardTitle className="line-clamp-2">{post.title}</CardTitle>

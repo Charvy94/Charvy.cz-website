@@ -4,6 +4,8 @@ import { PageNavButton } from '@/components/PageNavButton';
 import { PageSection } from '@/components/PageSection';
 import { ProductCard } from '@/components/ProductCard';
 import { ProductModal } from '@/components/ProductModal';
+import { ContactForm } from '@/components/ContactForm';
+import { SEO } from '@/components/SEO';
 import { sampleProducts } from '@/data/products';
 import { Product } from '@/types/product';
 import { useState } from 'react';
@@ -12,6 +14,24 @@ export default function Workshop() {
   const { t } = useTranslation();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "Charvy.cz - 3D Tisk Workshop",
+    "description": "Ručně vytvořené 3D modely a miniaturky pro stolní hry",
+    "url": "https://charvy.cz/workshop",
+    "image": "https://charvy.cz/workshop-hero.jpg",
+    "offers": sampleProducts.map(product => ({
+      "@type": "Offer",
+      "name": product.name,
+      "description": product.shortDescription,
+      "price": product.price,
+      "priceCurrency": "CZK",
+      "availability": "https://schema.org/InStock",
+      "url": `https://charvy.cz/workshop#${product.id}`
+    }))
+  };
 
   const handleProductClick = (product: Product) => {
     setSelectedProduct(product);
@@ -30,7 +50,13 @@ export default function Workshop() {
 
   return (
     <>
-      <StickySubmenu 
+      <SEO 
+        title="3D Tisk Workshop"
+        description="Ručně vytvořené 3D modely, miniaturky pro D&D a další stolní hry. Vysoce kvalitní 3D tisk na zakázku."
+        type="product"
+        structuredData={structuredData}
+      />
+      <StickySubmenu
         visible={true}
         sectionId="workshop"
         variant="workshop"
@@ -110,9 +136,7 @@ export default function Workshop() {
           description={t('workshop.orderDesc')}
           variant="workshop"
         >
-          <div className="bg-card p-8 rounded-xl border-2 border-workshop-primary/30 shadow-lg">
-            <p className="text-foreground text-lg font-medium">{t('workshop.orderEmail')}</p>
-          </div>
+          <ContactForm variant="workshop" subject="Workshop - Objednávka nebo poptávka" />
         </PageSection>
       </main>
 
