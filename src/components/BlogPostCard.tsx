@@ -1,6 +1,7 @@
 import { BlogPost } from '@/types/blog';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import DOMPurify from 'dompurify';
 
 interface BlogPostCardProps {
   post: BlogPost;
@@ -8,12 +9,18 @@ interface BlogPostCardProps {
 
 export function BlogPostCard({ post }: BlogPostCardProps) {
   const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString('en-US', {
+    return new Date(date).toLocaleDateString('cs-CZ', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     });
   };
+
+  // Sanitize HTML to prevent XSS attacks
+  const sanitizedExcerpt = DOMPurify.sanitize(post.excerpt, {
+    ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u'],
+    ALLOWED_ATTR: [],
+  });
 
   return (
     <Card className="hover:shadow-lg transition-all hover:-translate-y-1">
@@ -34,7 +41,7 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
       <CardContent>
         <div
           className="text-muted-foreground line-clamp-3 mb-4"
-          dangerouslySetInnerHTML={{ __html: post.excerpt }}
+          dangerouslySetInnerHTML={{ __html: sanitizedExcerpt }}
         />
         {(post.categories.length > 0 || post.tags.length > 0) && (
           <div className="flex flex-wrap gap-2">

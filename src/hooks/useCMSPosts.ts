@@ -2,6 +2,39 @@ import { useState, useEffect } from 'react';
 import { BlogPost, CMSConfig } from '@/types/blog';
 import { useToast } from '@/hooks/use-toast';
 
+interface CMSResponse {
+  posts: BlogPost[];
+  error?: string;
+}
+
+interface WordPressPost {
+  id: number;
+  title: { rendered: string };
+  content: { rendered: string };
+  excerpt: { rendered: string };
+  date: string;
+  slug: string;
+  _embedded?: {
+    author?: Array<{ name: string }>;
+    'wp:featuredmedia'?: Array<{ source_url: string }>;
+    'wp:term'?: Array<Array<{ name: string }>>;
+  };
+}
+
+interface JoomlaPost {
+  id: number;
+  title: string;
+  fulltext?: string;
+  introtext: string;
+  created: string;
+  created_by_alias?: string;
+  alias: string;
+  images?: { image_fulltext?: string };
+  catid?: number;
+  category_title?: string;
+  tags?: { tags?: Array<{ title: string }> };
+}
+
 export function useCMSPosts(config: CMSConfig) {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(false);
@@ -35,8 +68,13 @@ export function useCMSPosts(config: CMSConfig) {
       } catch (err) {
         const message = err instanceof Error ? err.message : 'Unknown error';
         setError(message);
+        
+        if (process.env.NODE_ENV === 'development') {
+          console.error('CMS fetch error:', err);
+        }
+        
         toast({
-          title: 'Error fetching posts',
+          title: 'Chyba načítání článků',
           description: message,
           variant: 'destructive',
         });
@@ -46,14 +84,14 @@ export function useCMSPosts(config: CMSConfig) {
     };
 
     fetchPosts();
-  }, [config, toast]);
+  }, [config.enabled, config.apiUrl, config.type, toast]);
 
   return { posts, loading, error };
 }
 
-function transformPosts(data: any[], type: 'wordpress' | 'joomla'): BlogPost[] {
+function transformPosts(data: WordPressPost[] | JoomlaPost[], type: 'wordpress' | 'joomla'): BlogPost[] {
   if (type === 'wordpress') {
-    return data.map((post) => ({
+    return (data as WordPressPost[]).map((post) => ({
       id: post.id,
       title: post.title.rendered,
       content: post.content.rendered,
@@ -61,13 +99,13 @@ function transformPosts(data: any[], type: 'wordpress' | 'joomla'): BlogPost[] {
       date: post.date,
       author: post._embedded?.author?.[0]?.name || 'Unknown',
       featuredImage: post._embedded?.['wp:featuredmedia']?.[0]?.source_url,
-      categories: post._embedded?.['wp:term']?.[0]?.map((cat: any) => cat.name) || [],
-      tags: post._embedded?.['wp:term']?.[1]?.map((tag: any) => tag.name) || [],
+      categories: post._embedded?.['wp:term']?.[0]?.map((cat) => cat.name) || [],
+      tags: post._embedded?.['wp:term']?.[1]?.map((tag) => tag.name) || [],
       slug: post.slug,
     }));
   } else {
     // Joomla transformation
-    return data.map((post) => ({
+    return (data as JoomlaPost[]).map((post) => ({
       id: post.id,
       title: post.title,
       content: post.fulltext || post.introtext,
@@ -75,8 +113,8 @@ function transformPosts(data: any[], type: 'wordpress' | 'joomla'): BlogPost[] {
       date: post.created,
       author: post.created_by_alias || 'Unknown',
       featuredImage: post.images?.image_fulltext,
-      categories: post.catid ? [post.category_title] : [],
-      tags: post.tags?.tags?.map((tag: any) => tag.title) || [],
+      categories: post.catid ? [post.category_title || ''] : [],
+      tags: post.tags?.tags?.map((tag) => tag.title) || [],
       slug: post.alias,
     }));
   }
