@@ -44,9 +44,9 @@ All colors MUST be HSL.
     --photo-light: 180 50% 97%;
 
     /* Workshop theme colors */
-    --workshop-primary: 221 83% 32%;
-    --workshop-secondary: 24 95% 53%;
-    --workshop-light: 43 100% 90%;
+    --workshop-primary: 24 95% 53%;
+    --workshop-secondary: 14 80% 45%;
+    --workshop-light: 43 100% 95%;
 
     /* Blog theme colors */
     --blog-primary: 210 11% 15%;
@@ -57,6 +57,21 @@ All colors MUST be HSL.
     --ttrpg-primary: 14 80% 26%;
     --ttrpg-secondary: 0 84% 51%;
     --ttrpg-light: 0 86% 97%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--secondary)) 100%);
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px -2px hsl(var(--primary) / 0.1);
+    --shadow-md: 0 4px 16px -4px hsl(var(--primary) / 0.15);
+    --shadow-lg: 0 8px 32px -8px hsl(var(--primary) / 0.2);
+    --shadow-glow: 0 0 24px hsl(var(--accent) / 0.3);
+    
+    /* Transitions */
+    --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
@@ -96,6 +111,10 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-playfair;
   }
 }
