@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Camera, Wrench, PenTool, Dices } from 'lucide-react';
+import { SocialLinks } from '@/components/SocialLinks';
 
 export function Footer() {
   const { t } = useTranslation();
@@ -61,6 +62,11 @@ export function Footer() {
               </Link>
             </nav>
           </div>
+        </div>
+        
+        {/* Social Media */}
+        <div className="flex justify-center my-8">
+          <SocialLinks type="personal" variant="compact" />
         </div>
         
         {/* Bottom Bar */}
