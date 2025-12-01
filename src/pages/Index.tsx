@@ -71,6 +71,18 @@ export default function Index() {
           {t('home.intro')}
         </p>
       </div>
+
+      {/* Development Notice */}
+      <div className="mb-12 max-w-4xl mx-auto animate-fade-in">
+        <div className="bg-amber-500/10 border-2 border-amber-500/30 rounded-lg p-6 backdrop-blur-sm">
+          <h2 className="text-xl md:text-2xl font-bold mb-3 text-amber-600 dark:text-amber-400">
+            {t('home.devNotice')}
+          </h2>
+          <p className="text-muted-foreground leading-relaxed">
+            {t('home.devNoticeDesc')}
+          </p>
+        </div>
+      </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
         {cards.map((card, index) => {
