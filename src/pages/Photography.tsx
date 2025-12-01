@@ -45,6 +45,7 @@ export default function Photography() {
           { id: 'contact', label: t('photography.contact') }
         ]}
         themeColor="hsl(180, 47%, 50%)"
+        forceVisible={showGallerySubmenu}
       />
 
       {showGallerySubmenu && (
