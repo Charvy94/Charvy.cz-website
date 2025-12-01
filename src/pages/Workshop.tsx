@@ -16,10 +16,6 @@ export default function Workshop() {
     setIsModalOpen(true);
   };
 
-  const miniaturesProducts = sampleProducts.filter(p => p.category === 'miniatures');
-  const bestsellersProducts = sampleProducts.filter(p => p.category === 'bestsellers');
-  const newProducts = sampleProducts.filter(p => p.category === 'new');
-
   return (
     <>
       <StickySubmenu 
@@ -92,34 +88,14 @@ export default function Workshop() {
           <h2 className="text-2xl font-semibold mb-4">{t('workshop.productsTitle')}</h2>
           <p className="text-muted-foreground mb-6">{t('workshop.productsDesc')}</p>
           
-          <div className="space-y-8">
-            {/* Miniatures */}
-            <div>
-              <h3 className="text-xl font-semibold mb-4">{t('workshop.miniatures')}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {miniaturesProducts.map((product) => (
-                  <ProductCard 
-                    key={product.id} 
-                    product={product} 
-                    onClick={() => handleProductClick(product)}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* New Products */}
-            <div>
-              <h3 className="text-xl font-semibold mb-4">{t('workshop.new')}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {newProducts.map((product) => (
-                  <ProductCard 
-                    key={product.id} 
-                    product={product} 
-                    onClick={() => handleProductClick(product)}
-                  />
-                ))}
-              </div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sampleProducts.map((product) => (
+              <ProductCard 
+                key={product.id} 
+                product={product} 
+                onClick={() => handleProductClick(product)}
+              />
+            ))}
           </div>
         </div>
 
@@ -128,7 +104,7 @@ export default function Workshop() {
           <h2 className="text-2xl font-semibold mb-4">{t('workshop.bestsellersTitle')}</h2>
           <p className="text-muted-foreground mb-6">{t('workshop.bestsellersDesc')}</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {bestsellersProducts.map((product) => (
+            {sampleProducts.filter(p => p.category === 'bestsellers').map((product) => (
               <ProductCard 
                 key={product.id} 
                 product={product} 
