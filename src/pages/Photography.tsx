@@ -5,6 +5,7 @@ import { PageSection } from '@/components/PageSection';
 import { Carousel } from '@/components/Carousel';
 import { ContactForm } from '@/components/ContactForm';
 import { SEO } from '@/components/SEO';
+import { DevAlert } from '@/components/DevAlert';
 import { useState, useEffect } from 'react';
 
 export default function Photography() {
@@ -113,6 +114,9 @@ export default function Photography() {
             <p className="text-white/90 text-xl max-w-2xl">Zachycuji okamžiky, které vyprávějí příběhy</p>
           </div>
         </div>
+
+        {/* Development Alert */}
+        <DevAlert />
 
         {/* Navigation Buttons */}
         <div className="flex gap-4 mb-12 flex-wrap justify-center animate-slide-up">

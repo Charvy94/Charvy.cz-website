@@ -4,6 +4,7 @@ import { PageNavButton } from '@/components/PageNavButton';
 import { PageSection } from '@/components/PageSection';
 import { BlogPostCard } from '@/components/BlogPostCard';
 import { SEO } from '@/components/SEO';
+import { DevAlert } from '@/components/DevAlert';
 import { useCMSPosts } from '@/hooks/useCMSPosts';
 import { CMS_CONFIG } from '@/config/cms';
 
@@ -64,6 +65,9 @@ export default function Blog() {
             <p className="text-white/90 text-xl max-w-2xl">Myšlenky, nápady a příběhy ze světa kreativity</p>
           </div>
         </div>
+
+        {/* Development Alert */}
+        <DevAlert />
 
         {/* Navigation Buttons */}
         <div className="flex gap-4 mb-12 flex-wrap justify-center animate-slide-up">

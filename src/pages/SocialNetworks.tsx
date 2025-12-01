@@ -1,5 +1,6 @@
 import { SEO } from '@/components/SEO';
 import { useTranslation } from '@/hooks/useTranslation';
+import { DevAlert } from '@/components/DevAlert';
 import { Facebook, Instagram, Twitter, Youtube, Linkedin, Github } from 'lucide-react';
 
 export default function SocialNetworks() {
@@ -27,9 +28,12 @@ export default function SocialNetworks() {
             {t('socialNetworks.title')}
           </h1>
           
-          <p className="text-xl text-muted-foreground mb-12">
+          <p className="text-xl text-muted-foreground mb-8">
             {t('socialNetworks.description')}
           </p>
+
+          {/* Development Alert */}
+          <DevAlert />
 
           <div className="bg-card border border-border rounded-lg p-12 shadow-lg">
             <p className="text-muted-foreground mb-8">
