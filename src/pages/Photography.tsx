@@ -1,9 +1,32 @@
 import { useTranslation } from '@/hooks/useTranslation';
 import { StickySubmenu } from '@/components/StickySubmenu';
 import { Carousel } from '@/components/Carousel';
+import { useState, useEffect } from 'react';
 
 export default function Photography() {
   const { t } = useTranslation();
+  const [showGallerySubmenu, setShowGallerySubmenu] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const gallerySection = document.getElementById('photography-gallery');
+      const aboutSection = document.getElementById('photography-about');
+      
+      if (gallerySection && aboutSection) {
+        const galleryRect = gallerySection.getBoundingClientRect();
+        const aboutRect = aboutSection.getBoundingClientRect();
+        
+        // Show gallery submenu when inside gallery section
+        const isInGallery = galleryRect.top < 200 && aboutRect.top > 200;
+        setShowGallerySubmenu(isInGallery);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial position
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const placeholderImages = [
     'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800',
@@ -20,6 +43,18 @@ export default function Photography() {
           { id: 'gallery', label: t('photography.gallery') },
           { id: 'about', label: t('photography.about') },
           { id: 'contact', label: t('photography.contact') }
+        ]}
+        themeColor="hsl(180, 47%, 50%)"
+      />
+
+      <StickySubmenu 
+        visible={showGallerySubmenu}
+        sectionId="photography-gallery"
+        categories={[
+          { id: 'family', label: t('photography.family') },
+          { id: 'portraits', label: t('photography.portraits') },
+          { id: 'products', label: t('photography.products') },
+          { id: 'weddings', label: t('photography.weddings') }
         ]}
         themeColor="hsl(180, 47%, 50%)"
       />
@@ -82,29 +117,37 @@ export default function Photography() {
         <div id="photography-gallery" className="bg-white/80 rounded-lg p-8 mb-12">
           <h2 className="text-2xl font-semibold mb-6">{t('photography.gallery')}</h2>
           
-          <Carousel
-            images={placeholderImages}
-            title={t('photography.family')}
-            description={t('photography.familyDesc')}
-          />
+          <div id="photography-gallery-family" className="mb-8">
+            <Carousel
+              images={placeholderImages}
+              title={t('photography.family')}
+              description={t('photography.familyDesc')}
+            />
+          </div>
           
-          <Carousel
-            images={placeholderImages}
-            title={t('photography.portraits')}
-            description={t('photography.portraitsDesc')}
-          />
+          <div id="photography-gallery-portraits" className="mb-8">
+            <Carousel
+              images={placeholderImages}
+              title={t('photography.portraits')}
+              description={t('photography.portraitsDesc')}
+            />
+          </div>
           
-          <Carousel
-            images={placeholderImages}
-            title={t('photography.products')}
-            description={t('photography.productsDesc')}
-          />
+          <div id="photography-gallery-products" className="mb-8">
+            <Carousel
+              images={placeholderImages}
+              title={t('photography.products')}
+              description={t('photography.productsDesc')}
+            />
+          </div>
           
-          <Carousel
-            images={placeholderImages}
-            title={t('photography.weddings')}
-            description={t('photography.weddingsDesc')}
-          />
+          <div id="photography-gallery-weddings" className="mb-8">
+            <Carousel
+              images={placeholderImages}
+              title={t('photography.weddings')}
+              description={t('photography.weddingsDesc')}
+            />
+          </div>
         </div>
 
         {/* About Subsection */}
