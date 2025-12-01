@@ -49,9 +49,9 @@ All colors MUST be HSL.
     --workshop-light: 43 100% 95%;
 
     /* Blog theme colors */
-    --blog-primary: 210 11% 15%;
-    --blog-accent: 180 47% 50%;
-    --blog-light: 210 20% 98%;
+    --blog-primary: 220 70% 25%;
+    --blog-accent: 220 90% 55%;
+    --blog-light: 220 70% 97%;
 
     /* TTRPG theme colors */
     --ttrpg-primary: 14 80% 26%;
@@ -129,9 +129,9 @@ All colors MUST be HSL.
     --workshop-light: 43 50% 15%;
 
     /* Blog theme - dark mode */
-    --blog-primary: 210 11% 85%;
-    --blog-accent: 180 47% 50%;
-    --blog-light: 210 20% 15%;
+    --blog-primary: 220 70% 80%;
+    --blog-accent: 220 90% 65%;
+    --blog-light: 220 50% 12%;
 
     /* TTRPG theme - dark mode */
     --ttrpg-primary: 14 80% 70%;
