@@ -14,6 +14,8 @@ export const translations = {
     home: {
       title: "Vítej na mém webu",
       intro: "Zde najdeš všechno o mých projektech a aktivitách",
+      devNotice: "🚧 Tyto stránky jsou stále ve vývoji",
+      devNoticeDesc: "Prosím mějte na paměti, že můžete narazit na zástupné texty, fotografie a ceny. Formuláře, produkty a služby zatím nejsou v provozu. Aktuálně neposkytujeme žádné služby ani e-shop.",
       photoCard: "Fotografování",
       photoDesc: "Podívej se na moje nejlepší fotky",
       workshopCard: "3D tisk Workshop",
@@ -183,6 +185,8 @@ export const translations = {
     home: {
       title: "Welcome to my website",
       intro: "Here you'll find everything about my projects and activities",
+      devNotice: "🚧 This website is still under development",
+      devNoticeDesc: "Please be aware that you may encounter placeholder texts, photos, and prices. Forms, products, and services are not yet operational. We are not currently providing any services or running an online shop.",
       photoCard: "Photography",
       photoDesc: "Check out my best photos",
       workshopCard: "3D Print Workshop",
@@ -352,6 +356,8 @@ export const translations = {
     home: {
       title: "Willkommen auf meiner Website",
       intro: "Hier findest du alles über meine Projekte und Aktivitäten",
+      devNotice: "🚧 Diese Website befindet sich noch in der Entwicklung",
+      devNoticeDesc: "Bitte beachten Sie, dass Sie auf Platzhaltertexte, Fotos und Preise stoßen können. Formulare, Produkte und Dienstleistungen sind noch nicht in Betrieb. Wir bieten derzeit keine Dienstleistungen an und betreiben keinen Online-Shop.",
       photoCard: "Fotografieren",
       photoDesc: "Schau dir meine besten Fotos an",
       workshopCard: "3D-Druck-Workshop",
