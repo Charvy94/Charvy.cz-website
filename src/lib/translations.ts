@@ -27,7 +27,7 @@ export const translations = {
     photography: {
       title: "Fotografie",
       gallery: "Galerie",
-      about: "O mně",
+      about: "Ceník",
       contact: "Kontakt",
       family: "Rodinné focení",
       familyDesc: "Zachyťte vzpomínky s celou rodinou",
@@ -37,8 +37,8 @@ export const translations = {
       productsDesc: "Focení produktů pro e-shopy",
       weddings: "Svatby",
       weddingsDesc: "Váš velký den zachycen dokonale",
-      aboutTitle: "O mně",
-      aboutDesc: "Jsem fotograf se specializací na rodinné fotografie a portréty. Rád zachycuji okamžiky, které vyprávějí příběhy.",
+      aboutTitle: "Ceník",
+      aboutDesc: "Rodinné focení: od 2 500 Kč (1-2 hodiny, 20+ upravených fotek) • Portréty: od 1 500 Kč (30-60 minut, 10+ upravených fotek) • Produktové foto: od 500 Kč/produkt • Svatby: od 15 000 Kč (celý den, 300+ fotek, video sestřih). Ceny zahrnují profesionální úpravu a online galerii. Kontaktujte mě pro přesnou nabídku.",
       contactTitle: "Kontaktujte mě",
       contactDesc: "Máte zájem o focení? Napište mi!"
     },
@@ -142,7 +142,7 @@ export const translations = {
     photography: {
       title: "Photography",
       gallery: "Gallery",
-      about: "About Me",
+      about: "Price List",
       contact: "Contact",
       family: "Family Photography",
       familyDesc: "Capture memories with the whole family",
@@ -152,8 +152,8 @@ export const translations = {
       productsDesc: "Product photography for e-shops",
       weddings: "Weddings",
       weddingsDesc: "Your big day captured perfectly",
-      aboutTitle: "About Me",
-      aboutDesc: "I'm a photographer specializing in family photography and portraits. I love capturing moments that tell stories.",
+      aboutTitle: "Price List",
+      aboutDesc: "Family Photography: from $120 (1-2 hours, 20+ edited photos) • Portraits: from $80 (30-60 minutes, 10+ edited photos) • Product Photography: from $25/product • Weddings: from $800 (full day, 300+ photos, video highlights). All prices include professional editing and online gallery. Contact me for a custom quote.",
       contactTitle: "Contact Me",
       contactDesc: "Interested in a photoshoot? Write to me!"
     },
@@ -257,7 +257,7 @@ export const translations = {
     photography: {
       title: "Fotografie",
       gallery: "Galerie",
-      about: "Über Mich",
+      about: "Preisliste",
       contact: "Kontakt",
       family: "Familienfotografie",
       familyDesc: "Halte Erinnerungen mit der ganzen Familie fest",
@@ -267,8 +267,8 @@ export const translations = {
       productsDesc: "Produktfotografie für E-Shops",
       weddings: "Hochzeiten",
       weddingsDesc: "Ihr großer Tag perfekt festgehalten",
-      aboutTitle: "Über Mich",
-      aboutDesc: "Ich bin Fotograf mit Spezialisierung auf Familienfotografie und Porträts. Ich liebe es, Momente festzuhalten, die Geschichten erzählen.",
+      aboutTitle: "Preisliste",
+      aboutDesc: "Familienfotografie: ab 120 € (1-2 Stunden, 20+ bearbeitete Fotos) • Porträts: ab 80 € (30-60 Minuten, 10+ bearbeitete Fotos) • Produktfotografie: ab 25 €/Produkt • Hochzeiten: ab 800 € (ganzer Tag, 300+ Fotos, Video-Highlights). Alle Preise beinhalten professionelle Bearbeitung und Online-Galerie. Kontaktieren Sie mich für ein individuelles Angebot.",
       contactTitle: "Kontaktiere Mich",
       contactDesc: "Interesse an einem Fotoshooting? Schreib mir!"
     },
