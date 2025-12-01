@@ -17,6 +17,7 @@ import Workshop from "./pages/Workshop";
 import Blog from "./pages/Blog";
 import TTRPG from "./pages/TTRPG";
 import Legal from "./pages/Legal";
+import SocialNetworks from "./pages/SocialNetworks";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -52,6 +53,7 @@ const App = () => (
                         <Route path="/blog" element={<Blog />} />
                         <Route path="/ttrpg" element={<TTRPG />} />
                         <Route path="/legal/:section?" element={<Legal />} />
+                        <Route path="/social" element={<SocialNetworks />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
                     </ErrorBoundary>

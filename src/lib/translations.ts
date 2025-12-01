@@ -163,6 +163,11 @@ export const translations = {
     },
     footer: {
       copy: "© 2025 Můj Web. Všechna práva vyhrazena"
+    },
+    socialNetworks: {
+      title: 'Sociální sítě',
+      description: 'Sledujte mě na sociálních sítích',
+      comingSoon: 'Brzy zde najdete odkazy na všechny moje sociální sítě.',
     }
   },
   en: {
@@ -327,6 +332,11 @@ export const translations = {
     },
     footer: {
       copy: "© 2025 My Website. All rights reserved"
+    },
+    socialNetworks: {
+      title: 'Social Networks',
+      description: 'Follow me on social media',
+      comingSoon: 'Links to all my social networks will be available here soon.',
     }
   },
   de: {
@@ -491,6 +501,11 @@ export const translations = {
     },
     footer: {
       copy: "© 2025 Meine Website. Alle Rechte vorbehalten"
+    },
+    socialNetworks: {
+      title: 'Soziale Netzwerke',
+      description: 'Folgen Sie mir in sozialen Medien',
+      comingSoon: 'Links zu all meinen sozialen Netzwerken werden hier bald verfügbar sein.',
     }
   }
 };
