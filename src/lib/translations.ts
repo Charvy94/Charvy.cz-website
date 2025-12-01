@@ -7,7 +7,7 @@ export const translations = {
       home: "Domů",
       photography: "Fotografování",
       workshop: "Workshop",
-      blog: "Blog",
+      blog: "Články",
       ttrpg: "TLotO",
       legal: "Právní"
     },
@@ -18,7 +18,7 @@ export const translations = {
       photoDesc: "Podívej se na moje nejlepší fotky",
       workshopCard: "3D tisk Workshop",
       workshopDesc: "Prodej 3D modelů a tiskárny",
-      blogCard: "Blog",
+      blogCard: "Články",
       blogDesc: "Články, tipy, tutoriály",
       ttrpgCard: "The Legends of the Omniverse",
       ttrpgDesc: "Tabulkové RPG hry",
@@ -64,7 +64,7 @@ export const translations = {
       orderEmail: "Pošli mi svůj návrh na email a já se ti ozvu s nabídkou!"
     },
     blog: {
-      title: "Blog",
+      title: "Články",
       articles: "Články",
       archive: "Archiv",
       about: "O blogu",
@@ -122,7 +122,7 @@ export const translations = {
       home: "Home",
       photography: "Photography",
       workshop: "Workshop",
-      blog: "Blog",
+      blog: "Articles",
       ttrpg: "TLotO",
       legal: "Legal"
     },
@@ -133,7 +133,7 @@ export const translations = {
       photoDesc: "Check out my best photos",
       workshopCard: "3D Print Workshop",
       workshopDesc: "3D models and printer sales",
-      blogCard: "Blog",
+      blogCard: "Articles",
       blogDesc: "Articles, tips, tutorials",
       ttrpgCard: "The Legends of the Omniverse",
       ttrpgDesc: "Tabletop RPG games",
@@ -179,7 +179,7 @@ export const translations = {
       orderEmail: "Send me your design via email and I'll get back to you with an offer!"
     },
     blog: {
-      title: "Blog",
+      title: "Articles",
       articles: "Articles",
       archive: "Archive",
       about: "About Blog",
@@ -237,7 +237,7 @@ export const translations = {
       home: "Startseite",
       photography: "Fotografieren",
       workshop: "Workshop",
-      blog: "Blog",
+      blog: "Artikel",
       ttrpg: "TLotO",
       legal: "Rechtliches"
     },
@@ -248,7 +248,7 @@ export const translations = {
       photoDesc: "Schau dir meine besten Fotos an",
       workshopCard: "3D-Druck-Workshop",
       workshopDesc: "3D-Modelle und Druckerverkauf",
-      blogCard: "Blog",
+      blogCard: "Artikel",
       blogDesc: "Artikel, Tipps, Anleitungen",
       ttrpgCard: "The Legends of the Omniverse",
       ttrpgDesc: "Tischrollenspiele",
@@ -294,7 +294,7 @@ export const translations = {
       orderEmail: "Schick mir dein Design per E-Mail und ich melde mich mit einem Angebot!"
     },
     blog: {
-      title: "Blog",
+      title: "Artikel",
       articles: "Artikel",
       archive: "Archiv",
       about: "Über Blog",
