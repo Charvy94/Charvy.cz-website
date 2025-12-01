@@ -5,7 +5,7 @@ export const translations = {
     toTop: "Nahoru",
     nav: {
       home: "Domů",
-      photography: "Fotografie",
+      photography: "Fotografování",
       workshop: "Workshop",
       blog: "Blog",
       ttrpg: "TLotO",
@@ -14,7 +14,7 @@ export const translations = {
     home: {
       title: "Vítej na mém webu",
       intro: "Zde najdeš všechno o mých projektech a aktivitách",
-      photoCard: "Fotografie",
+      photoCard: "Fotografování",
       photoDesc: "Podívej se na moje nejlepší fotky",
       workshopCard: "3D tisk Workshop",
       workshopDesc: "Prodej 3D modelů a tiskárny",
@@ -25,7 +25,7 @@ export const translations = {
       explore: "Prozkoumat"
     },
     photography: {
-      title: "Fotografie",
+      title: "Fotografování",
       gallery: "Galerie",
       about: "Ceník",
       contact: "Kontakt",
@@ -235,7 +235,7 @@ export const translations = {
     toTop: "Nach Oben",
     nav: {
       home: "Startseite",
-      photography: "Fotografie",
+      photography: "Fotografieren",
       workshop: "Workshop",
       blog: "Blog",
       ttrpg: "TLotO",
@@ -244,7 +244,7 @@ export const translations = {
     home: {
       title: "Willkommen auf meiner Website",
       intro: "Hier findest du alles über meine Projekte und Aktivitäten",
-      photoCard: "Fotografie",
+      photoCard: "Fotografieren",
       photoDesc: "Schau dir meine besten Fotos an",
       workshopCard: "3D-Druck-Workshop",
       workshopDesc: "3D-Modelle und Druckerverkauf",
@@ -255,7 +255,7 @@ export const translations = {
       explore: "Erkunden"
     },
     photography: {
-      title: "Fotografie",
+      title: "Fotografieren",
       gallery: "Galerie",
       about: "Preisliste",
       contact: "Kontakt",
