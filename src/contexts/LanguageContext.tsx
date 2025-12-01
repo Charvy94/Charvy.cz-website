@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { Language } from '@/lib/translations';
+import { storage } from '@/utils/storage';
 
 interface LanguageContextType {
   language: Language;
@@ -10,13 +11,12 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>(() => {
-    const saved = localStorage.getItem('language');
-    return (saved as Language) || 'cs';
+    return storage.getLanguage();
   });
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem('language', lang);
+    storage.setLanguage(lang);
   };
 
   return (
