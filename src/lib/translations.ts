@@ -8,7 +8,7 @@ export const translations = {
       photography: "Fotografie",
       workshop: "Workshop",
       blog: "Blog",
-      ttrpg: "TTRPG",
+      ttrpg: "TLotO",
       legal: "Právní"
     },
     home: {
@@ -123,7 +123,7 @@ export const translations = {
       photography: "Photography",
       workshop: "Workshop",
       blog: "Blog",
-      ttrpg: "TTRPG",
+      ttrpg: "TLotO",
       legal: "Legal"
     },
     home: {
@@ -238,7 +238,7 @@ export const translations = {
       photography: "Fotografie",
       workshop: "Workshop",
       blog: "Blog",
-      ttrpg: "TTRPG",
+      ttrpg: "TLotO",
       legal: "Rechtliches"
     },
     home: {
