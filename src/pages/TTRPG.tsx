@@ -3,7 +3,6 @@ import { StickySubmenu } from '@/components/StickySubmenu';
 import { PageNavButton } from '@/components/PageNavButton';
 import { PageSection } from '@/components/PageSection';
 import { SEO } from '@/components/SEO';
-import { DevAlert } from '@/components/DevAlert';
 
 export default function TTRPG() {
   const { t } = useTranslation();
@@ -56,9 +55,6 @@ export default function TTRPG() {
             <p className="text-white/90 text-xl max-w-2xl">Vstupte do světa fantasy a dobrodružství</p>
           </div>
         </div>
-
-        {/* Development Alert */}
-        <DevAlert />
 
         {/* Navigation Buttons */}
         <div className="flex gap-4 mb-12 flex-wrap justify-center animate-slide-up">

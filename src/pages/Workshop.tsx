@@ -6,7 +6,6 @@ import { ProductCard } from '@/components/ProductCard';
 import { ProductModal } from '@/components/ProductModal';
 import { ContactForm } from '@/components/ContactForm';
 import { SEO } from '@/components/SEO';
-import { DevAlert } from '@/components/DevAlert';
 import { sampleProducts } from '@/data/products';
 import { Product } from '@/types/product';
 import { useState } from 'react';
@@ -80,9 +79,6 @@ export default function Workshop() {
             <p className="text-white/90 text-xl max-w-2xl">Ruční výroba miniatur a doplňků pro vaše herní dobrodružství</p>
           </div>
         </div>
-
-        {/* Development Alert */}
-        <DevAlert />
 
         {/* Navigation Buttons */}
         <div className="flex gap-4 mb-12 flex-wrap justify-center animate-slide-up">
