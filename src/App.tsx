@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
-import { AuthProvider } from "@/contexts/AuthContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -40,7 +39,6 @@ const App = () => (
             <Toaster />
             <Sonner />
             <LanguageProvider>
-              <AuthProvider>
               <BrowserRouter>
                 <ScrollToTop />
                 <SkipToContent />
@@ -63,7 +61,6 @@ const App = () => (
                   <Footer />
                 </div>
               </BrowserRouter>
-              </AuthProvider>
             </LanguageProvider>
           </TooltipProvider>
         </ThemeProvider>
