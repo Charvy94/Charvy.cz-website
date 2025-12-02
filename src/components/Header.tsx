@@ -2,16 +2,20 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Language } from '@/lib/translations';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, Moon, Sun, User, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import LoginModal from '@/components/LoginModal';
 
 export function Header() {
   const { language, setLanguage } = useLanguage();
   const { theme, toggleTheme } = useTheme();
+  const { user, isAuthenticated, logout } = useAuth();
   const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
   const location = useLocation();
 
   const handleLanguageChange = (lang: Language) => {
@@ -85,6 +89,31 @@ export function Header() {
               </button>
             ))}
           </div>
+
+          {isAuthenticated ? (
+            <div className="flex items-center gap-2">
+              <span className="text-sm">{user?.name}</span>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={logout}
+                className="text-primary-foreground hover:bg-white/10"
+                aria-label="Logout"
+              >
+                <LogOut size={20} />
+              </Button>
+            </div>
+          ) : (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setLoginModalOpen(true)}
+              className="text-primary-foreground hover:bg-white/10 gap-2"
+            >
+              <User size={18} />
+              Login
+            </Button>
+          )}
         </div>
 
         <button
@@ -130,7 +159,7 @@ export function Header() {
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </Button>
-            <div className="flex gap-2" role="group" aria-label="Language selection">
+          <div className="flex gap-2" role="group" aria-label="Language selection">
               {(['cs', 'en', 'de'] as Language[]).map((lang) => (
                 <button
                   key={lang}
@@ -147,9 +176,34 @@ export function Header() {
                 </button>
               ))}
             </div>
+            
+            {isAuthenticated ? (
+              <Button
+                variant="ghost"
+                onClick={logout}
+                className="text-primary-foreground hover:bg-white/10 gap-2 w-full justify-center"
+              >
+                <LogOut size={18} />
+                Logout ({user?.name})
+              </Button>
+            ) : (
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  setLoginModalOpen(true);
+                  setMobileMenuOpen(false);
+                }}
+                className="text-primary-foreground hover:bg-white/10 gap-2 w-full justify-center"
+              >
+                <User size={18} />
+                Login
+              </Button>
+            )}
           </div>
         </div>
       )}
+
+      <LoginModal open={loginModalOpen} onOpenChange={setLoginModalOpen} />
     </header>
   );
 }
