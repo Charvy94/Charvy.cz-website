@@ -1,5 +1,5 @@
-// Configure your PHP backend URL here
-const API_BASE_URL = '/api'; // Change this to your actual PHP backend URL, e.g., 'https://yourdomain.com/api'
+// PHP backend URL
+const API_BASE_URL = 'https://www.charvy.cz/api';
 
 interface RegisterData {
   username: string;
