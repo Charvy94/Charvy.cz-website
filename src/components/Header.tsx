@@ -1,21 +1,31 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { useTranslation } from '@/hooks/useTranslation';
+import { logoutUser } from '@/services/authApi';
 import { Language } from '@/lib/translations';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, Moon, Sun, LogIn, LogOut, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function Header() {
   const { language, setLanguage } = useLanguage();
   const { theme, toggleTheme } = useTheme();
+  const { isAuthenticated, user, logout } = useAuth();
   const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleLanguageChange = (lang: Language) => {
     setLanguage(lang);
+  };
+
+  const handleLogout = async () => {
+    await logoutUser();
+    logout();
+    navigate('/');
   };
 
   const navItems = [
@@ -85,6 +95,34 @@ export function Header() {
               </button>
             ))}
           </div>
+
+          {isAuthenticated ? (
+            <div className="flex items-center gap-2">
+              <Link
+                to="/dashboard"
+                className="flex items-center gap-2 px-3 py-1 rounded bg-white/10 hover:bg-white/20 transition-all"
+              >
+                <User size={18} />
+                <span className="font-medium">{user?.username}</span>
+              </Link>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleLogout}
+                className="text-primary-foreground hover:bg-white/10"
+              >
+                <LogOut size={18} className="mr-1" />
+                {t('auth.logout')}
+              </Button>
+            </div>
+          ) : (
+            <Link to="/auth">
+              <Button variant="ghost" size="sm" className="text-primary-foreground hover:bg-white/10">
+                <LogIn size={18} className="mr-1" />
+                {t('auth.login')}
+              </Button>
+            </Link>
+          )}
         </div>
 
         <button
@@ -120,33 +158,67 @@ export function Header() {
               ))}
             </ul>
           </nav>
-          <div className="flex justify-center gap-4 pb-4 px-6">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="text-primary-foreground hover:bg-white/10"
-              aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
-            >
-              {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
-            </Button>
-            <div className="flex gap-2" role="group" aria-label="Language selection">
-              {(['cs', 'en', 'de'] as Language[]).map((lang) => (
-                <button
-                  key={lang}
-                  onClick={() => handleLanguageChange(lang)}
-                  className={`w-16 px-3 py-2 rounded font-semibold transition-all ${
-                    language === lang
-                      ? 'bg-primary-foreground text-primary'
-                      : 'bg-white/10 hover:bg-white/20'
-                  }`}
-                  aria-label={`Switch to ${lang === 'cs' ? 'Czech' : lang === 'en' ? 'English' : 'German'}`}
-                  aria-pressed={language === lang}
-                >
-                  {lang.toUpperCase()}
-                </button>
-              ))}
+          <div className="flex flex-col gap-4 pb-4 px-6">
+            <div className="flex justify-center gap-4">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleTheme}
+                className="text-primary-foreground hover:bg-white/10"
+                aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+              >
+                {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+              </Button>
+              <div className="flex gap-2" role="group" aria-label="Language selection">
+                {(['cs', 'en', 'de'] as Language[]).map((lang) => (
+                  <button
+                    key={lang}
+                    onClick={() => handleLanguageChange(lang)}
+                    className={`w-16 px-3 py-2 rounded font-semibold transition-all ${
+                      language === lang
+                        ? 'bg-primary-foreground text-primary'
+                        : 'bg-white/10 hover:bg-white/20'
+                    }`}
+                    aria-label={`Switch to ${lang === 'cs' ? 'Czech' : lang === 'en' ? 'English' : 'German'}`}
+                    aria-pressed={language === lang}
+                  >
+                    {lang.toUpperCase()}
+                  </button>
+                ))}
+              </div>
             </div>
+            
+            {isAuthenticated ? (
+              <div className="flex justify-center gap-2">
+                <Link
+                  to="/dashboard"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2 px-4 py-2 rounded bg-white/10 hover:bg-white/20 transition-all"
+                >
+                  <User size={18} />
+                  <span className="font-medium">{user?.username}</span>
+                </Link>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    handleLogout();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-primary-foreground hover:bg-white/10"
+                >
+                  <LogOut size={18} className="mr-1" />
+                  {t('auth.logout')}
+                </Button>
+              </div>
+            ) : (
+              <Link to="/auth" onClick={() => setMobileMenuOpen(false)} className="flex justify-center">
+                <Button variant="ghost" size="sm" className="text-primary-foreground hover:bg-white/10">
+                  <LogIn size={18} className="mr-1" />
+                  {t('auth.login')}
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       )}
