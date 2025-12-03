@@ -84,9 +84,12 @@ export default function Photography() {
             <div className="flex gap-4 justify-center flex-wrap">
               {[
                 { id: 'family', label: t('photography.family') },
+                { id: 'weddings', label: t('photography.weddings') },
                 { id: 'portraits', label: t('photography.portraits') },
+                { id: 'nature', label: t('photography.nature') },
+                { id: 'nightsky', label: t('photography.nightsky') },
                 { id: 'products', label: t('photography.products') },
-                { id: 'weddings', label: t('photography.weddings') }
+                { id: 'sports', label: t('photography.sports') }
               ].map((item) => (
                 <PageNavButton
                   key={item.id}
@@ -141,11 +144,35 @@ export default function Photography() {
             />
           </div>
           
+          <div id="photography-gallery-weddings" className="mb-8">
+            <Carousel
+              images={placeholderImages}
+              title={t('photography.weddings')}
+              description={t('photography.weddingsDesc')}
+            />
+          </div>
+          
           <div id="photography-gallery-portraits" className="mb-8">
             <Carousel
               images={placeholderImages}
               title={t('photography.portraits')}
               description={t('photography.portraitsDesc')}
+            />
+          </div>
+          
+          <div id="photography-gallery-nature" className="mb-8">
+            <Carousel
+              images={placeholderImages}
+              title={t('photography.nature')}
+              description={t('photography.natureDesc')}
+            />
+          </div>
+          
+          <div id="photography-gallery-nightsky" className="mb-8">
+            <Carousel
+              images={placeholderImages}
+              title={t('photography.nightsky')}
+              description={t('photography.nightskyDesc')}
             />
           </div>
           
@@ -157,11 +184,11 @@ export default function Photography() {
             />
           </div>
           
-          <div id="photography-gallery-weddings" className="mb-8">
+          <div id="photography-gallery-sports" className="mb-8">
             <Carousel
               images={placeholderImages}
-              title={t('photography.weddings')}
-              description={t('photography.weddingsDesc')}
+              title={t('photography.sports')}
+              description={t('photography.sportsDesc')}
             />
           </div>
         </PageSection>
