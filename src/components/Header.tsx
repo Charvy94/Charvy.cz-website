@@ -47,9 +47,9 @@ export function Header() {
           Charvy.cz
         </Link>
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-6">
           <nav aria-label="Main navigation">
-            <ul className="flex gap-8">
+            <ul className="flex gap-6">
               {navItems.map((item) => (
                 <li key={item.id}>
                   <Link
@@ -127,7 +127,7 @@ export function Header() {
 
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2"
+          className="lg:hidden p-2"
           aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={mobileMenuOpen}
           aria-controls="mobile-menu"
@@ -137,7 +137,7 @@ export function Header() {
       </div>
 
       {mobileMenuOpen && (
-        <div id="mobile-menu" className="md:hidden bg-primary border-t border-primary-foreground/20">
+        <div id="mobile-menu" className="lg:hidden bg-primary border-t border-primary-foreground/20">
           <nav aria-label="Mobile navigation" className="py-4">
             <ul>
               {navItems.map((item) => (
