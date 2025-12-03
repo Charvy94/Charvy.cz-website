@@ -78,10 +78,11 @@ export default function Photography() {
         forceVisible={showGallerySubmenu}
       />
 
+      {/* Gallery category submenu - shows when scrolling through gallery */}
       {showGallerySubmenu && (
         <div className="fixed top-[120px] left-0 right-0 z-40 bg-card/95 backdrop-blur-md shadow-lg border-b-2 border-photo-secondary">
           <div className="max-w-7xl mx-auto px-4 py-3">
-            <div className="flex gap-4 justify-center flex-wrap">
+            <div className="flex gap-3 justify-center flex-wrap">
               {[
                 { id: 'family', label: t('photography.family') },
                 { id: 'weddings', label: t('photography.weddings') },
