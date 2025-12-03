@@ -85,8 +85,8 @@ export default function Photography() {
       {showGallerySubmenu && (
         <div className="fixed top-[120px] left-0 right-0 z-40 bg-card/95 backdrop-blur-md shadow-lg border-b-2 border-photo-secondary">
           <div className="max-w-7xl mx-auto px-4 py-3">
-            {/* Mobile toggle button */}
-            <div className="flex justify-center mb-2 md:hidden">
+            {/* Toggle button */}
+            <div className="flex justify-center mb-2">
               <Button
                 onClick={() => setIsSubmenuCollapsed(!isSubmenuCollapsed)}
                 variant="ghost"
@@ -107,8 +107,8 @@ export default function Photography() {
               </Button>
             </div>
             
-            {/* Categories - collapsible on mobile */}
-            <div className={`flex gap-3 justify-center flex-wrap ${isSubmenuCollapsed ? 'hidden md:flex' : ''}`}>
+            {/* Categories - collapsible */}
+            <div className={`flex gap-3 justify-center flex-wrap ${isSubmenuCollapsed ? 'hidden' : ''}`}>
               {[
                 { id: 'family', label: t('photography.family') },
                 { id: 'weddings', label: t('photography.weddings') },
