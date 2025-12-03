@@ -1,7 +1,11 @@
 import { Product } from '@/types/product';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ShoppingCart } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
 
 interface ProductModalProps {
   product: Product | null;
@@ -11,8 +15,23 @@ interface ProductModalProps {
 
 export function ProductModal({ product, open, onOpenChange }: ProductModalProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { addToCart, isLoading } = useCart();
+  const { isAuthenticated } = useAuth();
 
   if (!product) return null;
+
+  const handleAddToCart = async () => {
+    if (!isAuthenticated) {
+      toast.error('Pro přidání do košíku se musíte přihlásit');
+      return;
+    }
+    try {
+      await addToCart(product.id);
+      toast.success(`${product.name} přidán do košíku`);
+    } catch {
+      toast.error('Nepodařilo se přidat do košíku');
+    }
+  };
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
@@ -99,9 +118,14 @@ export function ProductModal({ product, open, onOpenChange }: ProductModalProps)
               <p className="text-sm text-muted-foreground mb-1">Cena</p>
               <p className="text-3xl font-bold text-workshop-primary">{product.price} Kč</p>
             </div>
-            <button className="px-6 py-3 bg-workshop-primary text-white rounded-md hover:bg-workshop-secondary transition-colors font-semibold">
-              Objednat
-            </button>
+            <Button
+              onClick={handleAddToCart}
+              disabled={isLoading}
+              className="bg-workshop-primary hover:bg-workshop-secondary"
+            >
+              <ShoppingCart className="mr-2 h-4 w-4" />
+              {isLoading ? 'Přidávání...' : 'Přidat do košíku'}
+            </Button>
           </div>
 
           {/* Description */}

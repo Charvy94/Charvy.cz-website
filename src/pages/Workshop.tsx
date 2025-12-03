@@ -6,6 +6,8 @@ import { ProductCard } from '@/components/ProductCard';
 import { ProductModal } from '@/components/ProductModal';
 import { ContactForm } from '@/components/ContactForm';
 import { SEO } from '@/components/SEO';
+import { CartButton } from '@/components/CartButton';
+import { CartDrawer } from '@/components/CartDrawer';
 import { sampleProducts } from '@/data/products';
 import { Product } from '@/types/product';
 import { useState } from 'react';
@@ -14,6 +16,7 @@ export default function Workshop() {
   const { t } = useTranslation();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -68,6 +71,11 @@ export default function Workshop() {
       />
 
       <main className="relative max-w-7xl mx-auto px-4 py-8 animate-fade-in">
+        {/* Cart Button - Fixed Position */}
+        <div className="fixed bottom-6 right-6 z-50">
+          <CartButton onClick={() => setIsCartOpen(true)} />
+        </div>
+
         {/* Hero Section with gradient background */}
         <div className="relative rounded-3xl overflow-hidden mb-12 bg-gradient-to-br from-workshop-primary via-workshop-secondary to-workshop-primary/80 p-12 shadow-2xl">
           <div className="absolute inset-0 opacity-20">
@@ -144,6 +152,12 @@ export default function Workshop() {
         product={selectedProduct}
         open={isModalOpen}
         onOpenChange={setIsModalOpen}
+      />
+
+      <CartDrawer
+        open={isCartOpen}
+        onOpenChange={setIsCartOpen}
+        products={sampleProducts}
       />
     </>
   );
