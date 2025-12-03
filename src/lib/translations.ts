@@ -48,7 +48,9 @@ export const translations = {
       aboutTitle: "Ceník",
       aboutDesc: "Rodinné focení: od 2 500 Kč (1-2 hodiny, 20+ upravených fotek) • Portréty: od 1 500 Kč (30-60 minut, 10+ upravených fotek) • Produktové foto: od 500 Kč/produkt • Svatby: od 15 000 Kč (celý den, 300+ fotek, video sestřih). Ceny zahrnují profesionální úpravu a online galerii. Kontaktujte mě pro přesnou nabídku.",
       contactTitle: "Kontaktujte mě",
-      contactDesc: "Máte zájem o focení? Napište mi!"
+      contactDesc: "Máte zájem o focení? Napište mi!",
+      showCategories: "Zobrazit kategorie",
+      hideCategories: "Skrýt kategorie"
     },
     workshop: {
       title: "3D Tisk Workshop",
@@ -267,7 +269,9 @@ export const translations = {
       aboutTitle: "Price List",
       aboutDesc: "Family Photography: from $120 (1-2 hours, 20+ edited photos) • Portraits: from $80 (30-60 minutes, 10+ edited photos) • Product Photography: from $25/product • Weddings: from $800 (full day, 300+ photos, video highlights). All prices include professional editing and online gallery. Contact me for a custom quote.",
       contactTitle: "Contact Me",
-      contactDesc: "Interested in a photoshoot? Write to me!"
+      contactDesc: "Interested in a photoshoot? Write to me!",
+      showCategories: "Show categories",
+      hideCategories: "Hide categories"
     },
     workshop: {
       title: "3D Print Workshop",
@@ -486,7 +490,9 @@ export const translations = {
       aboutTitle: "Preisliste",
       aboutDesc: "Familienfotografie: ab 120 € (1-2 Stunden, 20+ bearbeitete Fotos) • Porträts: ab 80 € (30-60 Minuten, 10+ bearbeitete Fotos) • Produktfotografie: ab 25 €/Produkt • Hochzeiten: ab 800 € (ganzer Tag, 300+ Fotos, Video-Highlights). Alle Preise beinhalten professionelle Bearbeitung und Online-Galerie. Kontaktieren Sie mich für ein individuelles Angebot.",
       contactTitle: "Kontaktiere Mich",
-      contactDesc: "Interesse an einem Fotoshooting? Schreib mir!"
+      contactDesc: "Interesse an einem Fotoshooting? Schreib mir!",
+      showCategories: "Kategorien anzeigen",
+      hideCategories: "Kategorien ausblenden"
     },
     workshop: {
       title: "3D-Druck-Workshop",
