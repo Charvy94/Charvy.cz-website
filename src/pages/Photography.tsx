@@ -91,7 +91,7 @@ export default function Photography() {
                 onClick={() => setIsSubmenuCollapsed(!isSubmenuCollapsed)}
                 variant="ghost"
                 size="sm"
-                className="text-photo-primary"
+                className="text-photo-primary text-xs px-2 py-1 h-auto"
               >
                 {isSubmenuCollapsed ? (
                   <>
