@@ -6,10 +6,13 @@ import { Carousel } from '@/components/Carousel';
 import { ContactForm } from '@/components/ContactForm';
 import { SEO } from '@/components/SEO';
 import { useState, useEffect } from 'react';
+import { ChevronUp, ChevronDown } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function Photography() {
   const { t } = useTranslation();
   const [showGallerySubmenu, setShowGallerySubmenu] = useState(false);
+  const [isSubmenuCollapsed, setIsSubmenuCollapsed] = useState(false);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -82,7 +85,30 @@ export default function Photography() {
       {showGallerySubmenu && (
         <div className="fixed top-[120px] left-0 right-0 z-40 bg-card/95 backdrop-blur-md shadow-lg border-b-2 border-photo-secondary">
           <div className="max-w-7xl mx-auto px-4 py-3">
-            <div className="flex gap-3 justify-center flex-wrap">
+            {/* Mobile toggle button */}
+            <div className="flex justify-center mb-2 md:hidden">
+              <Button
+                onClick={() => setIsSubmenuCollapsed(!isSubmenuCollapsed)}
+                variant="ghost"
+                size="sm"
+                className="text-photo-primary"
+              >
+                {isSubmenuCollapsed ? (
+                  <>
+                    <ChevronDown size={16} className="mr-1" />
+                    {t('photography.showCategories')}
+                  </>
+                ) : (
+                  <>
+                    <ChevronUp size={16} className="mr-1" />
+                    {t('photography.hideCategories')}
+                  </>
+                )}
+              </Button>
+            </div>
+            
+            {/* Categories - collapsible on mobile */}
+            <div className={`flex gap-3 justify-center flex-wrap ${isSubmenuCollapsed ? 'hidden md:flex' : ''}`}>
               {[
                 { id: 'family', label: t('photography.family') },
                 { id: 'weddings', label: t('photography.weddings') },
