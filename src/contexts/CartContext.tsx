@@ -50,9 +50,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const addToCart = async (productId: string, quantity: number = 1) => {
-    if (!user) return;
+    if (!user) {
+      console.error('Cannot add to cart: user not authenticated');
+      throw new Error('User not authenticated');
+    }
     setIsLoading(true);
     try {
+      console.log('Adding to cart:', { userId: user.userID, productId, quantity });
       await cartApi.addToCart(user.userID, productId, quantity);
       await loadCart();
     } catch (error) {
