@@ -21,6 +21,7 @@ export const cartApi = {
   },
 
   async addToCart(userId: number, productId: string, quantity: number): Promise<void> {
+    console.log('cartApi.addToCart called:', { userId, productId, quantity, API_BASE_URL });
     const response = await fetch(`${API_BASE_URL}/cart`, {
       method: 'POST',
       headers: {
@@ -31,7 +32,9 @@ export const cartApi = {
     });
     
     if (!response.ok) {
-      throw new Error('Failed to add to cart');
+      const errorText = await response.text();
+      console.error('Cart API error:', response.status, errorText);
+      throw new Error(`Failed to add to cart: ${response.status}`);
     }
   },
 
