@@ -5,6 +5,7 @@ import { PageSection } from '@/components/PageSection';
 import { ProductCard } from '@/components/ProductCard';
 import { ProductModal } from '@/components/ProductModal';
 import { ContactForm } from '@/components/ContactForm';
+import { UnderConstruction } from '@/components/UnderConstruction';
 import { SEO } from '@/components/SEO';
 import { CartButton } from '@/components/CartButton';
 import { CartDrawer } from '@/components/CartDrawer';
@@ -86,6 +87,11 @@ export default function Workshop() {
             <h1 className="text-white mb-4">{t('workshop.title')}</h1>
             <p className="text-white/90 text-xl max-w-2xl">Ruční výroba miniatur a doplňků pro vaše herní dobrodružství</p>
           </div>
+        </div>
+
+        {/* Under Construction Notice */}
+        <div className="mb-12">
+          <UnderConstruction pageName="Workshop" />
         </div>
 
         {/* Navigation Buttons */}

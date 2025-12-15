@@ -4,6 +4,7 @@ import { PageNavButton } from '@/components/PageNavButton';
 import { PageSection } from '@/components/PageSection';
 import { BlogPostCard } from '@/components/BlogPostCard';
 import { SEO } from '@/components/SEO';
+import { UnderConstruction } from '@/components/UnderConstruction';
 import { useCMSPosts } from '@/hooks/useCMSPosts';
 import { CMS_CONFIG } from '@/config/cms';
 
@@ -63,6 +64,11 @@ export default function Blog() {
             <h1 className="text-white mb-4">{t('blog.title')}</h1>
             <p className="text-white/90 text-xl max-w-2xl">Myšlenky, nápady a příběhy ze světa kreativity</p>
           </div>
+        </div>
+
+        {/* Under Construction Notice */}
+        <div className="mb-12">
+          <UnderConstruction pageName="Blog" />
         </div>
 
         {/* Navigation Buttons */}

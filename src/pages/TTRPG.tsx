@@ -3,6 +3,7 @@ import { StickySubmenu } from '@/components/StickySubmenu';
 import { PageNavButton } from '@/components/PageNavButton';
 import { PageSection } from '@/components/PageSection';
 import { SEO } from '@/components/SEO';
+import { UnderConstruction } from '@/components/UnderConstruction';
 
 export default function TTRPG() {
   const { t } = useTranslation();
@@ -54,6 +55,11 @@ export default function TTRPG() {
             <h1 className="text-white mb-4">{t('ttrpg.title')}</h1>
             <p className="text-white/90 text-xl max-w-2xl">Vstupte do světa fantasy a dobrodružství</p>
           </div>
+        </div>
+
+        {/* Under Construction Notice */}
+        <div className="mb-12">
+          <UnderConstruction pageName="TTRPG" />
         </div>
 
         {/* Navigation Buttons */}
