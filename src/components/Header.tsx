@@ -5,9 +5,15 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTranslation } from '@/hooks/useTranslation';
 import { logoutUser } from '@/services/authApi';
-import { Language } from '@/lib/translations';
-import { Menu, X, Moon, Sun, LogIn, LogOut, User } from 'lucide-react';
+import { Language, mainLanguages, otherLanguages, languageNames } from '@/lib/translations';
+import { Menu, X, Moon, Sun, LogIn, LogOut, User, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export function Header() {
   const { language, setLanguage } = useLanguage();
@@ -79,7 +85,7 @@ export function Header() {
           </Button>
 
           <div className="flex gap-2 bg-white/10 p-2 rounded-md" role="group" aria-label="Language selection">
-            {(['cs', 'en', 'de'] as Language[]).map((lang) => (
+            {mainLanguages.map((lang) => (
               <button
                 key={lang}
                 onClick={() => handleLanguageChange(lang)}
@@ -88,12 +94,40 @@ export function Header() {
                     ? 'bg-primary-foreground text-primary'
                     : 'hover:bg-white/20'
                 }`}
-                aria-label={`Switch to ${lang === 'cs' ? 'Czech' : lang === 'en' ? 'English' : 'German'}`}
+                aria-label={`Switch to ${languageNames[lang]}`}
                 aria-pressed={language === lang}
               >
                 {lang.toUpperCase()}
               </button>
             ))}
+            
+            {/* Others dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className={`flex items-center gap-1 px-3 py-1 rounded font-semibold transition-all ${
+                    otherLanguages.includes(language)
+                      ? 'bg-primary-foreground text-primary'
+                      : 'hover:bg-white/20'
+                  }`}
+                  aria-label="Other languages"
+                >
+                  {otherLanguages.includes(language) ? language.toUpperCase() : '...'}
+                  <ChevronDown size={14} />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="bg-card border border-border z-50">
+                {otherLanguages.map((lang) => (
+                  <DropdownMenuItem
+                    key={lang}
+                    onClick={() => handleLanguageChange(lang)}
+                    className={`cursor-pointer ${language === lang ? 'bg-accent' : ''}`}
+                  >
+                    {languageNames[lang]} ({lang.toUpperCase()})
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {isAuthenticated ? (
@@ -169,22 +203,50 @@ export function Header() {
               >
                 {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
               </Button>
-              <div className="flex gap-2" role="group" aria-label="Language selection">
-                {(['cs', 'en', 'de'] as Language[]).map((lang) => (
+              <div className="flex flex-wrap gap-2 justify-center" role="group" aria-label="Language selection">
+                {mainLanguages.map((lang) => (
                   <button
                     key={lang}
                     onClick={() => handleLanguageChange(lang)}
-                    className={`w-16 px-3 py-2 rounded font-semibold transition-all ${
+                    className={`w-14 px-3 py-2 rounded font-semibold transition-all ${
                       language === lang
                         ? 'bg-primary-foreground text-primary'
                         : 'bg-white/10 hover:bg-white/20'
                     }`}
-                    aria-label={`Switch to ${lang === 'cs' ? 'Czech' : lang === 'en' ? 'English' : 'German'}`}
+                    aria-label={`Switch to ${languageNames[lang]}`}
                     aria-pressed={language === lang}
                   >
                     {lang.toUpperCase()}
                   </button>
                 ))}
+                
+                {/* Others dropdown for mobile */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      className={`flex items-center gap-1 px-3 py-2 rounded font-semibold transition-all ${
+                        otherLanguages.includes(language)
+                          ? 'bg-primary-foreground text-primary'
+                          : 'bg-white/10 hover:bg-white/20'
+                      }`}
+                      aria-label="Other languages"
+                    >
+                      {otherLanguages.includes(language) ? language.toUpperCase() : '...'}
+                      <ChevronDown size={14} />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="center" className="bg-card border border-border z-50">
+                    {otherLanguages.map((lang) => (
+                      <DropdownMenuItem
+                        key={lang}
+                        onClick={() => handleLanguageChange(lang)}
+                        className={`cursor-pointer ${language === lang ? 'bg-accent' : ''}`}
+                      >
+                        {languageNames[lang]} ({lang.toUpperCase()})
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
             
