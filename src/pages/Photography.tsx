@@ -4,6 +4,7 @@ import { PageNavButton } from '@/components/PageNavButton';
 import { PageSection } from '@/components/PageSection';
 import { Carousel } from '@/components/Carousel';
 import { ContactForm } from '@/components/ContactForm';
+import { UnderConstruction } from '@/components/UnderConstruction';
 import { SEO } from '@/components/SEO';
 import { useState, useEffect } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
@@ -142,6 +143,11 @@ export default function Photography() {
             <h1 className="text-white mb-4">{t('photography.title')}</h1>
             <p className="text-white/90 text-xl max-w-2xl">Zachycuji okamžiky, které vyprávějí příběhy</p>
           </div>
+        </div>
+
+        {/* Under Construction Notice */}
+        <div className="mb-12">
+          <UnderConstruction pageName="Fotografování" />
         </div>
 
         {/* Navigation Buttons */}

@@ -1,6 +1,7 @@
 import { SEO } from '@/components/SEO';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Facebook, Instagram, Twitter, Youtube, Linkedin, Github } from 'lucide-react';
+import { UnderConstruction } from '@/components/UnderConstruction';
 
 export default function SocialNetworks() {
   const { t } = useTranslation();
@@ -30,6 +31,11 @@ export default function SocialNetworks() {
           <p className="text-xl text-muted-foreground mb-12">
             {t('socialNetworks.description')}
           </p>
+
+          {/* Under Construction Notice */}
+          <div className="mb-8">
+            <UnderConstruction pageName="Sociální sítě" />
+          </div>
 
           <div className="bg-card border border-border rounded-lg p-12 shadow-lg">
             <p className="text-muted-foreground mb-8">
