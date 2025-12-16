@@ -65,8 +65,8 @@ export default function Workshop() {
         sectionId="workshop"
         variant="workshop"
         categories={[
-          { id: 'products', label: t('workshop.products') },
           { id: 'bestsellers', label: t('workshop.bestsellers') },
+          { id: 'products', label: t('workshop.products') },
           { id: 'order', label: t('workshop.order') }
         ]}
       />
@@ -90,40 +90,29 @@ export default function Workshop() {
         </div>
 
         {/* Under Construction Notice */}
-        <div className="mb-12">
+        <div className="mb-8">
           <UnderConstruction pageName={t('workshop.title')} />
+        </div>
+
+        {/* Order Notice */}
+        <div className="mb-12 p-4 bg-workshop-primary/10 border border-workshop-primary/20 rounded-lg text-center">
+          <p className="text-foreground/80 text-sm md:text-base">
+            {t('workshop.orderNotice')}
+          </p>
         </div>
 
         {/* Navigation Buttons */}
         <div className="flex gap-4 mb-12 flex-wrap justify-center animate-slide-up">
-          <PageNavButton onClick={() => scrollToSection('workshop-products')} variant="workshop">
-            {t('workshop.products')}
-          </PageNavButton>
           <PageNavButton onClick={() => scrollToSection('workshop-bestsellers')} variant="workshop">
             {t('workshop.bestsellers')}
+          </PageNavButton>
+          <PageNavButton onClick={() => scrollToSection('workshop-products')} variant="workshop">
+            {t('workshop.products')}
           </PageNavButton>
           <PageNavButton onClick={() => scrollToSection('workshop-order')} variant="workshop">
             {t('workshop.order')}
           </PageNavButton>
         </div>
-
-        {/* Products Subsection */}
-        <PageSection
-          id="workshop-products"
-          title={t('workshop.productsTitle')}
-          description={t('workshop.productsDesc')}
-          variant="workshop"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sampleProducts.map((product) => (
-              <ProductCard 
-                key={product.id} 
-                product={product} 
-                onClick={() => handleProductClick(product)}
-              />
-            ))}
-          </div>
-        </PageSection>
 
         {/* Bestsellers Subsection */}
         <PageSection
@@ -134,6 +123,24 @@ export default function Workshop() {
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sampleProducts.filter(p => p.category === 'bestsellers').map((product) => (
+              <ProductCard 
+                key={product.id} 
+                product={product} 
+                onClick={() => handleProductClick(product)}
+              />
+            ))}
+          </div>
+        </PageSection>
+
+        {/* Products Subsection */}
+        <PageSection
+          id="workshop-products"
+          title={t('workshop.productsTitle')}
+          description={t('workshop.productsDesc')}
+          variant="workshop"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sampleProducts.map((product) => (
               <ProductCard 
                 key={product.id} 
                 product={product} 

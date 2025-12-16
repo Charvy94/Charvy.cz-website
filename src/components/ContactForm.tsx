@@ -6,12 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from '@/hooks/useTranslation';
 import { Loader2 } from 'lucide-react';
 
 const contactSchema = z.object({
-  name: z.string().trim().min(1, { message: "Jméno je povinné" }).max(100, { message: "Jméno může mít maximálně 100 znaků" }),
-  email: z.string().trim().email({ message: "Neplatná e-mailová adresa" }).max(255, { message: "E-mail může mít maximálně 255 znaků" }),
-  message: z.string().trim().min(1, { message: "Zpráva je povinná" }).max(1000, { message: "Zpráva může mít maximálně 1000 znaků" })
+  name: z.string().trim().min(1, { message: "Name is required" }).max(100, { message: "Name max 100 characters" }),
+  email: z.string().trim().email({ message: "Invalid email address" }).max(255, { message: "Email max 255 characters" }),
+  message: z.string().trim().min(1, { message: "Message is required" }).max(1000, { message: "Message max 1000 characters" })
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -19,11 +20,16 @@ type ContactFormData = z.infer<typeof contactSchema>;
 interface ContactFormProps {
   variant?: 'photo' | 'workshop' | 'blog' | 'ttrpg';
   subject?: string;
+  apiEndpoint?: string;
 }
 
-export function ContactForm({ variant = 'photo', subject = 'Nová zpráva z webu' }: ContactFormProps) {
+// API base URL - update this to your PHP backend URL
+const API_BASE_URL = 'https://your-domain.com/php-backend';
+
+export function ContactForm({ variant = 'photo', subject = 'Nová zpráva z webu', apiEndpoint }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const { t } = useTranslation();
   
   const { register, handleSubmit, formState: { errors }, reset } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema)
@@ -33,25 +39,35 @@ export function ContactForm({ variant = 'photo', subject = 'Nová zpráva z webu
     setIsSubmitting(true);
     
     try {
-      // Encode data for mailto link
-      const mailtoBody = encodeURIComponent(
-        `Jméno: ${data.name}\nE-mail: ${data.email}\n\nZpráva:\n${data.message}`
-      );
-      const mailtoSubject = encodeURIComponent(subject);
-      
-      // Open mail client
-      window.location.href = `mailto:kontakt@charvy.cz?subject=${mailtoSubject}&body=${mailtoBody}`;
-      
-      toast({
-        title: "Úspěch!",
-        description: "E-mailový klient byl otevřen. Pošlete prosím zprávu.",
+      const response = await fetch(`${API_BASE_URL}/contact.php`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          message: data.message,
+          subject: subject
+        }),
       });
-      
-      reset();
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        toast({
+          title: t('contactForm.success'),
+          description: t('contactForm.successDesc'),
+        });
+        reset();
+      } else {
+        throw new Error(result.error || 'Failed to send email');
+      }
     } catch (error) {
+      console.error('Contact form error:', error);
       toast({
-        title: "Chyba",
-        description: "Něco se pokazilo. Zkuste to prosím znovu.",
+        title: t('contactForm.error'),
+        description: t('contactForm.errorDesc'),
         variant: "destructive"
       });
     } finally {
@@ -129,10 +145,10 @@ export function ContactForm({ variant = 'photo', subject = 'Nová zpráva z webu
         {isSubmitting ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Odesílání...
+            {t('contactForm.sending')}
           </>
         ) : (
-          'Odeslat zprávu'
+          t('contactForm.submit')
         )}
       </Button>
     </form>
