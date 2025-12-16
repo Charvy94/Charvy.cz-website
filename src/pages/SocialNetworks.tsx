@@ -34,7 +34,7 @@ export default function SocialNetworks() {
 
           {/* Under Construction Notice */}
           <div className="mb-8">
-            <UnderConstruction pageName="Sociální sítě" />
+            <UnderConstruction pageName={t('socialNetworks.title')} />
           </div>
 
           <div className="bg-card border border-border rounded-lg p-12 shadow-lg">
