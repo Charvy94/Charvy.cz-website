@@ -85,13 +85,13 @@ export default function Workshop() {
           </div>
           <div className="relative">
             <h1 className="text-white mb-4">{t('workshop.title')}</h1>
-            <p className="text-white/90 text-xl max-w-2xl">Ruční výroba miniatur a doplňků pro vaše herní dobrodružství</p>
+            <p className="text-white/90 text-xl max-w-2xl">{t('workshop.subtitle')}</p>
           </div>
         </div>
 
         {/* Under Construction Notice */}
         <div className="mb-12">
-          <UnderConstruction pageName="Workshop" />
+          <UnderConstruction pageName={t('workshop.title')} />
         </div>
 
         {/* Navigation Buttons */}

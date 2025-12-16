@@ -62,13 +62,13 @@ export default function Blog() {
           </div>
           <div className="relative">
             <h1 className="text-white mb-4">{t('blog.title')}</h1>
-            <p className="text-white/90 text-xl max-w-2xl">Myšlenky, nápady a příběhy ze světa kreativity</p>
+            <p className="text-white/90 text-xl max-w-2xl">{t('blog.subtitle')}</p>
           </div>
         </div>
 
         {/* Under Construction Notice */}
         <div className="mb-12">
-          <UnderConstruction pageName="Blog" />
+          <UnderConstruction pageName={t('blog.title')} />
         </div>
 
         {/* Navigation Buttons */}

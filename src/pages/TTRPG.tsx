@@ -53,13 +53,13 @@ export default function TTRPG() {
           </div>
           <div className="relative">
             <h1 className="text-white mb-4">{t('ttrpg.title')}</h1>
-            <p className="text-white/90 text-xl max-w-2xl">Vstupte do světa fantasy a dobrodružství</p>
+            <p className="text-white/90 text-xl max-w-2xl">{t('ttrpg.subtitle')}</p>
           </div>
         </div>
 
         {/* Under Construction Notice */}
         <div className="mb-12">
-          <UnderConstruction pageName="TTRPG" />
+          <UnderConstruction pageName={t('ttrpg.title')} />
         </div>
 
         {/* Navigation Buttons */}

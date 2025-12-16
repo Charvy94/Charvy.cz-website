@@ -38,6 +38,7 @@ export const translations = {
     },
     photography: {
       title: "Fotografování",
+      subtitle: "Zachycuji okamžiky, které vyprávějí příběhy",
       gallery: "Galerie",
       about: "Ceník",
       contact: "Kontakt",
@@ -64,6 +65,7 @@ export const translations = {
     },
     workshop: {
       title: "3D Tisk Workshop",
+      subtitle: "Ruční výroba miniatur a doplňků pro vaše herní dobrodružství",
       products: "Produkty",
       bestsellers: "Bestsellery",
       order: "Objednávka",
@@ -85,6 +87,7 @@ export const translations = {
     },
     blog: {
       title: "Články",
+      subtitle: "Myšlenky, nápady a příběhy ze světa kreativity",
       articles: "Články",
       archive: "Archiv",
       about: "O blogu",
@@ -103,6 +106,7 @@ export const translations = {
     },
     ttrpg: {
       title: "TTRPG - D&D Server",
+      subtitle: "Vstupte do světa fantasy a dobrodružství",
       server: "Server",
       login: "Přihlášení",
       characters: "Postavy",
@@ -189,6 +193,10 @@ export const translations = {
       description: 'Sledujte mě na sociálních sítích',
       comingSoon: 'Brzy zde najdete odkazy na všechny moje sociální sítě.',
     },
+    underConstruction: {
+      title: 'Stránka ve výstavbě',
+      description: 'Pracujeme na tom! Tato sekce bude brzy dostupná s novým obsahem.',
+    },
     common: {
       loading: 'Načítání...',
     },
@@ -259,6 +267,7 @@ export const translations = {
     },
     photography: {
       title: "Photography",
+      subtitle: "Capturing moments that tell stories",
       gallery: "Gallery",
       about: "Price List",
       contact: "Contact",
@@ -285,6 +294,7 @@ export const translations = {
     },
     workshop: {
       title: "3D Print Workshop",
+      subtitle: "Handmade miniatures and accessories for your gaming adventures",
       products: "Products",
       bestsellers: "Bestsellers",
       order: "Order",
@@ -306,6 +316,7 @@ export const translations = {
     },
     blog: {
       title: "Articles",
+      subtitle: "Thoughts, ideas and stories from the world of creativity",
       articles: "Articles",
       archive: "Archive",
       about: "About Blog",
@@ -324,6 +335,7 @@ export const translations = {
     },
     ttrpg: {
       title: "TTRPG - D&D Server",
+      subtitle: "Enter the world of fantasy and adventure",
       server: "Server",
       login: "Login",
       characters: "Characters",
@@ -410,6 +422,10 @@ export const translations = {
       description: 'Follow me on social media',
       comingSoon: 'Links to all my social networks will be available here soon.',
     },
+    underConstruction: {
+      title: 'Page Under Construction',
+      description: "We're working on it! This section will be available soon with new content.",
+    },
     common: {
       loading: 'Loading...',
     },
@@ -480,6 +496,7 @@ export const translations = {
     },
     photography: {
       title: "Fotografieren",
+      subtitle: "Ich fange Momente ein, die Geschichten erzählen",
       gallery: "Galerie",
       about: "Preisliste",
       contact: "Kontakt",
@@ -506,6 +523,7 @@ export const translations = {
     },
     workshop: {
       title: "3D-Druck-Workshop",
+      subtitle: "Handgefertigte Miniaturen und Zubehör für Ihre Spielabenteuer",
       products: "Produkte",
       bestsellers: "Bestseller",
       order: "Bestellung",
@@ -527,6 +545,7 @@ export const translations = {
     },
     blog: {
       title: "Artikel",
+      subtitle: "Gedanken, Ideen und Geschichten aus der Welt der Kreativität",
       articles: "Artikel",
       archive: "Archiv",
       about: "Über Blog",
@@ -545,6 +564,7 @@ export const translations = {
     },
     ttrpg: {
       title: "TTRPG - D&D Server",
+      subtitle: "Betreten Sie die Welt der Fantasy und Abenteuer",
       server: "Server",
       login: "Anmeldung",
       characters: "Charaktere",
@@ -631,6 +651,10 @@ export const translations = {
       description: 'Folgen Sie mir in sozialen Medien',
       comingSoon: 'Links zu all meinen sozialen Netzwerken werden hier bald verfügbar sein.',
     },
+    underConstruction: {
+      title: 'Seite im Aufbau',
+      description: 'Wir arbeiten daran! Dieser Bereich wird bald mit neuen Inhalten verfügbar sein.',
+    },
     common: {
       loading: 'Laden...',
     },
@@ -701,6 +725,7 @@ export const translations = {
     },
     photography: {
       title: "Photographie",
+      subtitle: "Je capture des moments qui racontent des histoires",
       gallery: "Galerie",
       about: "Tarifs",
       contact: "Contact",
@@ -727,6 +752,7 @@ export const translations = {
     },
     workshop: {
       title: "Atelier Impression 3D",
+      subtitle: "Figurines et accessoires faits main pour vos aventures de jeu",
       products: "Produits",
       bestsellers: "Meilleures ventes",
       order: "Commander",
@@ -748,6 +774,7 @@ export const translations = {
     },
     blog: {
       title: "Articles",
+      subtitle: "Pensées, idées et histoires du monde de la créativité",
       articles: "Articles",
       archive: "Archives",
       about: "À propos",
@@ -766,6 +793,7 @@ export const translations = {
     },
     ttrpg: {
       title: "TTRPG - Serveur D&D",
+      subtitle: "Entrez dans le monde de la fantasy et de l'aventure",
       server: "Serveur",
       login: "Connexion",
       characters: "Personnages",
@@ -851,6 +879,10 @@ export const translations = {
       title: 'Réseaux Sociaux',
       description: 'Suivez-moi sur les réseaux sociaux',
       comingSoon: 'Les liens vers tous mes réseaux sociaux seront bientôt disponibles ici.',
+    },
+    underConstruction: {
+      title: 'Page en Construction',
+      description: 'Nous y travaillons ! Cette section sera bientôt disponible avec du nouveau contenu.',
     },
     common: {
       loading: 'Chargement...',

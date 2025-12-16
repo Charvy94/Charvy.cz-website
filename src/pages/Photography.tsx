@@ -141,13 +141,13 @@ export default function Photography() {
           </div>
           <div className="relative">
             <h1 className="text-white mb-4">{t('photography.title')}</h1>
-            <p className="text-white/90 text-xl max-w-2xl">Zachycuji okamžiky, které vyprávějí příběhy</p>
+            <p className="text-white/90 text-xl max-w-2xl">{t('photography.subtitle')}</p>
           </div>
         </div>
 
         {/* Under Construction Notice */}
         <div className="mb-12">
-          <UnderConstruction pageName="Fotografování" />
+          <UnderConstruction pageName={t('photography.title')} />
         </div>
 
         {/* Navigation Buttons */}
