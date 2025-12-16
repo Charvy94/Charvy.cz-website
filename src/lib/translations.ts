@@ -83,7 +83,22 @@ export const translations = {
       dealsDesc: "Aktuální akce a slevy",
       orderTitle: "Objednávka",
       orderDesc: "Zde můžeš objednat produkty nebo si nechat vytvořit vlastní design",
-      orderEmail: "Pošli mi svůj návrh na email a já se ti ozvu s nabídkou!"
+      orderEmail: "Pošli mi svůj návrh na email a já se ti ozvu s nabídkou!",
+      orderNotice: "V současné době jsou objednávky dostupné pouze prostřednictvím formuláře níže na této stránce. Děkujeme za pochopení."
+    },
+    contactForm: {
+      success: "Odesláno!",
+      successDesc: "Vaše zpráva byla úspěšně odeslána. Brzy se vám ozveme.",
+      error: "Chyba",
+      errorDesc: "Nepodařilo se odeslat zprávu. Zkuste to prosím znovu.",
+      sending: "Odesílání...",
+      submit: "Odeslat zprávu",
+      name: "Jméno",
+      namePlaceholder: "Vaše jméno",
+      email: "E-mail",
+      emailPlaceholder: "vas@email.cz",
+      message: "Zpráva",
+      messagePlaceholder: "Vaše zpráva..."
     },
     blog: {
       title: "Články",
@@ -312,7 +327,22 @@ export const translations = {
       dealsDesc: "Current promotions and discounts",
       orderTitle: "Order",
       orderDesc: "Here you can order products or have your own design created",
-      orderEmail: "Send me your design via email and I'll get back to you with an offer!"
+      orderEmail: "Send me your design via email and I'll get back to you with an offer!",
+      orderNotice: "Orders are currently only available through the form at the bottom of this page. Thank you for your understanding."
+    },
+    contactForm: {
+      success: "Sent!",
+      successDesc: "Your message has been sent successfully. We will get back to you soon.",
+      error: "Error",
+      errorDesc: "Failed to send the message. Please try again.",
+      sending: "Sending...",
+      submit: "Send message",
+      name: "Name",
+      namePlaceholder: "Your name",
+      email: "Email",
+      emailPlaceholder: "your@email.com",
+      message: "Message",
+      messagePlaceholder: "Your message..."
     },
     blog: {
       title: "Articles",
@@ -541,7 +571,22 @@ export const translations = {
       dealsDesc: "Aktuelle Aktionen und Rabatte",
       orderTitle: "Bestellung",
       orderDesc: "Hier kannst du Produkte bestellen oder dein eigenes Design erstellen lassen",
-      orderEmail: "Schick mir dein Design per E-Mail und ich melde mich mit einem Angebot!"
+      orderEmail: "Schick mir dein Design per E-Mail und ich melde mich mit einem Angebot!",
+      orderNotice: "Bestellungen sind derzeit nur über das Formular am Ende dieser Seite möglich. Vielen Dank für Ihr Verständnis."
+    },
+    contactForm: {
+      success: "Gesendet!",
+      successDesc: "Ihre Nachricht wurde erfolgreich gesendet. Wir melden uns bald bei Ihnen.",
+      error: "Fehler",
+      errorDesc: "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
+      sending: "Wird gesendet...",
+      submit: "Nachricht senden",
+      name: "Name",
+      namePlaceholder: "Ihr Name",
+      email: "E-Mail",
+      emailPlaceholder: "ihre@email.de",
+      message: "Nachricht",
+      messagePlaceholder: "Ihre Nachricht..."
     },
     blog: {
       title: "Artikel",
@@ -770,7 +815,22 @@ export const translations = {
       dealsDesc: "Offres et réductions actuelles",
       orderTitle: "Commander",
       orderDesc: "Ici vous pouvez commander des produits ou faire créer votre propre design",
-      orderEmail: "Envoyez-moi votre design par email et je vous répondrai avec une offre!"
+      orderEmail: "Envoyez-moi votre design par email et je vous répondrai avec une offre!",
+      orderNotice: "Les commandes sont actuellement disponibles uniquement via le formulaire en bas de cette page. Merci de votre compréhension."
+    },
+    contactForm: {
+      success: "Envoyé!",
+      successDesc: "Votre message a été envoyé avec succès. Nous vous répondrons bientôt.",
+      error: "Erreur",
+      errorDesc: "Échec de l'envoi du message. Veuillez réessayer.",
+      sending: "Envoi en cours...",
+      submit: "Envoyer le message",
+      name: "Nom",
+      namePlaceholder: "Votre nom",
+      email: "E-mail",
+      emailPlaceholder: "votre@email.fr",
+      message: "Message",
+      messagePlaceholder: "Votre message..."
     },
     blog: {
       title: "Articles",
