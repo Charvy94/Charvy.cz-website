@@ -65,8 +65,53 @@ $emailBody = "
 </html>
 ";
 
-// Send email
+// Send email to business
 $mailSent = mail($to, $emailSubject, $emailBody, $headerString);
+
+// Send confirmation email to customer
+$customerSubject = 'Potvrzení přijetí zprávy - charvy.cz';
+$customerHeaders = [
+    'From' => 'objednavky@charvy.cz',
+    'Reply-To' => 'objednavky@charvy.cz',
+    'X-Mailer' => 'PHP/' . phpversion(),
+    'Content-Type' => 'text/html; charset=UTF-8',
+    'MIME-Version' => '1.0'
+];
+
+$customerHeaderString = '';
+foreach ($customerHeaders as $key => $value) {
+    $customerHeaderString .= "$key: $value\r\n";
+}
+
+$customerBody = "
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <title>Potvrzení přijetí zprávy</title>
+</head>
+<body style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;'>
+    <h2 style='color: #333; border-bottom: 2px solid #f97316; padding-bottom: 10px;'>Děkujeme za vaši zprávu!</h2>
+    
+    <p style='line-height: 1.6;'>Dobrý den " . htmlspecialchars($name) . ",</p>
+    
+    <p style='line-height: 1.6;'>Děkujeme za vaši zprávu. Obdrželi jsme ji a budeme vás kontaktovat co nejdříve.</p>
+    
+    <div style='background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;'>
+        <h3 style='margin-top: 0; color: #555;'>Shrnutí vaší zprávy:</h3>
+        <p style='margin: 5px 0;'><strong>Předmět:</strong> " . htmlspecialchars($subject) . "</p>
+        <p style='white-space: pre-wrap; line-height: 1.6;'>" . htmlspecialchars($message) . "</p>
+    </div>
+    
+    <p style='line-height: 1.6;'>S pozdravem,<br><strong>Tým charvy.cz</strong></p>
+    
+    <hr style='border: none; border-top: 1px solid #ddd; margin: 30px 0;'>
+    <p style='color: #888; font-size: 12px;'>Toto je automatická zpráva z charvy.cz. Prosím neodpovídejte na tento e-mail.</p>
+</body>
+</html>
+";
+
+$customerMailSent = mail($email, $customerSubject, $customerBody, $customerHeaderString);
 
 if ($mailSent) {
     sendResponse(['success' => true, 'message' => 'Email sent successfully']);
