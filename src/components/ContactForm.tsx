@@ -23,8 +23,8 @@ interface ContactFormProps {
   apiEndpoint?: string;
 }
 
-// API base URL - update this to your PHP backend URL
-const API_BASE_URL = 'https://your-domain.com/php-backend';
+// API base URL for PHP backend
+const API_BASE_URL = 'https://charvy.cz/php-backend';
 
 export function ContactForm({ variant = 'photo', subject = 'Nová zpráva z webu', apiEndpoint }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);

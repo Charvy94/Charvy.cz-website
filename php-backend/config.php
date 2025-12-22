@@ -5,8 +5,8 @@ define('DB_NAME', 'd386892_users');
 define('DB_USER', 'your_username');
 define('DB_PASS', 'your_password');
 
-// CORS headers - update with your frontend domain
-header('Access-Control-Allow-Origin: https://your-frontend-domain.com');
+// CORS headers
+header('Access-Control-Allow-Origin: https://charvy.cz');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 header('Access-Control-Allow-Credentials: true');
