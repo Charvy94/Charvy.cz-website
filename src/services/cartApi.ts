@@ -1,7 +1,7 @@
 import { CartItem } from '@/contexts/CartContext';
 
 // Configure your backend API URL here
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://your-backend.com/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://www.charvy.cz/api';
 
 export const cartApi = {
   async getCart(userId: number): Promise<CartItem[]> {

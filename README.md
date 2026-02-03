@@ -1,22 +1,12 @@
-# Welcome to your Lovable project
+# Charvy.cz Website
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/d85d2ea0-bdab-454b-afec-0b12a557d1fa
+This repository contains the Charvy.cz website frontend and a small PHP backend API used for contact, cart, and order flows.
 
 ## How can I edit this code?
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/d85d2ea0-bdab-454b-afec-0b12a557d1fa) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+You can work with the code locally using your preferred IDE.
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
@@ -45,7 +35,7 @@ npm run dev
 **Use GitHub Codespaces**
 
 - Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
+- Click on "Code" button near the top right.
 - Select the "Codespaces" tab.
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
@@ -62,12 +52,4 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/d85d2ea0-bdab-454b-afec-0b12a557d1fa) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Build the frontend with `npm run build` and deploy the `dist/` output to your hosting provider. The PHP backend can be deployed by uploading the `php-backend/` directory to your server (for example under `/api/`).

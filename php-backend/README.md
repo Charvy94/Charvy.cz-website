@@ -10,7 +10,7 @@
 
 3. **Update frontend** - Set `VITE_API_URL` environment variable:
    ```
-   VITE_API_URL=https://your-domain.com/api
+   VITE_API_URL=https://www.charvy.cz/api
    ```
 
 ## API Endpoints
@@ -31,6 +31,12 @@
 |--------|----------|-------------|
 | GET | `/api/orders/{userId}` | Get user's orders |
 | POST | `/api/orders` | Create new order |
+
+### Contact
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/contact` | Send a contact message |
 
 ## Request/Response Examples
 
@@ -63,6 +69,7 @@ POST /api/orders
 ├── .htaccess      # URL rewriting rules
 ├── config.php     # Database config & helpers
 ├── cart.php       # Cart API endpoints
+├── contact.php    # Contact form email handler
 ├── orders.php     # Orders API endpoints
 └── README.md      # This file
 ```
