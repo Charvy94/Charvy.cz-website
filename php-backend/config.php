@@ -6,7 +6,15 @@ define('DB_USER', 'your_username');
 define('DB_PASS', 'your_password');
 
 // CORS headers - update with your frontend domain
-header('Access-Control-Allow-Origin: https://your-frontend-domain.com');
+$allowedOrigins = [
+    'https://www.charvy.cz',
+    'https://charvy.cz',
+];
+
+if (!empty($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $allowedOrigins, true)) {
+    header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+    header('Vary: Origin');
+}
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 header('Access-Control-Allow-Credentials: true');
