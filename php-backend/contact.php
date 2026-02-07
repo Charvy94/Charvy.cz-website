@@ -33,8 +33,8 @@ function sendContactEmail() {
     $headers = [
         'MIME-Version: 1.0',
         'Content-Type: text/html; charset=UTF-8',
-        'From: ' . $name . ' <' . $email . '>',
-        'Reply-To: ' . $email,
+        'From: Charvy.cz <noreply@charvy.cz>',
+        'Reply-To: ' . $name . ' <' . $email . '>',
         'X-Mailer: PHP/' . phpversion()
     ];
     $headersString = implode("\r\n", $headers);

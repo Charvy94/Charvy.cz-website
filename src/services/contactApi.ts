@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://your-backend-domain.com/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://www.charvy.cz/api';
 
 interface ContactFormData {
   name: string;
@@ -15,7 +15,7 @@ interface ContactResponse {
 
 export const contactApi = {
   sendMessage: async (data: ContactFormData): Promise<ContactResponse> => {
-    const response = await fetch(`${API_BASE_URL}/contact.php`, {
+    const response = await fetch(`${API_BASE_URL}/contact`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

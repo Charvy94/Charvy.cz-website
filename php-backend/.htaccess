@@ -1,5 +1,6 @@
 RewriteEngine On
 
-# Handle API routes
-RewriteRule ^api/cart/?(.*)$ cart.php [L,QSA]
-RewriteRule ^api/orders/?(.*)$ orders.php [L,QSA]
+# Handle API routes (supports /api/... or direct /... when deployed in /api/)
+RewriteRule ^(api/)?cart/?(.*)$ cart.php [L,QSA]
+RewriteRule ^(api/)?orders/?(.*)$ orders.php [L,QSA]
+RewriteRule ^(api/)?contact/?(.*)$ contact.php [L,QSA]
