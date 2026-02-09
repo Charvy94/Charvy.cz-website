@@ -1,9 +1,11 @@
 <?php
-// Database configuration
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'd386892_users');
-define('DB_USER', 'your_username');
-define('DB_PASS', 'your_password');
+// Database configuration (override via environment variables)
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_PORT', getenv('DB_PORT') ?: '3306');
+define('DB_NAME', getenv('DB_NAME') ?: 'd386892_users');
+define('DB_USER', getenv('DB_USER') ?: 'your_username');
+define('DB_PASS', getenv('DB_PASS') ?: 'your_password');
+define('APP_ENV', getenv('APP_ENV') ?: 'production');
 
 // CORS headers - update with your frontend domain(s)
 $allowedOrigins = [
@@ -35,8 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 // Database connection
 function getDbConnection() {
     try {
+        $dsn = sprintf(
+            "mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4",
+            DB_HOST,
+            DB_PORT,
+            DB_NAME
+        );
         $pdo = new PDO(
-            "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4",
+            $dsn,
             DB_USER,
             DB_PASS,
             [
@@ -48,7 +56,11 @@ function getDbConnection() {
         return $pdo;
     } catch (PDOException $e) {
         http_response_code(500);
-        echo json_encode(['error' => 'Database connection failed']);
+        $error = ['error' => 'Database connection failed'];
+        if (APP_ENV !== 'production') {
+            $error['details'] = $e->getMessage();
+        }
+        echo json_encode($error);
         exit();
     }
 }
