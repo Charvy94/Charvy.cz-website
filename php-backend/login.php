@@ -5,6 +5,7 @@ session_start();
 
 $method = $_SERVER['REQUEST_METHOD'];
 if ($method === 'GET') {
+
     $queryUsername = $_GET['username'] ?? null;
     $queryPassword = $_GET['password'] ?? null;
     if ($queryUsername !== null || $queryPassword !== null) {
@@ -23,6 +24,14 @@ if ($method === 'GET') {
         $data = $_POST;
     }
 } else {
+=======
+    sendResponse([
+        'message' => 'Login endpoint. Send a POST request with JSON { "username": "...", "password": "..." }.',
+    ]);
+}
+
+if ($method !== 'POST') {
+
     sendResponse(['error' => 'Method not allowed'], 405);
 }
 
