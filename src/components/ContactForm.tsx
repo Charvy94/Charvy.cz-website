@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { sendContactMessage } from '@/services/contactApi';
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, { message: "Jméno je povinné" }).max(100, { message: "Jméno může mít maximálně 100 znaků" }),
@@ -33,25 +34,23 @@ export function ContactForm({ variant = 'photo', subject = 'Nová zpráva z webu
     setIsSubmitting(true);
     
     try {
-      // Encode data for mailto link
-      const mailtoBody = encodeURIComponent(
-        `Jméno: ${data.name}\nE-mail: ${data.email}\n\nZpráva:\n${data.message}`
-      );
-      const mailtoSubject = encodeURIComponent(subject);
-      
-      // Open mail client
-      window.location.href = `mailto:kontakt@charvy.cz?subject=${mailtoSubject}&body=${mailtoBody}`;
-      
+      await sendContactMessage({
+        name: data.name,
+        email: data.email,
+        message: data.message,
+        subject,
+      });
+
       toast({
         title: "Úspěch!",
-        description: "E-mailový klient byl otevřen. Pošlete prosím zprávu.",
+        description: "Zpráva byla odeslána. Brzy se ozveme.",
       });
       
       reset();
     } catch (error) {
       toast({
         title: "Chyba",
-        description: "Něco se pokazilo. Zkuste to prosím znovu.",
+        description: error instanceof Error ? error.message : "Něco se pokazilo. Zkuste to prosím znovu.",
         variant: "destructive"
       });
     } finally {

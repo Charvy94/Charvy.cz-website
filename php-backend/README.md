@@ -6,7 +6,7 @@
 
 2. **Update config.php**:
    - Set your database credentials (`DB_USER`, `DB_PASS`)
-   - Update `Access-Control-Allow-Origin` with your frontend domain
+   - Update the `$allowedOrigins` list with your frontend domain(s)
 
 3. **Update frontend** - Set `VITE_API_URL` environment variable:
    ```
@@ -31,6 +31,12 @@
 |--------|----------|-------------|
 | GET | `/api/orders/{userId}` | Get user's orders |
 | POST | `/api/orders` | Create new order |
+
+### Contact
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/contact.php` | Send a contact form message via email |
 
 ## Request/Response Examples
 
