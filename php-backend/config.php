@@ -1,4 +1,26 @@
 <?php
+// Load local environment overrides from php-backend/.env if present.
+// This keeps secrets out of the repo while still allowing configuration on shared hosts.
+$envFile = __DIR__ . '/.env';
+if (is_readable($envFile)) {
+    foreach (file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
+        $line = trim($line);
+        if ($line === '' || str_starts_with($line, '#')) {
+            continue;
+        }
+        [$key, $value] = array_pad(explode('=', $line, 2), 2, null);
+        $key = trim((string) $key);
+        if ($key === '' || getenv($key) !== false) {
+            continue;
+        }
+        $value = $value === null ? '' : trim($value);
+        $value = trim($value, "\"'");
+        putenv($key . '=' . $value);
+        $_ENV[$key] = $value;
+        $_SERVER[$key] = $value;
+    }
+}
+
 // Database configuration (override via environment variables)
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
 define('DB_PORT', getenv('DB_PORT') ?: '3306');

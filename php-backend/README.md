@@ -4,8 +4,16 @@
 
 1. **Upload files** to your server in a folder (e.g., `/api/`)
 
-2. **Update config.php**:
-   - Set your database credentials (`DB_USER`, `DB_PASS`)
+2. **Configure environment variables**:
+   - Create `/api/.env` (same folder as `config.php`) with your database credentials:
+     ```
+     DB_HOST=localhost
+     DB_PORT=3306
+     DB_NAME=d386892_users
+     DB_USER=your_db_user
+     DB_PASS=your_db_password
+     ```
+   - Alternatively, set `DB_USER`/`DB_PASS` in your hosting control panel.
    - Update the `$allowedOrigins` list with your frontend domain(s)
 
 3. **Update frontend** - Set `VITE_API_URL` environment variable:
