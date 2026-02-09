@@ -3,7 +3,14 @@ require_once __DIR__ . '/config.php';
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+$method = $_SERVER['REQUEST_METHOD'];
+if ($method === 'GET') {
+    sendResponse([
+        'message' => 'Login endpoint. Send a POST request with JSON { "username": "...", "password": "..." }.',
+    ]);
+}
+
+if ($method !== 'POST') {
     sendResponse(['error' => 'Method not allowed'], 405);
 }
 
