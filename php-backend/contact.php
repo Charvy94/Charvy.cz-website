@@ -28,13 +28,14 @@ function sendContactEmail() {
     
     // Email configuration
     $adminEmail = 'orders@charvy.cz';
+    $fromEmail = 'noreply@charvy.cz';
     
     // Prepare email headers
     $headers = [
         'MIME-Version: 1.0',
         'Content-Type: text/html; charset=UTF-8',
-        'From: ' . $name . ' <' . $email . '>',
-        'Reply-To: ' . $email,
+        'From: Charvy.cz <' . $fromEmail . '>',
+        'Reply-To: ' . $name . ' <' . $email . '>',
         'X-Mailer: PHP/' . phpversion()
     ];
     $headersString = implode("\r\n", $headers);
@@ -107,7 +108,7 @@ function sendContactEmail() {
                 <div class="message-box">' . nl2br(htmlspecialchars($message)) . '</div>
             </div>
             <div class="footer">
-                <p>S pozdravem,<br>' . htmlspecialchars($name) . '</p>
+                <p>S pozdravem,<br>Charvy.cz</p>
                 <hr style="border: none; border-top: 1px solid #ddd; margin: 10px 0;">
                 <p>Charvy.cz</p>
             </div>
@@ -122,7 +123,7 @@ function sendContactEmail() {
     $confirmationHeaders = [
         'MIME-Version: 1.0',
         'Content-Type: text/html; charset=UTF-8',
-        'From: Charvy.cz <noreply@charvy.cz>',
+        'From: Charvy.cz <' . $fromEmail . '>',
         'Reply-To: ' . $adminEmail,
         'X-Mailer: PHP/' . phpversion()
     ];

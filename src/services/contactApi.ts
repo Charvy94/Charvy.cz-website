@@ -15,7 +15,7 @@ interface ContactResponse {
 
 export const contactApi = {
   sendMessage: async (data: ContactFormData): Promise<ContactResponse> => {
-    const response = await fetch(`${API_BASE_URL}/contact.php`, {
+    const response = await fetch(`${API_BASE_URL}/contact`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
