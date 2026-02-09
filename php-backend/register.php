@@ -21,39 +21,87 @@ if (!is_string($password) || strlen($password) < 8) {
 }
 
 $pdo = getDbConnection();
-$columnsStmt = $pdo->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME IN ('password_hash', 'password')");
-$columnsStmt->execute();
-$columns = $columnsStmt->fetchAll(PDO::FETCH_COLUMN);
+$usersInfo = getUsersTableInfo($pdo);
+$columnMap = $usersInfo['map'];
 
-$passwordColumn = null;
-if (in_array('password_hash', $columns, true)) {
-    $passwordColumn = 'password_hash';
-} elseif (in_array('password', $columns, true)) {
-    $passwordColumn = 'password';
+$idColumn = $columnMap['id'] ?? $columnMap['userid'] ?? null;
+$usernameColumn = $columnMap['username'] ?? null;
+$emailColumn = $columnMap['email'] ?? null;
+$passwordColumn = $columnMap['password_hash'] ?? $columnMap['password'] ?? $columnMap['passwordhash'] ?? null;
+$saltColumn = $columnMap['salt'] ?? null;
+$isActiveColumn = $columnMap['isactive'] ?? null;
+$createdAtColumn = $columnMap['createdat'] ?? null;
+
+if (!$usernameColumn || !$emailColumn || !$passwordColumn) {
+    sendResponse(['error' => 'User schema missing required columns'], 500);
 }
 
-if (!$passwordColumn) {
-    sendResponse(['error' => 'User password column missing'], 500);
-}
-
-$existingStmt = $pdo->prepare('SELECT id FROM users WHERE username = :username OR email = :email LIMIT 1');
-$existingStmt->execute([
+$whereClauses = [];
+$params = [
     ':username' => $username,
     ':email' => $email,
-]);
+];
+
+$whereClauses[] = sprintf('`%s` = :username', $usernameColumn);
+$whereClauses[] = sprintf('`%s` = :email', $emailColumn);
+
+$existingStmt = $pdo->prepare(sprintf(
+    'SELECT %s FROM `%s` WHERE %s LIMIT 1',
+    $idColumn ? sprintf('`%s`', $idColumn) : '1',
+    $usersInfo['table'],
+    implode(' OR ', $whereClauses)
+));
+$existingStmt->execute($params);
 
 if ($existingStmt->fetch()) {
     sendResponse(['error' => 'User already exists'], 409);
 }
 
-$passwordHash = password_hash($password, PASSWORD_DEFAULT);
-$insertSql = sprintf('INSERT INTO users (username, email, %s) VALUES (:username, :email, :password)', $passwordColumn);
-$insertStmt = $pdo->prepare($insertSql);
-$insertStmt->execute([
+$insertColumns = [$usernameColumn, $emailColumn, $passwordColumn];
+$insertParams = [
     ':username' => $username,
     ':email' => $email,
-    ':password' => $passwordHash,
-]);
+];
+
+if ($saltColumn) {
+    $salt = bin2hex(random_bytes(16));
+    $passwordHash = hash('sha256', $salt . $password);
+    $insertColumns[] = $saltColumn;
+    $insertParams[':salt'] = $salt;
+} else {
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+}
+if ($isActiveColumn) {
+    $insertColumns[] = $isActiveColumn;
+    $insertParams[':isActive'] = 1;
+}
+if ($createdAtColumn) {
+    $insertColumns[] = $createdAtColumn;
+    $insertParams[':createdAt'] = date('Y-m-d H:i:s');
+}
+
+$insertParams[':password'] = $passwordHash;
+$columnList = implode(', ', array_map(static fn ($column) => "`$column`", $insertColumns));
+$valueMap = [
+    $usernameColumn => ':username',
+    $emailColumn => ':email',
+    $passwordColumn => ':password',
+];
+if ($saltColumn) {
+    $valueMap[$saltColumn] = ':salt';
+}
+if ($isActiveColumn) {
+    $valueMap[$isActiveColumn] = ':isActive';
+}
+if ($createdAtColumn) {
+    $valueMap[$createdAtColumn] = ':createdAt';
+}
+
+$valueList = implode(', ', array_map(static fn ($column) => $valueMap[$column], $insertColumns));
+
+$insertSql = sprintf('INSERT INTO `%s` (%s) VALUES (%s)', $usersInfo['table'], $columnList, $valueList);
+$insertStmt = $pdo->prepare($insertSql);
+$insertStmt->execute($insertParams);
 
 sendResponse(['message' => 'Registration successful'], 201);
 ?>

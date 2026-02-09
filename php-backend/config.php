@@ -53,6 +53,32 @@ function getDbConnection() {
     }
 }
 
+// Resolve Users table and columns (supports legacy schemas)
+function getUsersTableInfo(PDO $pdo) {
+    $tableStmt = $pdo->prepare("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = DATABASE() AND LOWER(TABLE_NAME) = 'users' LIMIT 1");
+    $tableStmt->execute();
+    $tableName = $tableStmt->fetchColumn();
+
+    if (!$tableName) {
+        sendResponse(['error' => 'Users table not found'], 500);
+    }
+
+    $columnsStmt = $pdo->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = :table");
+    $columnsStmt->execute([':table' => $tableName]);
+    $columns = $columnsStmt->fetchAll(PDO::FETCH_COLUMN);
+
+    $columnMap = [];
+    foreach ($columns as $column) {
+        $columnMap[strtolower($column)] = $column;
+    }
+
+    return [
+        'table' => $tableName,
+        'columns' => $columns,
+        'map' => $columnMap,
+    ];
+}
+
 // Helper function to send JSON response
 function sendResponse($data, $statusCode = 200) {
     http_response_code($statusCode);
