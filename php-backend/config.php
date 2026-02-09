@@ -3,8 +3,8 @@
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
 define('DB_PORT', getenv('DB_PORT') ?: '3306');
 define('DB_NAME', getenv('DB_NAME') ?: 'd386892_users');
-define('DB_USER', getenv('DB_USER') ?: 'your_username');
-define('DB_PASS', getenv('DB_PASS') ?: 'your_password');
+define('DB_USER', getenv('DB_USER') ?: 'w386892_users');
+define('DB_PASS', getenv('DB_PASS') ?: 'Ch@vy940104');
 define('APP_ENV', getenv('APP_ENV') ?: 'production');
 
 // CORS headers - update with your frontend domain(s)
