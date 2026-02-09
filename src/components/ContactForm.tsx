@@ -6,28 +6,25 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { useTranslation } from '@/hooks/useTranslation';
-import { contactApi } from '@/services/contactApi';
 import { Loader2 } from 'lucide-react';
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, { message: "Jméno je povinné" }).max(100, { message: "Jméno může mít maximálně 100 znaků" }),
+  email: z.string().trim().email({ message: "Neplatná e-mailová adresa" }).max(255, { message: "E-mail může mít maximálně 255 znaků" }),
+  message: z.string().trim().min(1, { message: "Zpráva je povinná" }).max(1000, { message: "Zpráva může mít maximálně 1000 znaků" })
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 interface ContactFormProps {
   variant?: 'photo' | 'workshop' | 'blog' | 'ttrpg';
   subject?: string;
 }
 
-export function ContactForm({ variant = 'photo', subject }: ContactFormProps) {
+export function ContactForm({ variant = 'photo', subject = 'Nová zpráva z webu' }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-  const { t } = useTranslation();
-
-  const contactSchema = z.object({
-    name: z.string().trim().min(1, { message: t('form.nameRequired') }).max(100, { message: t('form.nameMaxLength') }),
-    email: z.string().trim().email({ message: t('form.emailInvalid') }).max(255, { message: t('form.emailMaxLength') }),
-    message: z.string().trim().min(1, { message: t('form.messageRequired') }).max(1000, { message: t('form.messageMaxLength') })
-  });
-
-  type ContactFormData = z.infer<typeof contactSchema>;
-
+  
   const { register, handleSubmit, formState: { errors }, reset } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema)
   });
@@ -36,23 +33,25 @@ export function ContactForm({ variant = 'photo', subject }: ContactFormProps) {
     setIsSubmitting(true);
     
     try {
-      await contactApi.sendMessage({
-        name: data.name,
-        email: data.email,
-        message: data.message,
-        subject: subject || t('workshop.orderTitle'),
-      });
+      // Encode data for mailto link
+      const mailtoBody = encodeURIComponent(
+        `Jméno: ${data.name}\nE-mail: ${data.email}\n\nZpráva:\n${data.message}`
+      );
+      const mailtoSubject = encodeURIComponent(subject);
+      
+      // Open mail client
+      window.location.href = `mailto:kontakt@charvy.cz?subject=${mailtoSubject}&body=${mailtoBody}`;
       
       toast({
-        title: t('form.success'),
-        description: t('form.successMessage'),
+        title: "Úspěch!",
+        description: "E-mailový klient byl otevřen. Pošlete prosím zprávu.",
       });
       
       reset();
     } catch (error) {
       toast({
-        title: t('form.error'),
-        description: t('form.errorMessage'),
+        title: "Chyba",
+        description: "Něco se pokazilo. Zkuste to prosím znovu.",
         variant: "destructive"
       });
     } finally {
@@ -64,13 +63,13 @@ export function ContactForm({ variant = 'photo', subject }: ContactFormProps) {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-2xl">
       <div>
         <label htmlFor="name" className="block text-sm font-medium mb-2">
-          {t('form.name')} *
+          Jméno *
         </label>
         <Input
           id="name"
           {...register('name')}
           className="w-full"
-          placeholder={t('form.namePlaceholder')}
+          placeholder="Vaše jméno"
           aria-invalid={errors.name ? 'true' : 'false'}
           aria-describedby={errors.name ? 'name-error' : undefined}
         />
@@ -83,14 +82,14 @@ export function ContactForm({ variant = 'photo', subject }: ContactFormProps) {
 
       <div>
         <label htmlFor="email" className="block text-sm font-medium mb-2">
-          {t('form.email')} *
+          E-mail *
         </label>
         <Input
           id="email"
           type="email"
           {...register('email')}
           className="w-full"
-          placeholder={t('form.emailPlaceholder')}
+          placeholder="vas@email.cz"
           aria-invalid={errors.email ? 'true' : 'false'}
           aria-describedby={errors.email ? 'email-error' : undefined}
         />
@@ -103,13 +102,13 @@ export function ContactForm({ variant = 'photo', subject }: ContactFormProps) {
 
       <div>
         <label htmlFor="message" className="block text-sm font-medium mb-2">
-          {t('form.message')} *
+          Zpráva *
         </label>
         <Textarea
           id="message"
           {...register('message')}
           className="w-full min-h-[150px]"
-          placeholder={t('form.messagePlaceholder')}
+          placeholder="Vaše zpráva..."
           aria-invalid={errors.message ? 'true' : 'false'}
           aria-describedby={errors.message ? 'message-error' : undefined}
         />
@@ -130,10 +129,10 @@ export function ContactForm({ variant = 'photo', subject }: ContactFormProps) {
         {isSubmitting ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            {t('form.sending')}
+            Odesílání...
           </>
         ) : (
-          t('form.submit')
+          'Odeslat zprávu'
         )}
       </Button>
     </form>

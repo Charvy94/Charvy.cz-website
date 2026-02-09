@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://www.charvy.cz/api';
+// PHP backend URL - using HTTP as HTTPS not configured on server yet
+const API_BASE_URL = 'http://charvy.cz/api';
 
 interface RegisterData {
   username: string;
