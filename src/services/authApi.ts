@@ -1,5 +1,4 @@
-// PHP backend URL - using HTTP as HTTPS not configured on server yet
-const API_BASE_URL = 'http://charvy.cz/api';
+import { API_BASE_URL } from './apiBase';
 
 interface RegisterData {
   username: string;

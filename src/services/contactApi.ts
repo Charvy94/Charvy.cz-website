@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://charvy.cz/api';
+import { API_BASE_URL } from './apiBase';
 
 interface ContactMessagePayload {
   name: string;
