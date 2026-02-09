@@ -5,16 +5,37 @@ session_start();
 
 $method = $_SERVER['REQUEST_METHOD'];
 if ($method === 'GET') {
+
+    $queryUsername = $_GET['username'] ?? null;
+    $queryPassword = $_GET['password'] ?? null;
+    if ($queryUsername !== null || $queryPassword !== null) {
+        $data = [
+            'username' => $queryUsername,
+            'password' => $queryPassword,
+        ];
+    } else {
+        sendResponse([
+            'message' => 'Login endpoint. Send a POST request with JSON { "username": "...", "password": "..." }, form data, or a GET query (?username=...&password=...).',
+        ]);
+    }
+} elseif ($method === 'POST') {
+    $data = getJsonInput();
+    if (!$data) {
+        $data = $_POST;
+    }
+} else {
+=======
     sendResponse([
         'message' => 'Login endpoint. Send a POST request with JSON { "username": "...", "password": "..." }.',
     ]);
 }
 
 if ($method !== 'POST') {
+
     sendResponse(['error' => 'Method not allowed'], 405);
 }
 
-$data = getJsonInput();
+$data = $data ?? [];
 $username = validateString($data['username'] ?? null, 'username');
 $password = $data['password'] ?? null;
 
