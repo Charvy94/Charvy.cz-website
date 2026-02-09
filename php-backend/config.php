@@ -5,8 +5,22 @@ define('DB_NAME', 'd386892_users');
 define('DB_USER', 'your_username');
 define('DB_PASS', 'your_password');
 
-// CORS headers - update with your frontend domain
-header('Access-Control-Allow-Origin: https://your-frontend-domain.com');
+// CORS headers - update with your frontend domain(s)
+$allowedOrigins = [
+    'https://charvy.cz',
+    'https://www.charvy.cz',
+    'http://charvy.cz',
+    'http://www.charvy.cz',
+    'http://localhost:5173',
+    'http://localhost:4173'
+];
+
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if ($origin && in_array($origin, $allowedOrigins, true)) {
+    header("Access-Control-Allow-Origin: $origin");
+} else {
+    header('Access-Control-Allow-Origin: https://charvy.cz');
+}
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 header('Access-Control-Allow-Credentials: true');
