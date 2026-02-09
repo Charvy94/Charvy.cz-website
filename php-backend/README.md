@@ -15,6 +15,14 @@
 
 ## API Endpoints
 
+### Auth
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/login.php` | Log in and start a session |
+| POST | `/api/register.php` | Register a new user |
+| POST | `/api/logout.php` | Log out and clear the session |
+
 ### Cart
 
 | Method | Endpoint | Description |
@@ -69,6 +77,9 @@ POST /api/orders
 ├── .htaccess      # URL rewriting rules
 ├── config.php     # Database config & helpers
 ├── cart.php       # Cart API endpoints
+├── login.php      # Auth login endpoint
 ├── orders.php     # Orders API endpoints
+├── logout.php     # Auth logout endpoint
+├── register.php   # Auth registration endpoint
 └── README.md      # This file
 ```
