@@ -14,7 +14,7 @@ if ($method === 'GET') {
         ];
     } else {
         sendResponse([
-            'message' => 'Login endpoint. Send a POST request with JSON { "username": "...", "password": "..." } or form data.',
+            'message' => 'Login endpoint. Send a POST request with JSON { "username": "...", "password": "..." }, form data, or a GET query (?username=...&password=...).',
         ]);
     }
 } elseif ($method === 'POST') {
