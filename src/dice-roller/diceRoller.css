@@ -1,0 +1,42 @@
+.dice-roller-dialog {
+  max-height: calc(100vh - 2rem);
+  overflow: hidden;
+}
+
+.dice-roller-input {
+  width: 100%;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--background));
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.dice-roller-history {
+  max-height: min(42vh, 24rem);
+  overflow-y: auto;
+}
+
+.dice-roller-rolling {
+  display: inline-block;
+  animation: dice-pulse 0.8s ease-in-out infinite;
+}
+
+.dice-roller-roll-low {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.dice-roller-roll-high {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+@keyframes dice-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}

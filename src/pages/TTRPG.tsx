@@ -4,6 +4,7 @@ import { PageNavButton } from '@/components/PageNavButton';
 import { PageSection } from '@/components/PageSection';
 import { SEO } from '@/components/SEO';
 import { UnderConstruction } from '@/components/UnderConstruction';
+import { DiceRoller } from '@/dice-roller/diceRoller';
 
 export default function TTRPG() {
   const { t } = useTranslation();
@@ -60,6 +61,10 @@ export default function TTRPG() {
         {/* Under Construction Notice */}
         <div className="mb-12">
           <UnderConstruction pageName={t('ttrpg.title')} />
+        </div>
+
+        <div className="mb-12 flex justify-center">
+          <DiceRoller />
         </div>
 
         {/* Navigation Buttons */}
