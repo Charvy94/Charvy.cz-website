@@ -17,6 +17,24 @@ interface AuthResponse {
   userID?: number;
 }
 
+async function parseAuthResponse(response: Response): Promise<AuthResponse> {
+  const responseText = await response.text();
+
+  if (!responseText) {
+    return {};
+  }
+
+  try {
+    return JSON.parse(responseText) as AuthResponse;
+  } catch {
+    if (!response.ok) {
+      throw new Error(`Server returned an invalid response (${response.status})`);
+    }
+
+    throw new Error('Server returned an invalid response format');
+  }
+}
+
 export async function registerUser(data: RegisterData): Promise<AuthResponse> {
   const response = await fetch(`${API_BASE_URL}/register.php`, {
     method: 'POST',
@@ -27,12 +45,12 @@ export async function registerUser(data: RegisterData): Promise<AuthResponse> {
     credentials: 'include',
   });
 
-  const result = await response.json();
-  
+  const result = await parseAuthResponse(response);
+
   if (!response.ok) {
     throw new Error(result.error || 'Registration failed');
   }
-  
+
   return result;
 }
 
@@ -46,12 +64,12 @@ export async function loginUser(data: LoginData): Promise<AuthResponse> {
     credentials: 'include',
   });
 
-  const result = await response.json();
-  
+  const result = await parseAuthResponse(response);
+
   if (!response.ok) {
     throw new Error(result.error || 'Login failed');
   }
-  
+
   return result;
 }
 

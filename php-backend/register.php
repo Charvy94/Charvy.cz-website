@@ -8,6 +8,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $data = getJsonInput();
+if (!$data) {
+    $data = $_POST;
+}
+
 $username = validateString($data['username'] ?? null, 'username');
 $email = validateString($data['email'] ?? null, 'email');
 $password = $data['password'] ?? null;
