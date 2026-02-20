@@ -30,37 +30,9 @@ const methodLabels: Record<AggregationMethod, string> = {
   min: 'Min',
   max: 'Max',
   median: 'Median',
- codex/implement-popup-dice-roller-web-app-e7nivo
-  none: 'Only show results (no aggregation)',
-};
-
-const renderRollValues = (rolls: number[], sides: number) => (
-  <>
-    [
-    {rolls.map((value, index) => {
-      let className = '';
-      if (value === 1) {
-        className = 'dice-roller-roll-low';
-      } else if (value === sides) {
-        className = 'dice-roller-roll-high';
-      }
-
-      return (
-        <span key={`${value}-${index}`}>
-          <span className={className}>{value}</span>
-          {index < rolls.length - 1 ? ', ' : ''}
-        </span>
-      );
-    })}
-    ]
-  </>
-);
-
-=======
   none: 'None',
 };
 
- main
 export function DiceRoller() {
   const [open, setOpen] = useState(false);
   const [sides, setSides] = useState<number>(6);
@@ -224,10 +196,7 @@ export function DiceRoller() {
             {!rolling && lastRoll && (
               <div className="rounded-lg border p-4 text-sm space-y-2">
                 <p className="font-medium">Rolled {lastRoll.count} × d{lastRoll.sides}</p>
- codex/implement-popup-dice-roller-web-app-e7nivo
-                <p>Individual results: {renderRollValues(lastRoll.rolls, lastRoll.sides)}</p>
                 <p>Individual results: [{lastRoll.rolls.join(', ')}]</p>
- main
                 {lastRoll.aggregate !== null && (
                   <p>
                     {methodLabels[lastRoll.method]} = {formatAggregateValue(lastRoll.aggregate, lastRoll.method)}
@@ -251,10 +220,7 @@ export function DiceRoller() {
                       <p>
                         {entry.count} × d{entry.sides} · {methodLabels[entry.method]}
                       </p>
- codex/implement-popup-dice-roller-web-app-e7nivo
-                      <p>Rolls: {renderRollValues(entry.rolls, entry.sides)}</p>
                       <p>Rolls: [{entry.rolls.join(', ')}]</p>
- main
                       {entry.aggregate !== null && (
                         <p>
                           Aggregate: {formatAggregateValue(entry.aggregate, entry.method)}
