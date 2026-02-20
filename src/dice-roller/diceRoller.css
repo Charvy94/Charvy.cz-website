@@ -21,6 +21,7 @@
   animation: dice-pulse 0.8s ease-in-out infinite;
 }
 
+<<<<<<< codex/implement-popup-dice-roller-web-app-bsrnac
 .dice-roller-roll-low {
   color: #dc2626;
   font-weight: 600;
@@ -31,6 +32,8 @@
   font-weight: 600;
 }
 
+=======
+>>>>>>> main
 @keyframes dice-pulse {
   0%,
   100% {

@@ -13,6 +13,7 @@ export function TTRPGTools() {
 ```
 
 The component renders an **Open Dice Roller** button and handles modal open/close, rolling logic, and history persistence.
+<<<<<<< codex/implement-popup-dice-roller-web-app-bsrnac
 
 ## UI notes
 
@@ -20,3 +21,5 @@ The component renders an **Open Dice Roller** button and handles modal open/clos
 - Roll value highlighting:
   - `1` is shown in red
   - value equal to selected die sides is shown in green
+=======
+>>>>>>> main

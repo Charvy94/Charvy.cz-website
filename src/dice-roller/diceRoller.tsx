@@ -30,6 +30,7 @@ const methodLabels: Record<AggregationMethod, string> = {
   min: 'Min',
   max: 'Max',
   median: 'Median',
+<<<<<<< codex/implement-popup-dice-roller-web-app-bsrnac
   none: 'Only show results (no aggregation)',
 };
 
@@ -55,6 +56,11 @@ const renderRollValues = (rolls: number[], sides: number) => (
   </>
 );
 
+=======
+  none: 'None',
+};
+
+>>>>>>> main
 export function DiceRoller() {
   const [open, setOpen] = useState(false);
   const [sides, setSides] = useState<number>(6);
@@ -218,7 +224,11 @@ export function DiceRoller() {
             {!rolling && lastRoll && (
               <div className="rounded-lg border p-4 text-sm space-y-2">
                 <p className="font-medium">Rolled {lastRoll.count} × d{lastRoll.sides}</p>
+<<<<<<< codex/implement-popup-dice-roller-web-app-bsrnac
                 <p>Individual results: {renderRollValues(lastRoll.rolls, lastRoll.sides)}</p>
+=======
+                <p>Individual results: [{lastRoll.rolls.join(', ')}]</p>
+>>>>>>> main
                 {lastRoll.aggregate !== null && (
                   <p>
                     {methodLabels[lastRoll.method]} = {formatAggregateValue(lastRoll.aggregate, lastRoll.method)}
@@ -242,7 +252,11 @@ export function DiceRoller() {
                       <p>
                         {entry.count} × d{entry.sides} · {methodLabels[entry.method]}
                       </p>
+<<<<<<< codex/implement-popup-dice-roller-web-app-bsrnac
                       <p>Rolls: {renderRollValues(entry.rolls, entry.sides)}</p>
+=======
+                      <p>Rolls: [{entry.rolls.join(', ')}]</p>
+>>>>>>> main
                       {entry.aggregate !== null && (
                         <p>
                           Aggregate: {formatAggregateValue(entry.aggregate, entry.method)}
