@@ -4,9 +4,9 @@
 
 1. **Upload files** to your server in a folder (e.g., `/api/`).
 
-2. **Install PHP dependencies** in `php-backend/`:
+2. **Install Node dependencies** in project root (required for Resend SDK used by contact endpoint):
    ```bash
-   composer install --no-dev --optimize-autoloader
+   npm install
    ```
 
 3. **Configure environment variables**:
@@ -30,12 +30,8 @@
    CONTACT_FROM_EMAIL=info@charvy.cz
    CONTACT_FROM_NAME=Charvy.cz
 
-   # SMTP transport
-   SMTP_HOST=smtp.example.com
-   SMTP_PORT=587
-   SMTP_USER=smtp_user
-   SMTP_PASS=smtp_password
-   SMTP_SECURE=tls
+   # Resend transport
+   RESEND_API_KEY=re_xxxxxxxxx
    ```
 
 4. **CORS**: Update `$allowedOrigins` in `config.php` with your frontend domain(s).
@@ -88,9 +84,6 @@
 
 ```text
 /api/
-├── composer.json
-├── composer.lock
-├── vendor/
 ├── config.php
 ├── contact.php
 ├── cart.php

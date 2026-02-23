@@ -1,9 +1,5 @@
 <?php
 require_once 'config.php';
-require_once __DIR__ . '/vendor/autoload.php';
-
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\PHPMailer;
 
 const CONTACT_MIN_SECONDS = 3;
 const CONTACT_RATE_LIMIT_WINDOW_SECONDS = 600;
@@ -39,7 +35,7 @@ if (!empty($validationErrors)) {
     sendResponse([
         'error' => 'Prosím opravte chyby ve formuláři.',
         'validationErrors' => $validationErrors,
-    ], 422);
+    ], 400);
 }
 
 $clientIp = getClientIpAddress();
@@ -60,50 +56,18 @@ if (!filter_var($adminEmail, FILTER_VALIDATE_EMAIL)) {
 }
 
 try {
-    $mailer = buildMailer($mailFromAddress, $mailFromName);
-
-    $adminSubject = sprintf('Workshop poptávka: %s (%s)', $name, $email);
-    $adminGreeting = $adminName !== '' ? "Dobrý den {$adminName}," : 'Dobrý den,';
-    $senderCopySubject = 'Potvrzení přijetí Workshop poptávky';
-
-    $adminBody = buildAdminEmailBody(
-        $adminGreeting,
-        $name,
-        $email,
-        $subject,
-        $message
-    );
-
-    $senderBody = buildSenderEmailBody(
-        $name,
-        $message,
-        $subject
-    );
-
-    sendMail(
-        $mailer,
-        $mailFromAddress,
-        $mailFromName,
-        $adminEmail,
-        $adminName,
-        $adminSubject,
-        $adminBody,
-        $email
-    );
-
-    sendMail(
-        $mailer,
-        $mailFromAddress,
-        $mailFromName,
-        $email,
-        $name,
-        $senderCopySubject,
-        $senderBody,
-        $mailFromAddress
-    );
+    sendViaResend([
+        'name' => $name,
+        'email' => $email,
+        'message' => $message,
+        'subject' => $subject,
+        'adminName' => $adminName,
+        'mailFromAddress' => $mailFromAddress,
+        'mailFromName' => $mailFromName,
+    ]);
 
     sendResponse(['message' => 'Zpráva byla úspěšně odeslána. Děkujeme za váš zájem o workshop.']);
-} catch (Exception $e) {
+} catch (RuntimeException $e) {
     error_log(sprintf('Contact form mail send failed for IP %s, email %s: %s', $clientIp, maskEmailForLogs($email), $e->getMessage()));
 
     sendResponse([
@@ -111,52 +75,39 @@ try {
     ], 500);
 }
 
-function buildMailer(string $fromAddress, string $fromName): PHPMailer {
-    $host = trim((string)getenv('SMTP_HOST'));
-    $port = (int)(getenv('SMTP_PORT') ?: 587);
-    $username = trim((string)getenv('SMTP_USER'));
-    $password = (string)(getenv('SMTP_PASS') ?: '');
-    $secureRaw = strtolower(trim((string)(getenv('SMTP_SECURE') ?: 'tls')));
-    $secure = $secureRaw === 'ssl' ? PHPMailer::ENCRYPTION_SMTPS : PHPMailer::ENCRYPTION_STARTTLS;
+function sendViaResend(array $payload): void {
+    $command = 'node ' . escapeshellarg(__DIR__ . '/workshop-contact-resend.mjs');
+    $descriptorSpec = [
+        0 => ['pipe', 'r'],
+        1 => ['pipe', 'w'],
+        2 => ['pipe', 'w'],
+    ];
 
-    if ($host === '' || $username === '' || $password === '' || $port <= 0) {
-        throw new Exception('SMTP configuration is missing required values.');
+    $process = proc_open($command, $descriptorSpec, $pipes, __DIR__);
+
+    if (!is_resource($process)) {
+        throw new RuntimeException('Unable to start Resend mail process.');
     }
 
-    $mailer = new PHPMailer(true);
-    $mailer->isSMTP();
-    $mailer->Host = $host;
-    $mailer->Port = $port;
-    $mailer->SMTPAuth = true;
-    $mailer->Username = $username;
-    $mailer->Password = $password;
-    $mailer->SMTPSecure = $secure;
-    $mailer->CharSet = 'UTF-8';
-    $mailer->setFrom($fromAddress, $fromName);
+    fwrite($pipes[0], json_encode($payload));
+    fclose($pipes[0]);
 
-    return $mailer;
-}
+    $output = stream_get_contents($pipes[1]) ?: '';
+    fclose($pipes[1]);
 
-function sendMail(
-    PHPMailer $mailer,
-    string $fromAddress,
-    string $fromName,
-    string $toEmail,
-    string $toName,
-    string $subject,
-    string $body,
-    string $replyTo
-): void {
-    $mailer->clearAllRecipients();
-    $mailer->clearReplyTos();
-    $mailer->setFrom($fromAddress, $fromName);
-    $mailer->addAddress($toEmail, $toName);
-    $mailer->addReplyTo($replyTo);
-    $mailer->Subject = $subject;
-    $mailer->Body = $body;
-    $mailer->AltBody = $body;
-    $mailer->isHTML(false);
-    $mailer->send();
+    $error = stream_get_contents($pipes[2]) ?: '';
+    fclose($pipes[2]);
+
+    $statusCode = proc_close($process);
+
+    if ($statusCode !== 0) {
+        throw new RuntimeException(trim($error) !== '' ? trim($error) : 'Resend returned a non-zero status code.');
+    }
+
+    $decoded = json_decode($output, true);
+    if (!is_array($decoded) || !($decoded['ok'] ?? false)) {
+        throw new RuntimeException('Unexpected response from Resend mail process.');
+    }
 }
 
 function validateContactName($value, array &$errors): string {
@@ -227,41 +178,6 @@ function sanitizeLine(string $value): string {
 function sanitizeMultiline(string $value): string {
     $withoutControl = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $value);
     return trim($withoutControl ?? $value);
-}
-
-function buildAdminEmailBody(string $greeting, string $name, string $email, string $subject, string $message): string {
-    return implode("\n", [
-        $greeting,
-        '',
-        'dorazila nová poptávka z workshop formuláře na Charvy.cz.',
-        '',
-        "Jméno: {$name}",
-        "E-mail: {$email}",
-        "Předmět: {$subject}",
-        '',
-        'Zpráva:',
-        $message,
-        '',
-        'S pozdravem,',
-        'Web Charvy.cz',
-    ]);
-}
-
-function buildSenderEmailBody(string $name, string $message, string $subject): string {
-    return implode("\n", [
-        "Dobrý den {$name},",
-        '',
-        'děkujeme za vaši workshop poptávku. Níže posíláme kopii vaší zprávy:',
-        '',
-        "Předmět: {$subject}",
-        '',
-        $message,
-        '',
-        'Ozveme se vám co nejdříve.',
-        '',
-        'S pozdravem,',
-        'Tým Charvy.cz',
-    ]);
 }
 
 function getClientIpAddress(): string {
