@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -7,12 +7,13 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
-import { sendContactMessage } from '@/services/contactApi';
+import { ContactApiError, sendContactMessage } from '@/services/contactApi';
 
 const contactSchema = z.object({
-  name: z.string().trim().min(1, { message: "Jméno je povinné" }).max(100, { message: "Jméno může mít maximálně 100 znaků" }),
-  email: z.string().trim().email({ message: "Neplatná e-mailová adresa" }).max(255, { message: "E-mail může mít maximálně 255 znaků" }),
-  message: z.string().trim().min(1, { message: "Zpráva je povinná" }).max(1000, { message: "Zpráva může mít maximálně 1000 znaků" })
+  name: z.string().trim().min(2, { message: 'Jméno musí mít alespoň 2 znaky' }).max(100, { message: 'Jméno může mít maximálně 100 znaků' }),
+  email: z.string().trim().email({ message: 'Neplatná e-mailová adresa' }).max(255, { message: 'E-mail může mít maximálně 255 znaků' }),
+  message: z.string().trim().min(10, { message: 'Zpráva musí mít alespoň 10 znaků' }).max(2000, { message: 'Zpráva může mít maximálně 2000 znaků' }),
+  website: z.string().optional(),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -24,34 +25,68 @@ interface ContactFormProps {
 
 export function ContactForm({ variant = 'photo', subject = 'Nová zpráva z webu' }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
   const { toast } = useToast();
-  
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema)
+  const formStartedAt = useMemo(() => Math.floor(Date.now() / 1000), []);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setError,
+    clearErrors,
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      website: '',
+    },
   });
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
-    
+    setSubmitSuccess(null);
+    clearErrors('root.serverError');
+
     try {
-      await sendContactMessage({
+      const response = await sendContactMessage({
         name: data.name,
         email: data.email,
         message: data.message,
         subject,
+        website: data.website,
+        formStartedAt,
       });
 
+      const successMessage = response.message || 'Zpráva byla odeslána. Brzy se ozveme.';
+      setSubmitSuccess(successMessage);
       toast({
-        title: "Úspěch!",
-        description: "Zpráva byla odeslána. Brzy se ozveme.",
+        title: 'Úspěch!',
+        description: successMessage,
       });
-      
-      reset();
+
+      reset({
+        name: '',
+        email: '',
+        message: '',
+        website: '',
+      });
     } catch (error) {
+      if (error instanceof ContactApiError && error.validationErrors) {
+        Object.entries(error.validationErrors).forEach(([field, message]) => {
+          if (field === 'name' || field === 'email' || field === 'message') {
+            setError(field, { type: 'server', message });
+          }
+        });
+      }
+
+      const errorMessage = error instanceof Error ? error.message : 'Něco se pokazilo. Zkuste to prosím znovu.';
+      setError('root.serverError', { type: 'server', message: errorMessage });
+
       toast({
-        title: "Chyba",
-        description: error instanceof Error ? error.message : "Něco se pokazilo. Zkuste to prosím znovu.",
-        variant: "destructive"
+        title: 'Chyba',
+        description: errorMessage,
+        variant: 'destructive',
       });
     } finally {
       setIsSubmitting(false);
@@ -59,7 +94,29 @@ export function ContactForm({ variant = 'photo', subject = 'Nová zpráva z webu
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-2xl">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-2xl" noValidate>
+      {submitSuccess && (
+        <div className="rounded-md border border-green-500/40 bg-green-500/10 px-4 py-3 text-sm text-green-700">
+          {submitSuccess}
+        </div>
+      )}
+
+      {errors.root?.serverError?.message && (
+        <div className="rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive" role="alert">
+          {errors.root.serverError.message}
+        </div>
+      )}
+
+      <div className="hidden" aria-hidden="true">
+        <label htmlFor="website">Website</label>
+        <Input
+          id="website"
+          tabIndex={-1}
+          autoComplete="off"
+          {...register('website')}
+        />
+      </div>
+
       <div>
         <label htmlFor="name" className="block text-sm font-medium mb-2">
           Jméno *
@@ -107,7 +164,7 @@ export function ContactForm({ variant = 'photo', subject = 'Nová zpráva z webu
           id="message"
           {...register('message')}
           className="w-full min-h-[150px]"
-          placeholder="Vaše zpráva..."
+          placeholder="Popište, co byste si přáli vyrobit..."
           aria-invalid={errors.message ? 'true' : 'false'}
           aria-describedby={errors.message ? 'message-error' : undefined}
         />
@@ -118,8 +175,8 @@ export function ContactForm({ variant = 'photo', subject = 'Nová zpráva z webu
         )}
       </div>
 
-      <Button 
-        type="submit" 
+      <Button
+        type="submit"
         variant={variant}
         size="lg"
         disabled={isSubmitting}

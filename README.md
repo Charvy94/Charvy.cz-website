@@ -50,6 +50,57 @@ npm run dev
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
+## Workshop contact form setup (SMTP)
+
+The Workshop contact form submits to `php-backend/contact.php` and sends:
+
+1. A notification email to the configured admin recipient.
+2. A confirmation copy to the sender.
+
+Set these environment variables for the PHP backend:
+
+```bash
+# Existing API/DB variables (already used in backend)
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=your_db_name
+DB_USER=your_db_user
+DB_PASS=your_db_password
+APP_ENV=production
+
+# Contact recipient (required)
+CONTACT_RECIPIENT_EMAIL=admin@example.com
+CONTACT_RECIPIENT_NAME=Admin Name
+
+# Mail sender identity (optional, defaults shown)
+CONTACT_FROM_EMAIL=info@charvy.cz
+CONTACT_FROM_NAME=Charvy.cz
+
+# SMTP (required)
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=smtp_user
+SMTP_PASS=smtp_password
+# tls or ssl (defaults to tls)
+SMTP_SECURE=tls
+```
+
+Frontend environment variable (already used):
+
+```bash
+VITE_API_URL=https://your-domain.com/api
+```
+
+## Manual verification checklist (Workshop form)
+
+1. Open the Workshop page and submit valid values for **name**, **email**, and **message**.
+2. Confirm success message appears and submit button is disabled while sending.
+3. Confirm admin recipient receives a Workshop inquiry email from `info@charvy.cz` (or configured sender).
+4. Confirm sender receives a confirmation copy.
+5. Submit invalid payload (short name/email/message) and verify inline validation errors.
+6. Submit too quickly or with honeypot field filled and verify request is rejected.
+7. Send more than 5 messages from same IP in 10 minutes and verify rate limit response.
+
 ## What technologies are used for this project?
 
 This project is built with:
