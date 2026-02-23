@@ -67,7 +67,7 @@ const main = async () => {
   const adminSubject = `Workshop inquiry – ${payload.name} (${payload.email})`;
   const senderSubject = 'We received your message – Workshop (Charvy.cz)';
 
-  await resend.emails.send({
+  const adminSendResult = await resend.emails.send({
     from,
     to: [adminRecipient],
     subject: adminSubject,
@@ -75,12 +75,20 @@ const main = async () => {
     replyTo: payload.email,
   });
 
-  await resend.emails.send({
+  if (adminSendResult?.error) {
+    throw new Error(`Failed to send admin email: ${adminSendResult.error.message || 'Unknown Resend error'}`);
+  }
+
+  const senderSendResult = await resend.emails.send({
     from,
     to: [payload.email],
     subject: senderSubject,
     text: buildSenderBody(payload),
   });
+
+  if (senderSendResult?.error) {
+    throw new Error(`Failed to send confirmation email: ${senderSendResult.error.message || 'Unknown Resend error'}`);
+  }
 
   process.stdout.write(JSON.stringify({ ok: true }));
 };
