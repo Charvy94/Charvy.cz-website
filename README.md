@@ -50,7 +50,7 @@ npm run dev
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## Workshop contact form setup (SMTP)
+## Workshop contact form setup (Resend)
 
 The Workshop contact form submits to `php-backend/contact.php` and sends:
 
@@ -76,13 +76,10 @@ CONTACT_RECIPIENT_NAME=Admin Name
 CONTACT_FROM_EMAIL=info@charvy.cz
 CONTACT_FROM_NAME=Charvy.cz
 
-# SMTP (required)
-SMTP_HOST=smtp.example.com
-SMTP_PORT=587
-SMTP_USER=smtp_user
-SMTP_PASS=smtp_password
-# tls or ssl (defaults to tls)
-SMTP_SECURE=tls
+# Resend (required)
+RESEND_API_KEY=re_xxxxxxxxx
+
+# Domain in Resend must be verified for CONTACT_FROM_EMAIL
 ```
 
 Frontend environment variable (already used):
